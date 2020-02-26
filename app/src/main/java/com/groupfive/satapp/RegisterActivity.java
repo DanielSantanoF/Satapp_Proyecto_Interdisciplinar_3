@@ -88,7 +88,8 @@ public class RegisterActivity extends AppCompatActivity {
                     RequestBody nameRequest = RequestBody.create(MultipartBody.FORM,name.getText().toString());
                     RequestBody passwordRequest = RequestBody.create(MultipartBody.FORM, passwor1.getText().toString());
 
-                    repository.register(username.getText().toString(),password.getText().toString());
+                    repository.
+                (username.getText().toString(),password.getText().toString());
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
