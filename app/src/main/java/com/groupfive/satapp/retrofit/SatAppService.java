@@ -1,6 +1,7 @@
 package com.groupfive.satapp.retrofit;
 
 import com.groupfive.satapp.models.AuthLogin;
+import com.groupfive.satapp.models.AuthLoginUser;
 import com.groupfive.satapp.models.Login;
 import com.groupfive.satapp.models.tickets.TicketApiResponse;
 
@@ -25,10 +26,19 @@ public interface SatAppService {
             @Query("access_token") String masterAccesToken);
 
     @Multipart
+    @POST("/api/register")
+    Call<AuthLoginUser> register(@Part MultipartBody.Part avatar,
+                                 @Part("email") RequestBody email,
+                                 @Part("password") RequestBody password,
+                                 @Part("name") RequestBody username,
+                                 @Query("access_token") String masterAccesToken);
+
+    @Multipart
     @POST("/ticket")
     Call<TicketApiResponse> doRegisterWithAvatar(@Part MultipartBody.Part fotos1,
                               @Part MultipartBody.Part fotos2,
                               @Part("titulo") RequestBody titulo,
                               @Part("descripcion") RequestBody descripcion);
+
 
 }
