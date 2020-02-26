@@ -45,7 +45,6 @@ public class LoginServiceGenerator {
 
             if (!httpClient.interceptors().contains(interceptor)) {
                 httpClient.addInterceptor(interceptor);
-
                 builder.client(httpClient.build());
                 retrofit = builder.build();
             }
