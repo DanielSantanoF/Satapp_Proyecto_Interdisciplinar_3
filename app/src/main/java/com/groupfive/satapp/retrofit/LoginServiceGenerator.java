@@ -4,8 +4,17 @@ import android.text.TextUtils;
 
 import com.groupfive.satapp.commons.Constants;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+
 import okhttp3.Credentials;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -21,6 +30,10 @@ public class LoginServiceGenerator {
                     .addConverterFactory(GsonConverterFactory.create());
 
     private static Retrofit retrofit = builder.build();
+
+    private static HttpLoggingInterceptor logging =
+            new HttpLoggingInterceptor()
+                    .setLevel(HttpLoggingInterceptor.Level.BODY);
 
     public static <S> S createService(Class<S> serviceClass) {
         return createService(serviceClass, null, null);
@@ -45,6 +58,7 @@ public class LoginServiceGenerator {
 
             if (!httpClient.interceptors().contains(interceptor)) {
                 httpClient.addInterceptor(interceptor);
+                httpClient.addInterceptor(logging);
                 builder.client(httpClient.build());
                 retrofit = builder.build();
             }
