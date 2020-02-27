@@ -40,11 +40,31 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
 
         holder.tvTitle.setText(holder.mItem.getNombre());
         holder.tvDescription.setText(holder.mItem.getDescripcion());
-        holder.tvType.setText(holder.mItem.getTipo());
         holder.tvDate.setText(holder.mItem.getCreatedAt());
 
         //Cambiar
         Glide.with(ctx).load(holder.mItem.getImagen()).into(holder.ivPhoto);
+
+        switch(holder.mItem.getTipo()) {
+            case "PC":
+                Glide.with(ctx).load(ctx.getResources().getDrawable(R.drawable.ic_ordenador_personal)).into(holder.ivType);
+                break;
+            case "MONITOR":
+                Glide.with(ctx).load(ctx.getResources().getDrawable(R.drawable.ic_television)).into(holder.ivType);
+                break;
+            case "RED":
+                Glide.with(ctx).load(ctx.getResources().getDrawable(R.drawable.ic_wifi)).into(holder.ivType);
+                break;
+            case "IMPRESORA":
+                Glide.with(ctx).load(ctx.getResources().getDrawable(R.drawable.ic_herramientas_y_utensilios)).into(holder.ivType);
+                break;
+            case "OTRO":
+                Glide.with(ctx).load(ctx.getResources().getDrawable(R.drawable.ic_desconocido)).into(holder.ivType);
+                break;
+            case "PERIFERICO":
+                Glide.with(ctx).load(ctx.getResources().getDrawable(R.drawable.ic_teclado)).into(holder.ivType);
+                break;
+        }
 
     }
 
@@ -66,7 +86,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
         public final View mView;
         public final TextView tvTitle;
         public final TextView tvDescription;
-        public final TextView tvType;
+        public final ImageView ivType;
         public final TextView tvDate;
         public final ImageView ivPhoto;
         public Inventariable mItem;
@@ -77,7 +97,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
             tvTitle = view.findViewById(R.id.textViewTitle);
             tvDescription = view.findViewById(R.id.textViewDescription);
             tvDate = view.findViewById(R.id.textViewWhen);
-            tvType = view.findViewById(R.id.textViewType);
+            ivType = view.findViewById(R.id.imageViewInventa);
             ivPhoto = view.findViewById(R.id.imageViewPhoto);
         }
 

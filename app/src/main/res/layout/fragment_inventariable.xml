@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="400dp"
-        android:layout_height="105dp"
+        android:layout_height="95dp"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
                 android:id="@+id/imageViewPhoto"
                 android:layout_width="81dp"
                 android:layout_height="72dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
                 android:layout_width="146dp"
                 android:layout_height="21dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -43,68 +43,44 @@
 
             <TextView
                 android:id="@+id/textViewDescription"
-                android:layout_width="216dp"
-                android:layout_height="37dp"
+                android:layout_width="233dp"
+                android:layout_height="36dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 app:layout_constraintStart_toEndOf="@+id/imageViewPhoto"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
-            <ImageView
-                android:id="@+id/imageViewUbi"
-                android:layout_width="19dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewWhere"
-                app:layout_constraintEnd_toStartOf="@+id/textViewWhere"
-                app:layout_constraintTop_toTopOf="@+id/textViewWhere"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_place_black_24dp" />
-
-            <TextView
-                android:id="@+id/textViewWhere"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="2dp"
-                android:text="TextView"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="4dp"
-                android:text="TextView"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/textViewWhen"
                 android:layout_width="42dp"
                 android:layout_height="12dp"
-                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:text="TextView"
                 android:textSize="9sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageViewTime"
-                app:layout_constraintStart_toEndOf="@+id/imageViewTime"
-                app:layout_constraintTop_toTopOf="@+id/imageViewTime" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <ImageView
                 android:id="@+id/imageViewTime"
                 android:layout_width="17dp"
-                android:layout_height="12dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="1dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewWhen"
+                app:layout_constraintEnd_toStartOf="@+id/textViewWhen"
+                app:layout_constraintTop_toTopOf="@+id/textViewWhen"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/ic_timer_black_24dp" />
+
+            <ImageView
+                android:id="@+id/imageViewInventa"
+                android:layout_width="28dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_launcher_background" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
