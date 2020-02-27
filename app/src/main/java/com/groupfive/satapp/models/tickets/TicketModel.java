@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TicketApiResponse {
+public class TicketModel {
     @SerializedName("id")
     @Expose
     public String id;
