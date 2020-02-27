@@ -1,8 +1,10 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.groupfive.satapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

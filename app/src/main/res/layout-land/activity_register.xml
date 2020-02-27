@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/editTextEmail"
+                android:id="@+id/editTextTitleNewTicket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -39,7 +39,7 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextTitleNewTicket" />
 
             <EditText
                 android:id="@+id/editTextPassword2"

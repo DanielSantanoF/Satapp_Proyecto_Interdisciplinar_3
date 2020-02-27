@@ -1,4 +1,4 @@
-package com.groupfive.satapp.models;
+package com.groupfive.satapp.models.auth;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
