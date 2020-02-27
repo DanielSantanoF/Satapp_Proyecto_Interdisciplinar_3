@@ -24,12 +24,12 @@ public interface SatAppService {
 
 
     @Multipart
-    @POST("/api/register")
-    Call<AuthLoginUser> register(@Part MultipartBody.Part avatar,
+    @POST("/users")
+    Call<AuthLoginUser> register(@Query("access_token") String masterAccesToken,
+                                 @Part("name") RequestBody name,
                                  @Part("email") RequestBody email,
                                  @Part("password") RequestBody password,
-                                 @Part("name") RequestBody username,
-                                 @Query("access_token") String masterAccesToken);
+                                 @Part MultipartBody.Part avatar);
 
     @Multipart
     @POST("/ticket")

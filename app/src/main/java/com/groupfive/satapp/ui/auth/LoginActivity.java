@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.groupfive.satapp.ui.MainActivity;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
@@ -30,13 +31,14 @@ public class LoginActivity extends AppCompatActivity {
         repository = new AuthSatAppRepository();
 
         logo = findViewById(R.id.imageViewLogo);
-        username = findViewById(R.id.editTextTitleNewTicket);
-        password = findViewById(R.id.editTextPassword1);
+        username = findViewById(R.id.editTextEmail);
+        password = findViewById(R.id.editTextPassword);
         login = findViewById(R.id.buttonLogin);
         register = findViewById(R.id.buttonRegister);
 
         Glide.with(this)
-                .load(R.drawable.ic_launcher_foreground)
+                .load(R.drawable.satapplogo)
+                .transform(new CircleCrop())
                 .into(logo);
 
         login.setOnClickListener(new View.OnClickListener() {
