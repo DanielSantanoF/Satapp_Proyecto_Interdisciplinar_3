@@ -39,6 +39,4 @@ public interface SatAppService {
                               @Part MultipartBody.Part fotos2,
                               @Part("titulo") RequestBody titulo,
                               @Part("descripcion") RequestBody descripcion);
-
-
 }
