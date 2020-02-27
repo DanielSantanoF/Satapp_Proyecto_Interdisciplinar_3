@@ -62,6 +62,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/round_bg"
                 android:text="Login"
+                android:textColor="#FCFAFA"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextPassword1" />
@@ -74,6 +75,7 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/round_bg"
                 android:text="Register"
+                android:textColor="#F7F2F2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

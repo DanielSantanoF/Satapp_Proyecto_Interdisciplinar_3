@@ -1,5 +1,6 @@
 package com.groupfive.satapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +23,11 @@ import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
+import com.groupfive.satapp.listeners.IAllTicketsListener;
+import com.groupfive.satapp.models.tickets.TicketModel;
+import com.groupfive.satapp.ui.auth.RegisterActivity;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
+import com.groupfive.satapp.ui.user.ProfileActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -33,11 +38,14 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IAllTicketsListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private UserViewModel userViewModel;
     private AuthLoginUser user;
+    private UserSatAppRepository userSatAppRepository;
+    private ImageView ivFotoPerfil;
+    private TextView nameUser, emailUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,24 +65,33 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        userSatAppRepository = new UserSatAppRepository();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+        // Header
+        View header = navigationView.getHeaderView(0);
+        ivFotoPerfil = header.findViewById(R.id.imageViewFotoPerfil);
+        nameUser = header.findViewById(R.id.textViewNameUser);
+        emailUser = header.findViewById(R.id.textViewEmailUser);
+        ivFotoPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =  new Intent(MyApp.getContext(),
+                        ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
             @Override
             public void onChanged(AuthLoginUser authLoginUser) {
                 user = authLoginUser;
-                Log.i("user",""+authLoginUser);
+                userSatAppRepository.printImg(ivFotoPerfil,user.picture);
+                nameUser.setText(user.name);
+                emailUser.setText(user.email);
             }
         });
 
-        // Header
-        View header = navigationView.getHeaderView(0);
-        ImageView ivFotoPerfil = header.findViewById(R.id.imageViewFotoPerfil);
-        TextView nameUser = header.findViewById(R.id.textViewNameUser);
-        TextView emailUser = header.findViewById(R.id.textViewEmailUser);
-
-        Glide.with(MyApp.getContext())
-                .load(R.drawable.ic_upload)
-                .into(ivFotoPerfil);
 
         FloatingActionButton fab = findViewById(R.id.fabAddNewTicket);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -101,5 +118,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onAllTicketsItemClick(TicketModel ticketModel) {
+
     }
 }
