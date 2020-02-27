@@ -1,18 +1,18 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.commons;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.MyApp;
 
 public class SharedPreferencesManager {
 
-    private static final String APP_SETTINGS_FILE = "APP_SETTINGS";
     private Context ctx;
     private SharedPreferencesManager(Context ctx){}
 
     private static SharedPreferences getSharedPreferences(){
-        return MyApp.getContext().getSharedPreferences(APP_SETTINGS_FILE, Context.MODE_PRIVATE);
+        return MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE);
     }
 
     public static void setStringValue(String dataLabel, String dataValue){

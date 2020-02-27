@@ -1,4 +1,4 @@
-package com.groupfive.satapp.models;
+package com.groupfive.satapp.models.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

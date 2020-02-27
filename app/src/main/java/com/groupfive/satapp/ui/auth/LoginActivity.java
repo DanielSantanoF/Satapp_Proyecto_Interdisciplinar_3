@@ -1,4 +1,4 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,25 +10,27 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.groupfive.satapp.ui.MainActivity;
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
-import com.groupfive.satapp.data.repositories.SatAppRepository;
+import com.groupfive.satapp.data.repositories.AuthSatAppRepository;
 
 public class LoginActivity extends AppCompatActivity {
 
     ImageView logo;
     EditText username, password;
     Button login, register;
-    SatAppRepository repository;
+    AuthSatAppRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        repository = new SatAppRepository();
+        repository = new AuthSatAppRepository();
 
         logo = findViewById(R.id.imageViewLogo);
-        username = findViewById(R.id.editTextEmail);
+        username = findViewById(R.id.editTextTitleNewTicket);
         password = findViewById(R.id.editTextPassword1);
         login = findViewById(R.id.buttonLogin);
         register = findViewById(R.id.buttonRegister);

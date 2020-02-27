@@ -1,4 +1,4 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.ui.auth;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +28,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import com.groupfive.satapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
