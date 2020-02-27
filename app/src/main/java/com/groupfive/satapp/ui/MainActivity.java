@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.groupfive.satapp.R;
+import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -23,7 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IInventariableListener {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -71,5 +72,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onInventariableClick(Inventariable iv) {
+
     }
 }

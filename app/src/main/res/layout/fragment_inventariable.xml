@@ -22,8 +22,8 @@
                 android:id="@+id/imageViewPhoto"
                 android:layout_width="81dp"
                 android:layout_height="72dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
                 android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -36,6 +36,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="18dp"
                 android:text="TextView"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageViewPhoto"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,7 +69,7 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="2dp"
                 android:text="TextView"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -79,28 +80,28 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="4dp"
                 android:text="TextView"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewWhen"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_width="42dp"
+                android:layout_height="12dp"
                 android:layout_marginStart="4dp"
                 android:text="TextView"
-                android:textSize="8sp"
+                android:textSize="9sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewTime"
                 app:layout_constraintStart_toEndOf="@+id/imageViewTime"
                 app:layout_constraintTop_toTopOf="@+id/imageViewTime" />
 
             <ImageView
                 android:id="@+id/imageViewTime"
-                android:layout_width="14dp"
+                android:layout_width="17dp"
                 android:layout_height="12dp"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_timer_black_24dp" />

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,49 +14,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.groupfive.satapp.dummy.DummyContent;
-import com.groupfive.satapp.dummy.DummyContent.DummyItem;
+import com.groupfive.satapp.data.viewModel.InventariableViewModel;
+import com.groupfive.satapp.models.inventariable.Inventariable;
+import com.groupfive.satapp.ui.IInventariableListener;
 
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class InventariableFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private IInventariableListener mListener;
+    private InventariableViewModel inventariableViewModel;
+    private List<Inventariable> inventariableList;
+    private MyInventariableRecyclerViewAdapter adapter;
+    private Context context;
+    private RecyclerView recyclerView;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+
     public InventariableFragment() {
-    }
-
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static InventariableFragment newInstance(int columnCount) {
-        InventariableFragment fragment = new InventariableFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        inventariableViewModel = ViewModelProviders.of(getActivity()).get(InventariableViewModel.class);
 
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -64,14 +48,20 @@ public class InventariableFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            context = view.getContext();
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyInventariableRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+
+            adapter = new MyInventariableRecyclerViewAdapter(inventariableList, mListener, context);
+            recyclerView.setAdapter(adapter);
+
+            loadInventariable();
+
+
         }
         return view;
     }
@@ -80,11 +70,11 @@ public class InventariableFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof IInventariableListener) {
+            mListener = (IInventariableListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement IInventariableListener");
         }
     }
 
@@ -94,18 +84,16 @@ public class InventariableFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+    public void loadInventariable() {
+        inventariableViewModel.getAllSeries().observe(getActivity(), new Observer<List<Inventariable>>() {
+            @Override
+            public void onChanged(List<Inventariable> inventariables) {
+                inventariableList = inventariables;
+                adapter.setData(inventariableList);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
+
+
 }
