@@ -6,11 +6,21 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="hint_title_new_ticket">Titulo</string>
+    <string name="hint_description_new_ticket">Descripción</string>
+    <string name="btn_foto_one_new_ticket">Subir foto</string>
+    <string name="content_description_upload_image">Imagen cargada tras la subida por parte del usuario</string>
+    <string name="new_ticket_dialog_title">Nuevo ticket</string>
+    <string name="new_ticket_dialog_message">Añada la información del nuevo ticket</string>
+    <string name="new_ticket_dialog_error_need_title">Hace flata indicar un titulo</string>
+    <string name="new_ticket_dialog_error_need_description">Hace flata indicar una descripción</string>
+    <string name="create">Crear</string>
+    <string name="cancel">Cancelar</string>
+    <string name="new_ticket_created">Nuevo ticket creado</string>
 </resources>

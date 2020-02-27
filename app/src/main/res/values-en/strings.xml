@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Satapp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="hint_title_new_ticket">Title</string>
+    <string name="hint_description_new_ticket">Description</string>
+    <string name="btn_foto_one_new_ticket">Upload foto</string>
+    <string name="content_description_upload_image">Image loeaded after the upload of the user</string>
+    <string name="new_ticket_dialog_title">New ticket</string>
+    <string name="new_ticket_dialog_message">Add the information of the new ticket</string>
+    <string name="new_ticket_dialog_error_need_title">Needed a title</string>
+    <string name="new_ticket_dialog_error_need_description">Needed a description</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_ticket_created">New ticket created</string>
+</resources>
