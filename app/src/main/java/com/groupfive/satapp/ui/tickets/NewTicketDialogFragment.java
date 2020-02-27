@@ -25,7 +25,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.MyApp;
-import com.groupfive.satapp.models.tickets.TicketApiResponse;
+import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 
@@ -165,11 +165,11 @@ public class NewTicketDialogFragment extends DialogFragment {
 
                             //CALL TO API
                             service = SatAppServiceGenerator.createService(SatAppService.class);
-                            Call<TicketApiResponse> callPostNewTicket = service.postNewTicket(fotos1body, fotos2body, titleBody, descriptionBody);
+                            Call<TicketModel> callPostNewTicket = service.postNewTicket(fotos1body, fotos2body, titleBody, descriptionBody);
 
-                            callPostNewTicket.enqueue(new Callback<TicketApiResponse>() {
+                            callPostNewTicket.enqueue(new Callback<TicketModel>() {
                                 @Override
-                                public void onResponse(Call<TicketApiResponse> call, Response<TicketApiResponse> response) {
+                                public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
                                     if (response.isSuccessful()) {
                                         Log.d("Uploaded", "Éxito");
                                         Log.d("Uploaded", response.body().toString());
@@ -180,7 +180,7 @@ public class NewTicketDialogFragment extends DialogFragment {
                                 }
 
                                 @Override
-                                public void onFailure(Call<TicketApiResponse> call, Throwable t) {
+                                public void onFailure(Call<TicketModel> call, Throwable t) {
                                     Log.e("Upload error", t.getMessage());
                                 }
                             });
