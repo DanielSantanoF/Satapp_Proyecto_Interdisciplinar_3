@@ -6,16 +6,21 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface SatAppInvService {
 
     @GET("/inventariable")
     Call<List<Inventariable>> getInventariables();
+
+    @GET("/{img_url}")
+    Call<ResponseBody> getInventariableImage(@Path("img_url") String img_url);
 
     @Multipart
     @POST("/inventariable")

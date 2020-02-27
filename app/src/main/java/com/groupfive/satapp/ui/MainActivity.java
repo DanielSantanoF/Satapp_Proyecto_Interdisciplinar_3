@@ -15,6 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.models.inventariable.Inventariable;
+import com.groupfive.satapp.listeners.IAllTicketsListener;
+import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -24,8 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
-public class MainActivity extends AppCompatActivity implements IInventariableListener {
-
+public class MainActivity extends AppCompatActivity implements IInventariableListener, IAllTicketsListener {
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -76,6 +77,11 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
 
     @Override
     public void onInventariableClick(Inventariable iv) {
+
+    }
+
+    @Override
+    public void onAllTicketsItemClick(TicketModel ticketModel) {
 
     }
 }

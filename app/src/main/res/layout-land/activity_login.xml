@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageViewLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="SATAPP"
-        android:textColor="#050505"
-        android:textSize="18sp"
+        android:textColor="#FAF8F8"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageViewLogo"
         app:layout_constraintStart_toStartOf="@+id/imageViewLogo"
@@ -33,6 +33,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewLogo"
@@ -43,7 +44,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/editTextTitleNewTicket"
+                android:id="@+id/editTextEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -87,8 +88,9 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.574"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTitleNewTicket" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

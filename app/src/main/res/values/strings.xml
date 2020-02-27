@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
+    <string name="menu_gallery">Tickets</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
@@ -23,4 +23,6 @@
     <string name="create">Crear</string>
     <string name="cancel">Cancelar</string>
     <string name="new_ticket_created">Nuevo ticket creado</string>
+    <string name="name_created_by">Creado por:</string>
+    <string name="contact_created_by">Contacto:</string>
 </resources>
