@@ -17,6 +17,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface SatAppService {
@@ -55,4 +56,6 @@ public interface SatAppService {
                                           @Query("sort") String orderOfReturnedItems,
                                           @Query("fields") String fieldsToBeReturned);
 
+    @GET("/ticket/{id}")
+    Call<TicketModel> getOneTicket(@Path("id") String id);
 }
