@@ -2,11 +2,15 @@ package com.groupfive.satapp.ui;
 
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -14,6 +18,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.groupfive.satapp.R;
+import com.groupfive.satapp.commons.MyApp;
+import com.groupfive.satapp.data.repositories.UserSatAppRepository;
+import com.groupfive.satapp.data.viewModel.UserViewModel;
+import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -22,10 +30,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private UserViewModel userViewModel;
+    private AuthLoginUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +57,24 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
+            @Override
+            public void onChanged(AuthLoginUser authLoginUser) {
+                user = authLoginUser;
+                Log.i("user",""+authLoginUser);
+            }
+        });
+
+        // Header
+        View header = navigationView.getHeaderView(0);
+        ImageView ivFotoPerfil = header.findViewById(R.id.imageViewFotoPerfil);
+        TextView nameUser = header.findViewById(R.id.textViewNameUser);
+        TextView emailUser = header.findViewById(R.id.textViewEmailUser);
+
+        Glide.with(MyApp.getContext())
+                .load(R.drawable.ic_upload)
+                .into(ivFotoPerfil);
 
         FloatingActionButton fab = findViewById(R.id.fabAddNewTicket);
         fab.setOnClickListener(new View.OnClickListener() {
