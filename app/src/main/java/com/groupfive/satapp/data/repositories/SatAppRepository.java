@@ -20,6 +20,7 @@ public class SatAppRepository {
     SatAppService service;
     SatAppServiceGenerator serviceGenerator;
     MutableLiveData<List<TicketModel>> allTickets;
+    MutableLiveData<TicketModel> ticketById;
 
     public SatAppRepository() {
         service = serviceGenerator.createService(SatAppService.class);
@@ -45,6 +46,29 @@ public class SatAppRepository {
             }
         });
         allTickets = data;
+        return data;
+    }
+
+    public MutableLiveData<TicketModel> getTicketById(String id) {
+        final MutableLiveData<TicketModel> data = new MutableLiveData<>();
+
+        Call<TicketModel> call = service.getTicketById(id);
+        call.enqueue(new Callback<TicketModel>() {
+            @Override
+            public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
+                if (response.isSuccessful()) {
+                    data.setValue(response.body());
+                } else {
+                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TicketModel> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ticketById = data;
         return data;
     }
 

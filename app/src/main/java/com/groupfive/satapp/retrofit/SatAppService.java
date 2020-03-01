@@ -9,6 +9,7 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 import retrofit2.http.GET;
@@ -57,5 +58,8 @@ public interface SatAppService {
                                           @Query("fields") String fieldsToBeReturned);
 
     @GET("/ticket/{id}")
-    Call<TicketModel> getOneTicket(@Path("id") String id);
+    Call<TicketModel> getTicketById(@Path("id") String id);
+
+    @GET("/ticket/img/{imgUrl}/{imgNumber}")
+    Call<ResponseBody> getTicketImg(@Path("imgUrl") String url, @Path("imgNumber") String urlNumber);
 }
