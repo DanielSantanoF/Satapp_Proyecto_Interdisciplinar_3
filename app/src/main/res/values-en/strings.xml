@@ -35,5 +35,7 @@
     <string name="no">No</string>
     <string name="ticket_deleted">Ticket delted</string>
     <string name="error_ticket_deleted">Error deleting the ticket</string>
-
+    <string name="edit_ticket_dialog_title">Edit ticket</string>
+    <string name="edit_ticket_dialog_message">Set the new title and description for the ticket</string>
+    <string name="edit">Edit</string>
 </resources>

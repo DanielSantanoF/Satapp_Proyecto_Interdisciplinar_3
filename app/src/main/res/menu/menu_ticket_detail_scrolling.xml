@@ -8,5 +8,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="ifRoom" />
-    <item android:title="Item" />
+    <item
+        android:id="@+id/action_share_ticket"
+        android:icon="@drawable/ic_share_grey_24dp"
+        android:title="Item"
+        app:showAsAction="ifRoom" />
 </menu>

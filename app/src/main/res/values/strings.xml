@@ -34,4 +34,8 @@
     <string name="no">No</string>
     <string name="ticket_deleted">Ticket eliminado</string>
     <string name="error_ticket_deleted">Error al eliminar el ticket</string>
+    <string name="edit_ticket_dialog_title">Editar ticket</string>
+    <string name="edit_ticket_dialog_message">Indique el nuevo titulo y descripción del ticket</string>
+    <string name="edit">Editar</string>
+    <string name="btn_edit_ticket">Editar ticket</string>
 </resources>

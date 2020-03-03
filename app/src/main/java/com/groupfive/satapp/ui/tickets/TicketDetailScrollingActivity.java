@@ -27,11 +27,13 @@ import android.widget.Toast;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.viewModel.TicketByIdViewModel;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
+import com.groupfive.satapp.ui.MainActivity;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -71,16 +73,18 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
         ticketByIdViewModel.setTicketId(ticketId);
         service = SatAppServiceGenerator.createService(SatAppService.class);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        loadTicket();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabEditTicketDetail);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                EdtiTicketDialogFragment dialog = new EdtiTicketDialogFragment(TicketDetailScrollingActivity.this, ticketId);
+                dialog.show(getSupportFragmentManager(), "EdtiTicketDialogFragment");
             }
         });
 
-        loadTicket();
+
 
         btnImgs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +138,9 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
                     }
                 });
                 alert.show();
+                return true;
+            case R.id.action_share_ticket:
+                //TODO COMPARTIR TICKET
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
