@@ -19,7 +19,7 @@ public interface SatAppInvService {
     @GET("/inventariable")
     Call<List<Inventariable>> getInventariables();
 
-    @GET("/{img_url}")
+    @GET("/inventariable/img/{img_url}")
     Call<ResponseBody> getInventariableImage(@Path("img_url") String img_url);
 
     @Multipart

@@ -3,7 +3,6 @@ package com.groupfive.satapp.ui;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
 
     @Override
     public void onInventariableClick(Inventariable iv) {
-
     }
 
     @Override

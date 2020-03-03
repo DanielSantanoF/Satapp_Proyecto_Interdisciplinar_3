@@ -7,7 +7,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Inventariables</string>
     <string name="menu_gallery">Tickets</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
@@ -26,4 +26,6 @@
     <string name="new_ticket_created">New ticket created</string>
     <string name="name_created_by">Created by:</string>
     <string name="contact_created_by">Contact:</string>
+    <string name="inv_edit">Edit..</string>
+    <string name="inv_delete">Delete..</string>
 </resources>
