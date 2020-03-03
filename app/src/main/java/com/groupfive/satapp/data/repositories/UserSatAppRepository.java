@@ -70,7 +70,6 @@ public class UserSatAppRepository {
                         .load(R.drawable.ic_perfil)
                         .transform(new CircleCrop())
                         .into(perfil);
-                Toast.makeText(MyApp.getContext(), "Error al realizar la petición de imagen de perfil.", Toast.LENGTH_SHORT).show();
             }
         });
 

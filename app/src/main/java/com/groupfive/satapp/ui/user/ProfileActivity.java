@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
@@ -24,6 +25,9 @@ public class ProfileActivity extends AppCompatActivity {
     private UserSatAppRepository userSatAppRepository;
     private AuthLoginUser user;
     private ImageView foto;
+    private TextView nombre;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         userSatAppRepository = new UserSatAppRepository();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         foto= findViewById(R.id.imageViewDetallePerfil);
+        nombre = findViewById(R.id.nombre);
 
 
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
@@ -40,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onChanged(AuthLoginUser authLoginUser) {
                 user = authLoginUser;
                 userSatAppRepository.printImg(foto,user.picture);
+                nombre.setText(user.name);
             }
         });
 

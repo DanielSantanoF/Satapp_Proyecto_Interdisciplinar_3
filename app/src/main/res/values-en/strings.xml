@@ -26,4 +26,6 @@
     <string name="new_ticket_created">New ticket created</string>
     <string name="name_created_by">Created by:</string>
     <string name="contact_created_by">Contact:</string>
+    <string name="nombre">Name:</string>
+    <string name="title_activity_profile">Profile</string>
 </resources>
