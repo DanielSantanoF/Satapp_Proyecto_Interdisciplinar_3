@@ -26,4 +26,14 @@
     <string name="new_ticket_created">New ticket created</string>
     <string name="name_created_by">Created by:</string>
     <string name="contact_created_by">Contact:</string>
+    <string name="title_activity_ticket_detail_scrolling">Ticket Detail</string>
+    <string name="btn_fotos_ticket_detail">See images</string>
+    <string name="error_loading_ticket">Error loading the ticket</string>
+    <string name="delete_ticket_title">Delete</string>
+    <string name="delete_ticket_message">Are you sure you want to delete the ticket?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ticket_deleted">Ticket delted</string>
+    <string name="error_ticket_deleted">Error deleting the ticket</string>
+
 </resources>

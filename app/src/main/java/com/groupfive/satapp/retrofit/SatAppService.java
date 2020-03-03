@@ -12,6 +12,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -59,6 +60,9 @@ public interface SatAppService {
 
     @GET("/ticket/{id}")
     Call<TicketModel> getTicketById(@Path("id") String id);
+
+    @DELETE("/ticket/{id}")
+    Call<ResponseBody> deleteTicketById(@Path("id") String id);
 
     @GET("/ticket/img/{imgUrl}/{imgNumber}")
     Call<ResponseBody> getTicketImg(@Path("imgUrl") String url, @Path("imgNumber") String urlNumber);

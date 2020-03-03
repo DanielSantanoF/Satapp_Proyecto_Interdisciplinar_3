@@ -1,5 +1,6 @@
 package com.groupfive.satapp.ui.tickets;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
@@ -97,7 +100,40 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_delete_ticket:
-                //TODO DIALOG DE CONFIRMACION DE ELIMINACION DEL TICKET
+                AlertDialog.Builder alert = new AlertDialog.Builder(TicketDetailScrollingActivity.this);
+                alert.setTitle(getResources().getString(R.string.delete_ticket_title));
+                alert.setMessage(getResources().getString(R.string.delete_ticket_message));
+                alert.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Call<ResponseBody> call = service.deleteTicketById(ticketId);
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if(response.code() == 204){
+                                    Toast.makeText(TicketDetailScrollingActivity.this, getResources().getString(R.string.ticket_deleted), Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                Toast.makeText(TicketDetailScrollingActivity.this, getResources().getString(R.string.error_ticket_deleted), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -139,7 +175,7 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        Toast.makeText(TicketDetailScrollingActivity.this, getResources().getString(R.string.error_loading_ticket), Toast.LENGTH_SHORT).show();
                     }
                 });
                 txtTitle.setText(ticketModel.getTitulo());
