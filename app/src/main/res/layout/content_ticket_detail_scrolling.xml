@@ -3,15 +3,92 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.tickets.TicketDetailScrollingActivity"
     tools:showIn="@layout/activity_ticket_detail_scrolling">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/textViewTitleTicketDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewCreatedByTicketDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/textViewTitleTicketDetail"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitleTicketDetail" />
+
+        <TextView
+            android:id="@+id/textViewCreatedByEmailTicektDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/textViewCreatedByTicketDetail"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreatedByTicketDetail" />
+
+        <TextView
+            android:id="@+id/textViewDateTicketDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTitleTicketDetail"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitleTicketDetail" />
+
+        <TextView
+            android:id="@+id/textViewStateTicketDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTitleTicketDetail"
+            app:layout_constraintStart_toStartOf="@+id/textViewTitleTicketDetail"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreatedByEmailTicektDetail" />
+
+        <TextView
+            android:id="@+id/textViewDescriptionTicketDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/textViewStateTicketDetail"
+            app:layout_constraintStart_toStartOf="@+id/textViewStateTicketDetail"
+            app:layout_constraintTop_toBottomOf="@+id/textViewStateTicketDetail" />
+
+        <Button
+            android:id="@+id/buttonFotosTicektDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_bg"
+            android:text="@string/btn_fotos_ticket_detail"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/textViewDescriptionTicketDetail"
+            app:layout_constraintStart_toStartOf="@+id/textViewDescriptionTicketDetail"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionTicketDetail" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
