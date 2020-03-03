@@ -16,7 +16,10 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.tickets.TicketDetailScrollingActivity"
-            android:label="@string/title_activity_ticket_detail_scrolling"
+            android:label="@string/title_activity_ticket_detail_scrolling"></activity>
+        <activity
+            android:name=".InvDetailActivity"
+            android:label="@string/title_activity_inv_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ui.auth.RegisterActivity" />
         <activity android:name=".ui.auth.LoginActivity">
