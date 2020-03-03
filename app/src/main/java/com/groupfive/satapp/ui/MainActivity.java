@@ -1,9 +1,12 @@
 package com.groupfive.satapp.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -37,6 +40,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity implements IAllTicketsListener {
 
@@ -82,13 +87,34 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
             }
         });
 
+        userViewModel.AllUser();
+        userViewModel.UsersValidated();
+
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
             @Override
             public void onChanged(AuthLoginUser authLoginUser) {
                 user = authLoginUser;
-                userSatAppRepository.printImg(ivFotoPerfil,user.picture);
                 nameUser.setText(user.name);
                 emailUser.setText(user.email);
+
+                if (user.picture != null) {
+                    userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {
+                        @Override
+                        public void onChanged(ResponseBody responseBody) {
+                            Bitmap bmp = BitmapFactory.decodeStream(responseBody.byteStream());
+                            Glide.with(MyApp.getContext())
+                                    .load(bmp)
+                                    .circleCrop()
+                                    .into(ivFotoPerfil);
+                        }
+                    });
+                }else {
+                    Glide.with(MyApp.getContext())
+                            .load(R.drawable.ic_perfil)
+                            .circleCrop()
+                            .into(ivFotoPerfil);
+                }
+
             }
         });
 

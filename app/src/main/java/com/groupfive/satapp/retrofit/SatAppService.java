@@ -39,6 +39,12 @@ public interface SatAppService {
     @GET("/users/me")
     Call<AuthLoginUser> getUser();
 
+    @GET("/users")
+    Call<List<AuthLoginUser>> getAllUsers();
+
+    @GET("/users/no-validated")
+    Call<List<AuthLoginUser>> getUsersValidated();
+
     @GET("users/img/{id}")
     Call<ResponseBody> getImg(@Path("id")String id);
 

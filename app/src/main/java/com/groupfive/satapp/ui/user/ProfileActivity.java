@@ -1,7 +1,10 @@
 package com.groupfive.satapp.ui.user;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -15,9 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.groupfive.satapp.R;
+import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
+
+import okhttp3.ResponseBody;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -25,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     private UserSatAppRepository userSatAppRepository;
     private AuthLoginUser user;
     private ImageView foto;
-    private TextView nombre;
+    private TextView nombre, email;
 
 
     @Override
@@ -37,15 +43,34 @@ public class ProfileActivity extends AppCompatActivity {
         userSatAppRepository = new UserSatAppRepository();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         foto= findViewById(R.id.imageViewDetallePerfil);
-        nombre = findViewById(R.id.nombre);
+        nombre = findViewById(R.id.textViewNombre);
+        email = findViewById(R.id.textViewEmailDetail);
 
 
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
             @Override
             public void onChanged(AuthLoginUser authLoginUser) {
                 user = authLoginUser;
-                userSatAppRepository.printImg(foto,user.picture);
                 nombre.setText(user.name);
+                email.setText(user.email);
+
+                if (user.picture != null) {
+                    userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {
+                        @Override
+                        public void onChanged(ResponseBody responseBody) {
+                            Bitmap bmp = BitmapFactory.decodeStream(responseBody.byteStream());
+                            Glide.with(MyApp.getContext())
+                                    .load(bmp)
+                                    .centerCrop()
+                                    .into(foto);
+                        }
+                    });
+                }else {
+                    Glide.with(MyApp.getContext())
+                            .load(R.drawable.ic_perfil)
+                            .centerCrop()
+                            .into(foto);
+                }
             }
         });
 
