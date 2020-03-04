@@ -112,7 +112,7 @@ public class AddInvActivity extends AppCompatActivity {
                         RequestBody locationRequest = RequestBody.create(MultipartBody.FORM,etLocation.getText().toString());
 
 
-                        service.putInvenatriable(id, body,nameRequest,descriptionRequest,locationRequest);
+//                        service.putInventariable(id, body,nameRequest,descriptionRequest,locationRequest);
                         finish();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.groupfive.satapp.retrofit;
 
+import com.groupfive.satapp.models.inventariable.EditInventariable;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 
 import java.util.List;
@@ -24,13 +25,13 @@ public interface SatAppInvService {
     @GET("/inventariable/{id}")
     Call<Inventariable> getInventariable(@Path("id") String id);
 
-    @Multipart
     @PUT("/inventariable/{id}")
-    Call<Inventariable> putInvenatriable(@Path("id") String id,
-                                         @Part MultipartBody.Part imagen,
-                                         @Part("nombre")RequestBody nombre,
-                                         @Part("descripcion")RequestBody descripcion,
-                                         @Part("ubicacion")RequestBody ubicacion);
+    Call<Inventariable> putInventariable(@Path("id") String id, @Body EditInventariable editInventariable);
+
+    @Multipart
+    @PUT("/inventariable/{id}/img")
+    Call<Inventariable> putInventariableImg(@Path("id") String id,
+                                            @Part MultipartBody.Part imagen);
 
     @GET("/inventariable/img/{img_url}")
     Call<ResponseBody> getInventariableImage(@Path("img_url") String img_url);

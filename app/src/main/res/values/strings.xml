@@ -49,6 +49,8 @@
     <string name="editInv">Editar equipo</string>
     <string name="edit_ticket_dialog_title">Editar ticket</string>
     <string name="edit_ticket_dialog_message">Indique el nuevo titulo y descripción del ticket</string>
+    <string name="edit_inv_dialog_title">Editar equipo</string>
+    <string name="edit_inv_dialog_message">Indique el nuevo nombre, ubicación y/o  descripción del equipo</string>
     <string name="edit">Editar</string>
     <string name="btn_edit_ticket">Editar ticket</string>
     <string name="share_ticket_content">Con descripción:</string>

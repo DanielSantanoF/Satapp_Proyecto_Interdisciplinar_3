@@ -50,6 +50,8 @@
     <string name="editInv">Edit inventariable</string>
     <string name="edit_ticket_dialog_title">Edit ticket</string>
     <string name="edit_ticket_dialog_message">Set the new title and description for the ticket</string>
+    <string name="edit_inv_dialog_title">Edit inventariable</string>
+    <string name="edit_inv_dialog_message">Set the new name, location and description for the inventariable</string>
     <string name="edit">Edit</string>
     <string name="btn_edit_ticket">Edit ticket</string>
     <string name="share_ticket_content">With description:</string>
