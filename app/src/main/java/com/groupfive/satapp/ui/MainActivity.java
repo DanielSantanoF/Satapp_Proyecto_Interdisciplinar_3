@@ -28,12 +28,8 @@ import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
-<<<<<<< HEAD
 import com.groupfive.satapp.ui.tickets.TicketDetailActivity;
-=======
 import com.groupfive.satapp.ui.user.ProfileActivity;
-import com.groupfive.satapp.ui.tickets.TicketDetailScrollingActivity;
->>>>>>> a01df82b6c5f42915fa1d9a3101cd2fc1378c0f5
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
