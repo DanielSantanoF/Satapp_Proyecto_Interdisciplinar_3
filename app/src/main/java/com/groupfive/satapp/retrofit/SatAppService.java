@@ -3,6 +3,7 @@ package com.groupfive.satapp.retrofit;
 
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
+import com.groupfive.satapp.models.tickets.AddTechnician;
 import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -78,12 +80,12 @@ public interface SatAppService {
     Call<ResponseBody> getTicketImg(@Path("imgUrl") String url, @Path("imgNumber") String urlNumber);
 
     @GET("/users")
-    Call<List<AuthLogin>> getallUsers(@Query("q") String toSearch,
+    Call<List<AuthLoginUser>> getallUsers(@Query("q") String toSearch,
                                           @Query("page") Integer pageNumber,
                                           @Query("limit") Integer limitOfElements,
                                           @Query("sort") String orderOfReturnedItems,
                                           @Query("fields") String fieldsToBeReturned);
 
     @PUT("/ticket/{id}/asignar")
-    Call<TicketModel> updateTickeAddTechnician(@Path("id") String id, @Query("tecnico") String description);
+    Call<TicketModel> updateTickeAddTechnician(@Path("id") String id, @Body AddTechnician addTechnician);
 }

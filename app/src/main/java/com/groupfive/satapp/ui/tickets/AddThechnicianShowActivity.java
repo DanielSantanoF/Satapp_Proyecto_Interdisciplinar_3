@@ -9,6 +9,8 @@ import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.listeners.IAddTechnicianListener;
 import com.groupfive.satapp.models.auth.AuthLogin;
+import com.groupfive.satapp.models.auth.AuthLoginUser;
+import com.groupfive.satapp.models.tickets.AddTechnician;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
@@ -32,9 +34,10 @@ public class AddThechnicianShowActivity extends AppCompatActivity implements IAd
     }
 
     @Override
-    public void onAllTicketsItemClick(AuthLogin authLogin) {
+    public void onAllTicketsItemClick(AuthLoginUser authLoginUser) {
         service = SatAppServiceGenerator.createService(SatAppService.class);
-        Call<TicketModel> call = service.updateTickeAddTechnician(ticketId, authLogin.getUser().getId());
+        AddTechnician addTechnician = new AddTechnician(authLoginUser.getId());
+        Call<TicketModel> call = service.updateTickeAddTechnician(ticketId, addTechnician);
         call.enqueue(new Callback<TicketModel>() {
             @Override
             public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {

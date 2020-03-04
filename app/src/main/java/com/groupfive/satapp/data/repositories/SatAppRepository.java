@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.models.auth.AuthLogin;
+import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
@@ -21,7 +22,7 @@ public class SatAppRepository {
     SatAppService service;
     SatAppServiceGenerator serviceGenerator;
     MutableLiveData<List<TicketModel>> allTickets;
-    MutableLiveData<List<AuthLogin>> allUsers;
+    MutableLiveData<List<AuthLoginUser>> allUsers;
     MutableLiveData<TicketModel> ticketById;
 
     public SatAppRepository() {
@@ -74,13 +75,13 @@ public class SatAppRepository {
         return data;
     }
 
-    public MutableLiveData<List<AuthLogin>> getAllUsers() {
-        final MutableLiveData<List<AuthLogin>> data = new MutableLiveData<>();
+    public MutableLiveData<List<AuthLoginUser>> getAllUsers() {
+        final MutableLiveData<List<AuthLoginUser>> data = new MutableLiveData<>();
 
-        Call<List<AuthLogin>> call = service.getallUsers(null, null, null, null, null);
-        call.enqueue(new Callback<List<AuthLogin>>() {
+        Call<List<AuthLoginUser>> call = service.getallUsers(null, null, null, null, null);
+        call.enqueue(new Callback<List<AuthLoginUser>>() {
             @Override
-            public void onResponse(Call<List<AuthLogin>> call, Response<List<AuthLogin>> response) {
+            public void onResponse(Call<List<AuthLoginUser>> call, Response<List<AuthLoginUser>> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
                 } else {
@@ -89,7 +90,7 @@ public class SatAppRepository {
             }
 
             @Override
-            public void onFailure(Call<List<AuthLogin>> call, Throwable t) {
+            public void onFailure(Call<List<AuthLoginUser>> call, Throwable t) {
                 Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
             }
         });
