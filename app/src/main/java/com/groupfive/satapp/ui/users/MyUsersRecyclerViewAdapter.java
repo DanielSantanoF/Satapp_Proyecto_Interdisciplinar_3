@@ -87,6 +87,15 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
                         .into(holder.vali);
             }
         }
+
+        holder.check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userViewModel.putValidated(holder.mItem.id);
+                userViewModel.AllUser();
+                userViewModel.UsersValidated();
+            }
+        });
     }
 
     @Override

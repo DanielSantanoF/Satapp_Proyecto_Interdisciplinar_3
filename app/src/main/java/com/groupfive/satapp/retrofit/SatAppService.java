@@ -12,6 +12,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -52,10 +53,17 @@ public interface SatAppService {
     @PUT("/users/{id}/validate")
     Call<AuthLoginUser> putValidated(@Path("id")String id);
 
+//    @Multipart
+//    @POST("/ticket")
+//    Call<TicketModel> postNewTicket(@Part MultipartBody.Part fotos1,
+//                                    @Part MultipartBody.Part fotos2,
+//                                    @Part("titulo") RequestBody titulo,
+//                                    @Part("descripcion") RequestBody descripcion);
+
+
     @Multipart
     @POST("/ticket")
-    Call<TicketModel> postNewTicket(@Part MultipartBody.Part fotos1,
-                                    @Part MultipartBody.Part fotos2,
+    Call<TicketModel> postNewTicket(@Part List<MultipartBody.Part> fotos,
                                     @Part("titulo") RequestBody titulo,
                                     @Part("descripcion") RequestBody descripcion);
 
@@ -73,4 +81,25 @@ public interface SatAppService {
                                           @Query("sort") String orderOfReturnedItems,
                                           @Query("fields") String fieldsToBeReturned);
 
+    @GET("/ticket/{id}")
+    Call<TicketModel> getTicketById(@Path("id") String id);
+
+    @DELETE("/ticket/{id}")
+    Call<ResponseBody> deleteTicketById(@Path("id") String id);
+
+    @PUT("/ticket/{id}")
+    Call<TicketModel> updateTicketById(@Path("id") String id, @Query("titulo") String title, @Query("descripcion") String description);
+
+    @GET("/ticket/img/{imgUrl}/{imgNumber}")
+    Call<ResponseBody> getTicketImg(@Path("imgUrl") String url, @Path("imgNumber") String urlNumber);
+
+    @GET("/users")
+    Call<List<AuthLogin>> getallUsers(@Query("q") String toSearch,
+                                          @Query("page") Integer pageNumber,
+                                          @Query("limit") Integer limitOfElements,
+                                          @Query("sort") String orderOfReturnedItems,
+                                          @Query("fields") String fieldsToBeReturned);
+
+    @PUT("/ticket/{id}/asignar")
+    Call<TicketModel> updateTickeAddTechnician(@Path("id") String id, @Query("tecnico") String description);
 }

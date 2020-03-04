@@ -50,4 +50,8 @@ public class UserViewModel extends AndroidViewModel {
     public MutableLiveData<ResponseBody> getPicture(String id){
         return userSatAppRepository.getPicture(id);
     }
+
+    public void putValidated(String id){
+        userSatAppRepository.putValidated(id);
+    }
 }

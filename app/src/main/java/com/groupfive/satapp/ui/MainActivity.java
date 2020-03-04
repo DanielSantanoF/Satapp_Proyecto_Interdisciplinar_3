@@ -3,14 +3,12 @@ package com.groupfive.satapp.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.Observer;
@@ -26,11 +24,12 @@ import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
+import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.ui.auth.RegisterActivity;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
 import com.groupfive.satapp.ui.user.ProfileActivity;
+import com.groupfive.satapp.ui.tickets.TicketDetailScrollingActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -148,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
 
     @Override
     public void onAllTicketsItemClick(TicketModel ticketModel) {
-
+        Intent i = new Intent(MainActivity.this, TicketDetailScrollingActivity.class);
+        i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketModel.getId()));
+        startActivity(i);
     }
 }
