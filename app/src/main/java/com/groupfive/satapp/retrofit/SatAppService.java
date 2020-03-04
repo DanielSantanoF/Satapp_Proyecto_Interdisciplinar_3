@@ -38,10 +38,16 @@ public interface SatAppService {
                                  @Part("password") RequestBody password,
                                  @Part MultipartBody.Part avatar);
 
+//    @Multipart
+//    @POST("/ticket")
+//    Call<TicketModel> postNewTicket(@Part MultipartBody.Part fotos1,
+//                                    @Part MultipartBody.Part fotos2,
+//                                    @Part("titulo") RequestBody titulo,
+//                                    @Part("descripcion") RequestBody descripcion);
+
     @Multipart
     @POST("/ticket")
-    Call<TicketModel> postNewTicket(@Part MultipartBody.Part fotos1,
-                                    @Part MultipartBody.Part fotos2,
+    Call<TicketModel> postNewTicket(@Part List<MultipartBody.Part> fotos,
                                     @Part("titulo") RequestBody titulo,
                                     @Part("descripcion") RequestBody descripcion);
 
@@ -70,4 +76,14 @@ public interface SatAppService {
 
     @GET("/ticket/img/{imgUrl}/{imgNumber}")
     Call<ResponseBody> getTicketImg(@Path("imgUrl") String url, @Path("imgNumber") String urlNumber);
+
+    @GET("/users")
+    Call<List<AuthLogin>> getallUsers(@Query("q") String toSearch,
+                                          @Query("page") Integer pageNumber,
+                                          @Query("limit") Integer limitOfElements,
+                                          @Query("sort") String orderOfReturnedItems,
+                                          @Query("fields") String fieldsToBeReturned);
+
+    @PUT("/ticket/{id}/asignar")
+    Call<TicketModel> updateTickeAddTechnician(@Path("id") String id, @Query("tecnico") String description);
 }

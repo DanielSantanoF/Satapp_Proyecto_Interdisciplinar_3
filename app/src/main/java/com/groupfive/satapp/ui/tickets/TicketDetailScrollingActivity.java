@@ -1,6 +1,7 @@
 package com.groupfive.satapp.ui.tickets;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,13 +27,11 @@ import android.widget.Toast;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
-import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.viewModel.TicketByIdViewModel;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
-import com.groupfive.satapp.ui.MainActivity;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -50,6 +48,7 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
     TextView txtTitle, txtCreatedByName, txtEmailCreatedBy, txtDate, txtState, txtDescription;
     CollapsingToolbarLayout toolbarLayout;
     Button btnImgs;
+    TicketModel ticketDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +68,7 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
         btnImgs = findViewById(R.id.buttonFotosTicektDetail);
 
         ticketId = getIntent().getExtras().get(Constants.EXTRA_TICKET_ID).toString();
+
         ticketByIdViewModel = new ViewModelProvider(this).get(TicketByIdViewModel.class);
         ticketByIdViewModel.setTicketId(ticketId);
         service = SatAppServiceGenerator.createService(SatAppService.class);
@@ -81,6 +81,13 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EdtiTicketDialogFragment dialog = new EdtiTicketDialogFragment(TicketDetailScrollingActivity.this, ticketId);
                 dialog.show(getSupportFragmentManager(), "EdtiTicketDialogFragment");
+                //TODO REVISAR RECARGAR TICKET AL EDITARLO
+                dialog.onDismiss(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        loadTicket();
+                    }
+                });
             }
         });
 
@@ -92,6 +99,12 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadTicket();
     }
 
     @Override
@@ -141,6 +154,19 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
                 return true;
             case R.id.action_share_ticket:
                 //TODO COMPARTIR TICKET
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Ticket: " + ticketDetail.getTitulo() + ", " + getResources().getString(R.string.share_ticket_content) + " " + ticketDetail.getDescripcion());
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, "Compartir");
+                startActivity(shareIntent);
+                return true;
+            case R.id.action_add_thecnical:
+                //TODO Añadir tecnico NECESARIO UN USUARIO TECNICO EN LA BD
+                Intent i = new Intent(TicketDetailScrollingActivity.this, AddThechnicianShowActivity.class);
+                i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+                startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -151,6 +177,7 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
         ticketByIdViewModel.getTicketById().observe(this, new Observer<TicketModel>() {
             @Override
             public void onChanged(TicketModel ticketModel) {
+                ticketDetail = ticketModel;
                 toolbarLayout.setTitle(ticketModel.getTitulo());
                 String string = ticketModel.getFotos().get(0);
                 String[] parts = string.split("/");

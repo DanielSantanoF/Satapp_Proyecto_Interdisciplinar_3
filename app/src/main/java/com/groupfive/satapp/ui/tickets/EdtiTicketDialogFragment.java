@@ -79,7 +79,7 @@ public class EdtiTicketDialogFragment extends DialogFragment {
                             Toast.makeText(MyApp.getContext(), "Error", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    dialog.dismiss();
+
                 }
             }
         });
@@ -94,4 +94,6 @@ public class EdtiTicketDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    public void onDismiss(DialogInterface.OnDismissListener onDismissListener) {
+    }
 }

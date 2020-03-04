@@ -38,4 +38,6 @@
     <string name="edit_ticket_dialog_message">Indique el nuevo titulo y descripción del ticket</string>
     <string name="edit">Editar</string>
     <string name="btn_edit_ticket">Editar ticket</string>
+    <string name="share_ticket_content">Con descripción:</string>
+    <string name="action_add_thecnical">Asignar tecnico al ticket</string>
 </resources>
