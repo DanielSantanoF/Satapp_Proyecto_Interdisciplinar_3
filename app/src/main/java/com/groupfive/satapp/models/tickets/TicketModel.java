@@ -31,6 +31,9 @@ public class TicketModel {
     @SerializedName("descripcion")
     @Expose
     public String descripcion;
+    @SerializedName("anotaciones")
+    @Expose
+    public List<Object> anotaciones = null;
     @SerializedName("asignaciones")
     @Expose
     // TODO ASIGNAR ALGUIEN A UN TICKET PARA RETOCAR MODELO DE TICKET

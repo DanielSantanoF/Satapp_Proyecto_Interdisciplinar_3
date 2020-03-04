@@ -25,6 +25,15 @@
     <string name="new_ticket_created">Nuevo ticket creado</string>
     <string name="name_created_by">Creado por:</string>
     <string name="contact_created_by">Contacto:</string>
+    <string name="title_activity_ticket_detail_scrolling">Detalle del Ticket</string>
+    <string name="btn_fotos_ticket_detail">Ver fotos</string>
+    <string name="error_loading_ticket">Error al carger el ticket</string>
+    <string name="delete_ticket_title">Eliminar</string>
+    <string name="delete_ticket_message">¿Estas seguro de que quieres eliminar este ticket?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="ticket_deleted">Ticket eliminado</string>
+    <string name="error_ticket_deleted">Error al eliminar el ticket</string>
     <string name="inv_edit">Editar..</string>
     <string name="inv_delete">Eliminar..</string>
     <string name="title_activity_inv_detail">InvDetailActivity</string>
@@ -117,6 +126,7 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+<<<<<<< HEAD
     <string name="type">Tipo</string>
     <string name="created">Creado en:</string>
     <string name="updated">Actualizado en:</string>
@@ -125,4 +135,7 @@
     <string name="add">Añadir</string>
     <string name="addInv">Añadir equipo</string>
     <string name="editInv">Editar equipo</string>
+=======
+>>>>>>> f755f43390cf6bde6ae09f243b0e9ae791a9766e
+>>>>>>> 3ab8ae3c24a66599a739c1b680dcd30d422cc8c7
 </resources>
