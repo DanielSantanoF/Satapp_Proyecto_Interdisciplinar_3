@@ -7,6 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.tickets.AllTicketFragmentList"
+    tools:context=".ui.tickets.alltickets.AllTicketFragmentList"
     tools:listitem="@layout/all_fragment_ticket"
     android:background="@color/colorPrimary"/>

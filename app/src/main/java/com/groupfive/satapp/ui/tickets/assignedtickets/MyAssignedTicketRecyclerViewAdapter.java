@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.tickets;
+package com.groupfive.satapp.ui.tickets.assignedtickets;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -6,29 +6,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-
-import com.bumptech.glide.Glide;
 import com.groupfive.satapp.R;
-import com.groupfive.satapp.commons.Constants;
-import com.groupfive.satapp.listeners.IAllTicketsListener;
+import com.groupfive.satapp.listeners.IAssignedTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.transformations.DateTransformation;
 
 import java.util.List;
 
-
-public class MyAllTicketRecyclerViewAdapter extends RecyclerView.Adapter<MyAllTicketRecyclerViewAdapter.ViewHolder> {
+public class MyAssignedTicketRecyclerViewAdapter extends RecyclerView.Adapter<MyAssignedTicketRecyclerViewAdapter.ViewHolder> {
 
     private final Context ctx;
     private List<TicketModel> mValues;
-    private final IAllTicketsListener mListener;
+    private final IAssignedTicketsListener mListener;
     DateTransformation dateTransformer = new DateTransformation();
 
-    public MyAllTicketRecyclerViewAdapter(Context ctx, List<TicketModel> mValues, IAllTicketsListener mListener) {
-        this.ctx = ctx;
+    public MyAssignedTicketRecyclerViewAdapter(Context context, List<TicketModel> mValues, IAssignedTicketsListener mListener) {
+        this.ctx = context;
         this.mValues = mValues;
         this.mListener = mListener;
     }
@@ -36,13 +31,13 @@ public class MyAllTicketRecyclerViewAdapter extends RecyclerView.Adapter<MyAllTi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.all_fragment_ticket, parent, false);
+                .inflate(R.layout.fragment_assigned_ticket_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        if(mValues != null) {
+        if (mValues != null) {
             holder.mItem = mValues.get(position);
             holder.txtTitle.setText(holder.mItem.getTitulo());
             holder.txtNameCreatedBy.setText(ctx.getResources().getString(R.string.name_created_by) + " " + holder.mItem.getCreadoPor().getName());
@@ -53,12 +48,11 @@ public class MyAllTicketRecyclerViewAdapter extends RecyclerView.Adapter<MyAllTi
             String dateToShow = dateTransformer.dateTransformation(date);
             holder.txtDate.setText(dateToShow);
             holder.mItem.getFechaCreacion();
-
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (null != mListener) {
-                        mListener.onAllTicketsItemClick(holder.mItem);
+                        mListener.onAssignedTicketItemClick(holder.mItem);
                     }
                 }
             });
@@ -69,7 +63,6 @@ public class MyAllTicketRecyclerViewAdapter extends RecyclerView.Adapter<MyAllTi
         this.mValues = list;
         notifyDataSetChanged();
     }
-
 
     @Override
     public int getItemCount() {
@@ -91,10 +84,12 @@ public class MyAllTicketRecyclerViewAdapter extends RecyclerView.Adapter<MyAllTi
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            txtTitle = view.findViewById(R.id.textViewTitleAllTickets);
-            txtNameCreatedBy = view.findViewById(R.id.textViewCreatedByAllTickets);
-            txtEmailCreatedBy = view.findViewById(R.id.textViewEmailAllTickets);
-            txtDate = view.findViewById(R.id.textViewDateAllTickets);
+            txtTitle = view.findViewById(R.id.textViewTitleAssignedTickets);
+            txtNameCreatedBy = view.findViewById(R.id.textViewCreatedByAssignedTickets);
+            txtEmailCreatedBy = view.findViewById(R.id.textViewEmailAssignedTickets);
+            txtDate = view.findViewById(R.id.textViewDateAssignedTickets);
         }
+
+
     }
 }

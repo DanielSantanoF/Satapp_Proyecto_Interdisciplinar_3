@@ -48,4 +48,5 @@
     <string name="action_asigned_tickets">Tickets asignados</string>
     <string name="action_created_tickets">Mis tickets</string>
     <string name="action_logout">Cerrar sesión</string>
+    <string name="action_change_state">Cambiar estado del ticket</string>
 </resources>

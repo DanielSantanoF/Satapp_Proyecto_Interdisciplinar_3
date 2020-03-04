@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="com.groupfive.satapp.ui.tickets.AddThechnicianTicketFragmentList"
+    android:name="com.groupfive.satapp.ui.tickets.AllMyTicketFragmentList"
     android:layout_width="match_parent"
+    android:background="@color/design_default_color_primary"
     android:layout_height="match_parent"
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
-    android:background="@color/colorPrimary"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.tickets.addtechnician.AddThechnicianTicketFragmentList"
-    tools:listitem="@layout/fragment_add_thechnician_ticket_list" />
+    tools:context=".ui.tickets.usertickets.AllMyTicketFragmentList"
+    tools:listitem="@layout/fragment_all_my_ticket_list" />

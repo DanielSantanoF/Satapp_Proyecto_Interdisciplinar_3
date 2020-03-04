@@ -1,6 +1,7 @@
 package com.groupfive.satapp.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -38,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
     Button login, register;
     SatAppService service;
     SatAppService serviceIsLogged;
+    CardView cardView;
+    ProgressBar progressBar;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.editTextPassword);
         login = findViewById(R.id.buttonLogin);
         register = findViewById(R.id.buttonRegister);
+        cardView = findViewById(R.id.cardViewLogin);
+        progressBar = findViewById(R.id.progressBarLogin);
 
         Glide.with(this)
                 .load(R.drawable.satapplogo)
@@ -73,7 +80,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        checkIsLogged();
+        token = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString(Constants.SHARED_PREFERENCES_AUTH_TOKEN, null);
+        if(token != null) {
+            checkIsLogged();
+        }
 
     }
 
@@ -105,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void checkIsLogged(){
-        String token = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString(Constants.SHARED_PREFERENCES_AUTH_TOKEN, null);
+        cardView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
         if(token != null){
             serviceIsLogged = SatAppServiceGenerator.createService(SatAppService.class);
             Call<AuthLoginUser> call = serviceIsLogged.getUser();
@@ -118,14 +129,21 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Token expired", Toast.LENGTH_SHORT).show();
+                        cardView.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<AuthLoginUser> call, Throwable t) {
                     Toast.makeText(LoginActivity.this, "Error in the connection", Toast.LENGTH_SHORT).show();
+                    cardView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
             });
+        } else {
+            cardView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
         }
     }
 

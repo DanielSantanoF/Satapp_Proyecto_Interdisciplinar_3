@@ -32,8 +32,8 @@ import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.auth.LoginActivity;
-import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
-import com.groupfive.satapp.ui.tickets.TicketDetailActivity;
+import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
+import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
 import com.groupfive.satapp.ui.user.ProfileActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -127,14 +127,14 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 NewTicketDialogFragment dialog = new NewTicketDialogFragment(MainActivity.this);
                 dialog.show(getSupportFragmentManager(), "NewTicketDialogFragment");
             }
         });
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

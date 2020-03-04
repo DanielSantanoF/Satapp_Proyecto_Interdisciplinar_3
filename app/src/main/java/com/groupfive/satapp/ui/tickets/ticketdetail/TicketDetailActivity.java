@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.tickets;
+package com.groupfive.satapp.ui.tickets.ticketdetail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +28,7 @@ import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
+import com.groupfive.satapp.ui.tickets.addtechnician.AddThechnicianShowActivity;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -149,7 +149,6 @@ public class TicketDetailActivity extends AppCompatActivity {
                 alert.show();
                 return true;
             case R.id.action_share_ticket:
-                //TODO COMPARTIR TICKET
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Ticket: " + ticketDetail.getTitulo() + ", " + getResources().getString(R.string.share_ticket_content) + " " + ticketDetail.getDescripcion());
@@ -159,10 +158,12 @@ public class TicketDetailActivity extends AppCompatActivity {
                 startActivity(shareIntent);
                 return true;
             case R.id.action_add_thecnical:
-                //TODO Añadir tecnico NECESARIO UN USUARIO TECNICO EN LA BD
                 Intent i = new Intent(TicketDetailActivity.this, AddThechnicianShowActivity.class);
                 i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
                 startActivity(i);
+                return true;
+            case R.id.action_change_state:
+                //TODO ACTION FOR CHANGE THE STATE OF THE TICKET
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

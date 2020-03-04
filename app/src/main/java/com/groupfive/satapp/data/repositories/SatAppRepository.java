@@ -22,6 +22,8 @@ public class SatAppRepository {
     SatAppService service;
     SatAppServiceGenerator serviceGenerator;
     MutableLiveData<List<TicketModel>> allTickets;
+    MutableLiveData<List<TicketModel>> allMyTickets;
+    MutableLiveData<List<TicketModel>> assignedTickets;
     MutableLiveData<List<AuthLoginUser>> allUsers;
     MutableLiveData<TicketModel> ticketById;
 
@@ -95,6 +97,52 @@ public class SatAppRepository {
             }
         });
         allUsers = data;
+        return data;
+    }
+
+    public MutableLiveData<List<TicketModel>> getAllMyTickets() {
+        final MutableLiveData<List<TicketModel>> data = new MutableLiveData<>();
+
+        Call<List<TicketModel>> call = service.getAllMyTickets(null, null, null, null, null);
+        call.enqueue(new Callback<List<TicketModel>>() {
+            @Override
+            public void onResponse(Call<List<TicketModel>> call, Response<List<TicketModel>> response) {
+                if (response.isSuccessful()) {
+                    data.setValue(response.body());
+                } else {
+                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TicketModel>> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+        allMyTickets = data;
+        return data;
+    }
+
+    public MutableLiveData<List<TicketModel>> getAssignedTickets() {
+        final MutableLiveData<List<TicketModel>> data = new MutableLiveData<>();
+
+        Call<List<TicketModel>> call = service.getAssignedTickets(null, null, null, null, null);
+        call.enqueue(new Callback<List<TicketModel>>() {
+            @Override
+            public void onResponse(Call<List<TicketModel>> call, Response<List<TicketModel>> response) {
+                if (response.isSuccessful()) {
+                    data.setValue(response.body());
+                } else {
+                    Toast.makeText(MyApp.getContext(), "You dont have any ticket assigned", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TicketModel>> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+        assignedTickets = data;
         return data;
     }
 

@@ -14,12 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.tickets.TicketDetailActivity"></activity>
-        <activity android:name=".ui.tickets.AddThechnicianShowActivity" />
+        <activity android:name=".ui.tickets.assignedtickets.ShowAssignedTicketsActivity"></activity>
+        <activity android:name=".ui.tickets.usertickets.ShowAllMyTicketsActivity" />
+        <activity android:name=".ui.tickets.ticketdetail.TicketDetailActivity" />
+        <activity android:name=".ui.tickets.addtechnician.AddThechnicianShowActivity" />
         <activity
             android:name=".ui.user.ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.auth.RegisterActivity" />
         <activity android:name=".ui.auth.LoginActivity">
             <intent-filter>

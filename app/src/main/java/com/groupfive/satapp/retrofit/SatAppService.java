@@ -105,4 +105,22 @@ public interface SatAppService {
 
     @PUT("/ticket/{id}/asignar")
     Call<TicketModel> updateTickeAddTechnician(@Path("id") String id, @Body AddTechnician addTechnician);
+
+    @PUT("/ticket/{id}/estado")
+    Call<TicketModel> updateTicketState(@Path("id") String id, @Body AddTechnician addTechnician);
+
+    @GET("/ticket/user/me")
+    Call<List<TicketModel>> getAllMyTickets(@Query("q") String toSearch,
+                                          @Query("page") Integer pageNumber,
+                                          @Query("limit") Integer limitOfElements,
+                                          @Query("sort") String orderOfReturnedItems,
+                                          @Query("fields") String fieldsToBeReturned);
+
+    @GET("ticket/asignados/me")
+    Call<List<TicketModel>> getAssignedTickets(@Query("q") String toSearch,
+                                            @Query("page") Integer pageNumber,
+                                            @Query("limit") Integer limitOfElements,
+                                            @Query("sort") String orderOfReturnedItems,
+                                            @Query("fields") String fieldsToBeReturned);
+
 }

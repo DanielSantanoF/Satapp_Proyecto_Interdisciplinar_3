@@ -1,6 +1,7 @@
-package com.groupfive.satapp.ui.tickets;
+package com.groupfive.satapp.ui.tickets.alltickets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,8 @@ import com.groupfive.satapp.R;
 import com.groupfive.satapp.data.viewModel.GetAllTicketsViewModel;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
+import com.groupfive.satapp.ui.tickets.assignedtickets.ShowAssignedTicketsActivity;
+import com.groupfive.satapp.ui.tickets.usertickets.ShowAllMyTicketsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,10 +121,12 @@ public class AllTicketFragmentList extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_asigned_tickets:
-                //TODO LIST
+                Intent assigneds = new Intent(getActivity(), ShowAssignedTicketsActivity.class);
+                startActivity(assigneds);
                 break;
             case R.id.action_created_tickets:
-                //TODO LIST
+                Intent created = new Intent(getActivity(), ShowAllMyTicketsActivity.class);
+                startActivity(created);
                 break;
         }
         return super.onOptionsItemSelected(item);
