@@ -25,6 +25,8 @@
     <string name="new_ticket_created">Nuevo ticket creado</string>
     <string name="name_created_by">Creado por:</string>
     <string name="contact_created_by">Contacto:</string>
+    <string name="nombre">Nombre:</string>
+    <string name="title_activity_profile">Perfil</string>
     <string name="title_activity_ticket_detail_scrolling">Detalle del Ticket</string>
     <string name="btn_fotos_ticket_detail">Ver fotos</string>
     <string name="error_loading_ticket">Error al carger el ticket</string>

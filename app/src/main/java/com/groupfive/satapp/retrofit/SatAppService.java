@@ -41,12 +41,28 @@ public interface SatAppService {
                                  @Part("password") RequestBody password,
                                  @Part MultipartBody.Part avatar);
 
+    @GET("/users/me")
+    Call<AuthLoginUser> getUser();
+
+    @GET("/users")
+    Call<List<AuthLoginUser>> getAllUsers();
+
+    @GET("/users/no-validated")
+    Call<List<AuthLoginUser>> getUsersValidated();
+
+    @GET("users/img/{id}")
+    Call<ResponseBody> getImg(@Path("id")String id);
+
+    @PUT("/users/{id}/validate")
+    Call<AuthLoginUser> putValidated(@Path("id")String id);
+
 //    @Multipart
 //    @POST("/ticket")
 //    Call<TicketModel> postNewTicket(@Part MultipartBody.Part fotos1,
 //                                    @Part MultipartBody.Part fotos2,
 //                                    @Part("titulo") RequestBody titulo,
 //                                    @Part("descripcion") RequestBody descripcion);
+
 
     @Multipart
     @POST("/ticket")

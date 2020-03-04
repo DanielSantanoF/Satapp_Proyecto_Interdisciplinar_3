@@ -16,6 +16,10 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.tickets.TicketDetailActivity"></activity>
         <activity android:name=".ui.tickets.AddThechnicianShowActivity" />
+        <activity
+            android:name=".ui.user.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ui.auth.RegisterActivity" />
         <activity android:name=".ui.auth.LoginActivity">
             <intent-filter>
