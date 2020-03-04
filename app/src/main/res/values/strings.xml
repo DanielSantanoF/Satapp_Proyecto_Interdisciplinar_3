@@ -38,6 +38,7 @@
     <string name="error_ticket_deleted">Error al eliminar el ticket</string>
     <string name="inv_edit">Editar..</string>
     <string name="inv_delete">Eliminar..</string>
+    <string name="title_activity_inv_detail">InvDetailActivity</string>
     <string name="type">Tipo</string>
     <string name="created">Creado en:</string>
     <string name="updated">Actualizado en:</string>

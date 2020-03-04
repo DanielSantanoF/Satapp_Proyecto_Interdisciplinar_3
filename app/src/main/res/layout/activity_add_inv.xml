@@ -92,8 +92,8 @@
 
             <Button
                 android:id="@+id/buttonAdd"
-                android:layout_width="107dp"
-                android:layout_height="67dp"
+                android:layout_width="104dp"
+                android:layout_height="51dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="70dp"
                 android:text="@string/add"
@@ -105,7 +105,7 @@
             <Button
                 android:id="@+id/buttonCancel"
                 android:layout_width="107dp"
-                android:layout_height="67dp"
+                android:layout_height="51dp"
                 android:layout_marginStart="68dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/cancel"
