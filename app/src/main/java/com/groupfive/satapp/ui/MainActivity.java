@@ -1,6 +1,8 @@
 package com.groupfive.satapp.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -9,8 +11,10 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -27,6 +31,7 @@ import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
+import com.groupfive.satapp.ui.auth.LoginActivity;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
 import com.groupfive.satapp.ui.tickets.TicketDetailActivity;
 import com.groupfive.satapp.ui.user.ProfileActivity;
@@ -136,6 +141,20 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                SharedPreferences settings = this.getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE);
+                settings.edit().clear().apply();
+                Intent i = new Intent(this, LoginActivity.class);
+                startActivity(i);
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

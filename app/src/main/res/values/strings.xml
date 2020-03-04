@@ -44,4 +44,8 @@
     <string name="action_add_thecnical">Asignar tecnico al ticket</string>
     <string name="action_delete_ticket">Eliminar ticket</string>
     <string name="action_share_ticket">Compartir ticket</string>
+    <string name="content_description_image_view">Imagen cargada por la app</string>
+    <string name="action_asigned_tickets">Tickets asignados</string>
+    <string name="action_created_tickets">Mis tickets</string>
+    <string name="action_logout">Cerrar sesión</string>
 </resources>

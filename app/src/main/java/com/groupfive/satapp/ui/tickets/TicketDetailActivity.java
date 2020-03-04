@@ -45,7 +45,8 @@ public class TicketDetailActivity extends AppCompatActivity {
     TextView txtTitle, txtCreatedByName, txtEmailCreatedBy, txtDate, txtState, txtDescription;
     Button btnImgs;
     TicketModel ticketDetail;
-    ProgressBar progressBar;
+    FloatingActionButton fab;
+    //ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class TicketDetailActivity extends AppCompatActivity {
         txtState = findViewById(R.id.textViewStateTicketDetail);
         txtDescription = findViewById(R.id.textViewDescriptionTicketDetail);
         btnImgs = findViewById(R.id.buttonFotosTicektDetail);
-        progressBar = findViewById(R.id.progressBarTicketDetail);
+       // progressBar = findViewById(R.id.progressBarTicketDetail);
 
         ticketId = getIntent().getExtras().get(Constants.EXTRA_TICKET_ID).toString();
 
@@ -70,7 +71,7 @@ public class TicketDetailActivity extends AppCompatActivity {
 
         loadTicket();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabEditTicketDetail);
+        fab = (FloatingActionButton) findViewById(R.id.fabEditTicketDetail);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -216,7 +217,7 @@ public class TicketDetailActivity extends AppCompatActivity {
                 txtDate.setText(dateToShow);
                 txtState.setText(ticketModel.getEstado());
                 txtDescription.setText(ticketModel.getDescripcion());
-                progressBar.setVisibility(View.GONE);
+                //progressBar.setVisibility(View.INVISIBLE);
                 ivToolbar.setVisibility(View.VISIBLE);
                 txtTitle.setVisibility(View.VISIBLE);
                 txtCreatedByName.setVisibility(View.VISIBLE);
@@ -225,7 +226,8 @@ public class TicketDetailActivity extends AppCompatActivity {
                 txtState.setVisibility(View.VISIBLE);
                 txtDescription.setVisibility(View.VISIBLE);
                 btnImgs.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
+                fab.show();
+                //progressBar.setVisibility(View.VISIBLE);
             }
         });
     }
