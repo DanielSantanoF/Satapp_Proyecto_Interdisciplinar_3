@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.listeners.IAddTechnicianListener;
@@ -55,8 +56,13 @@ public class MyAddTechnicianTicketRecyclerViewAdapter extends RecyclerView.Adapt
     }
 
     public void setData(List<AuthLoginUser> list){
-        this.mValues = list;
-        notifyDataSetChanged();
+        if(mValues != null){
+            this.mValues = list;
+            notifyDataSetChanged();
+        } else {
+            Toast.makeText(context, "No technician users aviable", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override

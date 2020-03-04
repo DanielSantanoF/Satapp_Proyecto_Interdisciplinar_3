@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
@@ -19,7 +18,7 @@ import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
-import com.groupfive.satapp.ui.tickets.TicketDetailScrollingActivity;
+import com.groupfive.satapp.ui.tickets.TicketDetailActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
 
     @Override
     public void onAllTicketsItemClick(TicketModel ticketModel) {
-        Intent i = new Intent(MainActivity.this, TicketDetailScrollingActivity.class);
+        Intent i = new Intent(MainActivity.this, TicketDetailActivity.class);
         i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketModel.getId()));
         startActivity(i);
     }

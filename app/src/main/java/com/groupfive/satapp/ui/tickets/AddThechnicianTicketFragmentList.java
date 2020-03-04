@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.groupfive.satapp.R;
+import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.viewModel.AddThecnicianViewModel;
 import com.groupfive.satapp.listeners.IAddTechnicianListener;
@@ -61,7 +62,7 @@ public class AddThechnicianTicketFragmentList extends Fragment {
             }
             adapter = new MyAddTechnicianTicketRecyclerViewAdapter(context, allUsers, mListener);
             recyclerView.setAdapter(adapter);
-            Toast.makeText(MyApp.getContext(), "Slect the user to assign to the ticket", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Slect the user to assign to the ticket", Toast.LENGTH_SHORT).show();
             loadAllUsers();
         }
         return view;
@@ -71,7 +72,12 @@ public class AddThechnicianTicketFragmentList extends Fragment {
         addThecnicianViewModel.getAllUsers().observe(getActivity(), new Observer<List<AuthLoginUser>>() {
             @Override
             public void onChanged(List<AuthLoginUser> list) {
-                allUsers = list;
+                for (int i = 0; i <list.size() ; i++) {
+                    if(list.get(i).getRole().equals(Constants.ROLE_TECNICO)){
+                        allUsers.add(list.get(i));
+                    }
+                }
+                //allUsers = list;
                 adapter.setData(allUsers);
             }
         });

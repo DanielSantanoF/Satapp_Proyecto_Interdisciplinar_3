@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
+import com.groupfive.satapp.models.tickets.EditTicketBody;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
@@ -67,7 +68,8 @@ public class EdtiTicketDialogFragment extends DialogFragment {
                     }
                 } else {
                     service = SatAppServiceGenerator.createService(SatAppService.class);
-                    Call<TicketModel> call = service.updateTicketById(idTicket, title, description);
+                    EditTicketBody editTicketBody = new EditTicketBody(title, description);
+                    Call<TicketModel> call = service.updateTicketById(idTicket, editTicketBody);
                     call.enqueue(new Callback<TicketModel>() {
                         @Override
                         public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {

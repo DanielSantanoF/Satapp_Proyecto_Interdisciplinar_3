@@ -4,6 +4,7 @@ package com.groupfive.satapp.retrofit;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.AddTechnician;
+import com.groupfive.satapp.models.tickets.EditTicketBody;
 import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.List;
@@ -74,7 +75,7 @@ public interface SatAppService {
     Call<ResponseBody> deleteTicketById(@Path("id") String id);
 
     @PUT("/ticket/{id}")
-    Call<TicketModel> updateTicketById(@Path("id") String id, @Query("titulo") String title, @Query("descripcion") String description);
+    Call<TicketModel> updateTicketById(@Path("id") String id, @Body EditTicketBody editTicketBody);
 
     @GET("/ticket/img/{imgUrl}/{imgNumber}")
     Call<ResponseBody> getTicketImg(@Path("imgUrl") String url, @Path("imgNumber") String urlNumber);
