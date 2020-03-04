@@ -11,6 +11,7 @@ import com.groupfive.satapp.models.auth.AuthLoginUser;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 
 
@@ -57,5 +58,13 @@ public class UserViewModel extends AndroidViewModel {
 
     public void putTecnico(String id){
         userSatAppRepository.putTecnico(id);
+    }
+
+    public void updatePhoto(String id, MultipartBody.Part avatar){
+        userSatAppRepository.updatePhoto(id,avatar);
+    }
+
+    public void deletePhoto(String id){
+        userSatAppRepository.deletePhoto(id);
     }
 }

@@ -35,6 +35,8 @@
     <string name="promocion">Promotion</string>
     <string name="mensagepromocion">Are you sure you want to technical this user?</string>
     <string name="tecnico">tecnico</string>
+    <string name="savePhoto">The photo was saved correctly</string>
+    <string name="selecPhoto">You must select a photo before saving it</string>
     <string name="nombre">Name:</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_ticket_detail_scrolling">Ticket Detail</string>

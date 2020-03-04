@@ -61,6 +61,10 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
         holder.check.setVisibility(View.GONE);
         holder.tecnico.setVisibility(View.GONE);
 
+        if(holder.mItem.role.equals("admin")){
+            holder.cancel.setVisibility(View.GONE);
+        }
+
         if (holder.mItem.picture != null) {
             userViewModel.getPicture(holder.mItem.id).observeForever(new Observer<ResponseBody>() {
                 @Override

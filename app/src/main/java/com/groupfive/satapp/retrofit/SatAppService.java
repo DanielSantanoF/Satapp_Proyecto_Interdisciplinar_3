@@ -112,4 +112,12 @@ public interface SatAppService {
 
     @PUT("/ticket/{id}/asignar")
     Call<TicketModel> updateTickeAddTechnician(@Path("id") String id, @Body AddTechnician addTechnician);
+
+    @Multipart
+    @PUT("/users/{id}/img")
+    Call<AuthLoginUser> updatePhoto(@Path("id")String id,
+                                    @Part MultipartBody.Part avatar);
+
+    @DELETE("/users/{id}/img")
+    Call<ResponseBody> deletePhoto(@Path("id")String id);
 }
