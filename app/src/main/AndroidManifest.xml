@@ -14,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".AddInvActivity"></activity>
+        <activity
+            android:name=".InvDetailActivity"
+            android:label="@string/title_activity_inv_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.tickets.TicketDetailActivity"></activity>
         <activity android:name=".ui.tickets.AddThechnicianShowActivity" />
         <activity

@@ -6,7 +6,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Equipos</string>
     <string name="menu_gallery">Tickets</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
@@ -36,6 +36,17 @@
     <string name="no">No</string>
     <string name="ticket_deleted">Ticket eliminado</string>
     <string name="error_ticket_deleted">Error al eliminar el ticket</string>
+    <string name="inv_edit">Editar..</string>
+    <string name="inv_delete">Eliminar..</string>
+    <string name="title_activity_inv_detail">InvDetailActivity</string>
+    <string name="type">Tipo</string>
+    <string name="created">Creado en:</string>
+    <string name="updated">Actualizado en:</string>
+    <string name="descr">Descripción</string>
+    <string name="name">Nombre</string>
+    <string name="add">Añadir</string>
+    <string name="addInv">Añadir equipo</string>
+    <string name="editInv">Editar equipo</string>
     <string name="edit_ticket_dialog_title">Editar ticket</string>
     <string name="edit_ticket_dialog_message">Indique el nuevo titulo y descripción del ticket</string>
     <string name="edit">Editar</string>

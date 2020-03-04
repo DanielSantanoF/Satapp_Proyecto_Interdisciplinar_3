@@ -25,6 +25,7 @@ import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
@@ -42,8 +43,7 @@ import android.widget.TextView;
 
 import okhttp3.ResponseBody;
 
-public class MainActivity extends AppCompatActivity implements IAllTicketsListener {
-
+public class MainActivity extends AppCompatActivity implements IInventariableListener, IAllTicketsListener {
     private AppBarConfiguration mAppBarConfiguration;
     private UserViewModel userViewModel;
     private AuthLoginUser user;
@@ -143,6 +143,10 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onInventariableClick(Inventariable iv) {
     }
 
     @Override
