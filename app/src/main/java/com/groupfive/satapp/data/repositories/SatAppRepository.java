@@ -70,7 +70,7 @@ public class SatAppRepository {
 
             @Override
             public void onFailure(Call<TicketModel> call, Throwable t) {
-                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApp.getContext(), "Error in the connection at ticket by id", Toast.LENGTH_SHORT).show();
             }
         });
         ticketById = data;

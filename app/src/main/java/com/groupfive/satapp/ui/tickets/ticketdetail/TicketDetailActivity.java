@@ -30,6 +30,7 @@ import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
 import com.groupfive.satapp.ui.tickets.addtechnician.AddThechnicianShowActivity;
 import com.groupfive.satapp.ui.tickets.changestate.ChangeStateTicketActivity;
+import com.groupfive.satapp.ui.tickets.fotosticketdetail.ShowFotosTicketDetailActivity;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -93,7 +94,13 @@ public class TicketDetailActivity extends AppCompatActivity {
         btnImgs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //TODO MOSTRAR IMAGENES DE MANERA DINAMICA
+//                Intent fotos = new Intent(TicketDetailActivity.this, FotosTicketDetailActivity.class);
+//                fotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+//                startActivity(fotos);
+                Intent fotos = new Intent(TicketDetailActivity.this, ShowFotosTicketDetailActivity.class);
+                fotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+                startActivity(fotos);
             }
         });
     }

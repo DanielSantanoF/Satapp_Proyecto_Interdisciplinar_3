@@ -49,4 +49,9 @@
     <string name="action_created_tickets">Mis tickets</string>
     <string name="action_logout">Cerrar sesión</string>
     <string name="action_change_state">Cambiar estado del ticket</string>
+    <string name="txt_select_stated">Selecciona el nuevo estado del tiket</string>
+    <string name="btn_state_pendiente">PENDIENTE DE ASIGNACIÓN</string>
+    <string name="btn_asignada">ASIGNADA</string>
+    <string name="btn_en_proceso">EN PROCESO</string>
+    <string name="btn_solucionada">SLUCIONADA</string>
 </resources>
