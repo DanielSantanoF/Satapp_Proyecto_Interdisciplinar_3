@@ -16,6 +16,7 @@ public class InventariableViewModel extends AndroidViewModel {
     InventariableRepository inventariableRepository;
     Context ctx;
     LiveData<List<Inventariable>> direct;
+    LiveData<Inventariable> result;
 
     public InventariableViewModel(@NonNull Application application) {
         super(application);
@@ -23,8 +24,13 @@ public class InventariableViewModel extends AndroidViewModel {
         this.ctx = application.getApplicationContext();
     }
 
-    public LiveData<List<Inventariable>> getAllSeries() {
+    public LiveData<List<Inventariable>> getAllInventariables() {
         direct = inventariableRepository.getAllInventariables();
         return direct;
+    }
+
+    public LiveData<Inventariable> getInventariable(String id) {
+        result = inventariableRepository.getInventariable(id);
+        return result;
     }
 }

@@ -117,4 +117,12 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="type">Tipo</string>
+    <string name="created">Creado en:</string>
+    <string name="updated">Actualizado en:</string>
+    <string name="descr">Descripción</string>
+    <string name="name">Nombre</string>
+    <string name="add">Añadir</string>
+    <string name="addInv">Añadir equipo</string>
+    <string name="editInv">Editar equipo</string>
 </resources>

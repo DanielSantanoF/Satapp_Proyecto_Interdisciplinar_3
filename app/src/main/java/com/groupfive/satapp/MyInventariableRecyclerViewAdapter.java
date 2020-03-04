@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,15 @@ import com.bumptech.glide.Glide;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.retrofit.SatAppInvService;
-import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.ui.IInventariableListener;
+
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
 
 import java.util.List;
 
 import lombok.SneakyThrows;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +38,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
     private Context ctx;
     private SatAppInvService service;
     private String photoCode;
+    private LocalDate changer;
     private Inventariable mSelected;
 
     public MyInventariableRecyclerViewAdapter(List<Inventariable> items, IInventariableListener listener, Context ctx) {
@@ -62,6 +63,8 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
+        changer = LocalDate.parse(holder.mItem.getCreatedAt().split("T")[0], DateTimeFormat.forPattern("yyyy-mm-dd"));
+
         mSelected = holder.mItem;
 
         holder.tvTitle.setText(holder.mItem.getNombre());
@@ -72,7 +75,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
             holder.tvDescription.setText(holder.mItem.getDescripcion());
         }
 
-        holder.tvDate.setText(holder.mItem.getCreatedAt());
+        holder.tvDate.setText(Constants.FORMATTER.print(changer));
 
         photoCode = holder.mItem.getImagen().split("/")[3];
         Call<ResponseBody> call = service.getInventariableImage(photoCode);
@@ -168,7 +171,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
             tvDescription = view.findViewById(R.id.textViewDescription);
             tvDate = view.findViewById(R.id.textViewWhen);
             ivType = view.findViewById(R.id.imageViewInventa);
-            ivPhoto = view.findViewById(R.id.imageViewPhoto);
+            ivPhoto = view.findViewById(R.id.imageViewType);
         }
 
 

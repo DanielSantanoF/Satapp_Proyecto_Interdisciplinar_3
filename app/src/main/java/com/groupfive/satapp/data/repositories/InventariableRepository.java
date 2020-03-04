@@ -48,4 +48,27 @@ public class InventariableRepository {
         });
         return data;
     }
+
+    public LiveData<Inventariable> getInventariable(String id) {
+        final MutableLiveData<Inventariable> data = new MutableLiveData<>();
+
+        Call<Inventariable> call = service.getInventariable(id);
+
+        call.enqueue(new Callback<Inventariable>() {
+            @Override
+            public void onResponse(Call<Inventariable> call, Response<Inventariable> response) {
+                if(response.isSuccessful()) {
+                    data.setValue(response.body());
+                } else {
+                    Toast.makeText(MyApp.getContext(), "API Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Inventariable> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return data;
+    }
 }

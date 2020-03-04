@@ -28,4 +28,12 @@
     <string name="contact_created_by">Contact:</string>
     <string name="inv_edit">Edit..</string>
     <string name="inv_delete">Delete..</string>
+    <string name="type">Type</string>
+    <string name="created">Created at:</string>
+    <string name="updated">Updated at:</string>
+    <string name="descr">Description</string>
+    <string name="name">Name</string>
+    <string name="add">Add</string>
+    <string name="addInv">Add inventariable</string>
+    <string name="editInv">Edit inventariable</string>
 </resources>

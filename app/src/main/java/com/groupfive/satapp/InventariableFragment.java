@@ -85,7 +85,7 @@ public class InventariableFragment extends Fragment {
     }
 
     public void loadInventariable() {
-        inventariableViewModel.getAllSeries().observe(getActivity(), new Observer<List<Inventariable>>() {
+        inventariableViewModel.getAllInventariables().observe(getActivity(), new Observer<List<Inventariable>>() {
             @Override
             public void onChanged(List<Inventariable> inventariables) {
                 inventariableList = inventariables;

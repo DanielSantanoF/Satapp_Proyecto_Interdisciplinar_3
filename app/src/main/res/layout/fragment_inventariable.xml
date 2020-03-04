@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageViewPhoto"
+                android:id="@+id/imageViewType"
                 android:layout_width="81dp"
                 android:layout_height="72dp"
                 android:layout_marginStart="16dp"
@@ -38,7 +38,7 @@
                 android:text="TextView"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageViewPhoto"
+                app:layout_constraintStart_toEndOf="@+id/imageViewType"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -48,7 +48,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/imageViewPhoto"
+                app:layout_constraintStart_toEndOf="@+id/imageViewType"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
             <TextView
