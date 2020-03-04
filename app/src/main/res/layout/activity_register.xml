@@ -78,6 +78,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/round_bg"
                 android:text="Register"
+                android:textColor="#FCF9F9"
                 app:layout_constraintEnd_toEndOf="@+id/editTextName"
                 app:layout_constraintStart_toStartOf="@+id/editTextName"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewUpload" />

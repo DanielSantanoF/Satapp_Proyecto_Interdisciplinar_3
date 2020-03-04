@@ -1,12 +1,18 @@
 package com.groupfive.satapp.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.view.View;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -14,12 +20,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.groupfive.satapp.R;
+import com.groupfive.satapp.commons.MyApp;
+import com.groupfive.satapp.data.repositories.UserSatAppRepository;
+import com.groupfive.satapp.data.viewModel.UserViewModel;
+import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
-import com.groupfive.satapp.ui.tickets.TicketDetailScrollingActivity;
+import com.groupfive.satapp.ui.tickets.TicketDetailActivity;
+import com.groupfive.satapp.ui.user.ProfileActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -27,9 +38,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity implements IInventariableListener, IAllTicketsListener {
     private AppBarConfiguration mAppBarConfiguration;
+    private UserViewModel userViewModel;
+    private AuthLoginUser user;
+    private UserSatAppRepository userSatAppRepository;
+    private ImageView ivFotoPerfil;
+    private TextView nameUser, emailUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +69,54 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        userSatAppRepository = new UserSatAppRepository();
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+        // Header
+        View header = navigationView.getHeaderView(0);
+        ivFotoPerfil = header.findViewById(R.id.imageViewFotoPerfil);
+        nameUser = header.findViewById(R.id.textViewNameUser);
+        emailUser = header.findViewById(R.id.textViewEmailUser);
+        ivFotoPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =  new Intent(MyApp.getContext(),
+                        ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
+        userViewModel.AllUser();
+        userViewModel.UsersValidated();
+
+        userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
+            @Override
+            public void onChanged(AuthLoginUser authLoginUser) {
+                user = authLoginUser;
+                nameUser.setText(user.name);
+                emailUser.setText(user.email);
+
+                if (user.picture != null) {
+                    userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {
+                        @Override
+                        public void onChanged(ResponseBody responseBody) {
+                            Bitmap bmp = BitmapFactory.decodeStream(responseBody.byteStream());
+                            Glide.with(MyApp.getContext())
+                                    .load(bmp)
+                                    .circleCrop()
+                                    .into(ivFotoPerfil);
+                        }
+                    });
+                }else {
+                    Glide.with(MyApp.getContext())
+                            .load(R.drawable.ic_perfil)
+                            .circleCrop()
+                            .into(ivFotoPerfil);
+                }
+
+            }
+        });
+
 
         FloatingActionButton fab = findViewById(R.id.fabAddNewTicket);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
 
     @Override
     public void onAllTicketsItemClick(TicketModel ticketModel) {
-        Intent i = new Intent(MainActivity.this, TicketDetailScrollingActivity.class);
+        Intent i = new Intent(MainActivity.this, TicketDetailActivity.class);
         i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketModel.getId()));
         startActivity(i);
     }

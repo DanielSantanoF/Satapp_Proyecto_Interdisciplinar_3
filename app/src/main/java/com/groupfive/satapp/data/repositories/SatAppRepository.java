@@ -5,6 +5,8 @@ import android.widget.Toast;
 import androidx.lifecycle.MutableLiveData;
 
 import com.groupfive.satapp.commons.MyApp;
+import com.groupfive.satapp.models.auth.AuthLogin;
+import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
@@ -20,6 +22,7 @@ public class SatAppRepository {
     SatAppService service;
     SatAppServiceGenerator serviceGenerator;
     MutableLiveData<List<TicketModel>> allTickets;
+    MutableLiveData<List<AuthLoginUser>> allUsers;
     MutableLiveData<TicketModel> ticketById;
 
     public SatAppRepository() {
@@ -72,5 +75,27 @@ public class SatAppRepository {
         return data;
     }
 
+    public MutableLiveData<List<AuthLoginUser>> getAllUsers() {
+        final MutableLiveData<List<AuthLoginUser>> data = new MutableLiveData<>();
+
+        Call<List<AuthLoginUser>> call = service.getallUsers(null, null, null, null, null);
+        call.enqueue(new Callback<List<AuthLoginUser>>() {
+            @Override
+            public void onResponse(Call<List<AuthLoginUser>> call, Response<List<AuthLoginUser>> response) {
+                if (response.isSuccessful()) {
+                    data.setValue(response.body());
+                } else {
+                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AuthLoginUser>> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+        allUsers = data;
+        return data;
+    }
 
 }
