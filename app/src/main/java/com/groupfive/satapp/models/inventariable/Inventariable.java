@@ -27,6 +27,9 @@ public class Inventariable {
     @SerializedName("descripcion")
     @Expose
     public String descripcion;
+    @SerializedName("ubicacion")
+    @Expose
+    public String ubicacion;
     @SerializedName("createdAt")
     @Expose
     public String createdAt;

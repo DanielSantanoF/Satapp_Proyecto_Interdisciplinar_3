@@ -24,6 +24,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+
 import lombok.SneakyThrows;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -31,13 +34,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InvDetailActivity extends AppCompatActivity {
-    private TextView tvName, tvDescription, tvCreate, tvUpdate;
+    private TextView tvName, tvDescription, tvCreate, tvUpdate, tvLocation;
     private ImageView ivPhoto, ivType;
     private InventariableViewModel inventariableViewModel;
     private SatAppInvService service;
     private Inventariable inventariable;
     private String id;
     private String photoCode;
+    private LocalDate changerCreated, changerUpdated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,7 @@ public class InvDetailActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.textViewDescription);
         tvCreate = findViewById(R.id.textViewCreate);
         tvUpdate = findViewById(R.id.textViewUpdate);
+        tvLocation = findViewById(R.id.textViewLocation);
         ivPhoto = findViewById(R.id.imageViewPhotoPlus);
         ivType = findViewById(R.id.imageViewType);
 
@@ -78,11 +83,15 @@ public class InvDetailActivity extends AppCompatActivity {
         inventariableViewModel.getInventariable(id).observe(InvDetailActivity.this, new Observer<Inventariable>() {
             @Override
             public void onChanged(Inventariable inventariable) {
+
+                changerCreated = LocalDate.parse(inventariable.getCreatedAt().split("T")[0], DateTimeFormat.forPattern("yyyy-mm-dd"));
+                changerUpdated = LocalDate.parse(inventariable.getUpdatedAt().split("T")[0], DateTimeFormat.forPattern("yyyy-mm-dd"));
                 tvName.setText(inventariable.getNombre());
                 tvDescription.setText(inventariable.getDescripcion());
-                tvCreate.setText(inventariable.getCreatedAt());
-                tvUpdate.setText(inventariable.getUpdatedAt());
+                tvCreate.setText(Constants.FORMATTER.print(changerCreated));
+                tvUpdate.setText(Constants.FORMATTER.print(changerUpdated));
                 tvDescription.setText(inventariable.getDescripcion());
+                tvLocation.setText(inventariable.getUbicacion());
 
                 switch(inventariable.getTipo()) {
                     case "PC":

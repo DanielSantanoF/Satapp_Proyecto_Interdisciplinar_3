@@ -56,4 +56,6 @@
     <string name="action_add_thecnical">Asign technical to the ticket</string>
     <string name="action_delete_ticket">Delete ticket</string>
     <string name="action_share_ticket">Share ticket</string>
+    <string name="ubi">Location</string>
+    <string name="location">Location:</string>
 </resources>

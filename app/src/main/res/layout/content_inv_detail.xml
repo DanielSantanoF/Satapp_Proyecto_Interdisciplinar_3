@@ -71,10 +71,11 @@
         android:id="@+id/textViewDescription"
         android:layout_width="374dp"
         android:layout_height="268dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewTDescr"
         app:layout_constraintTop_toBottomOf="@+id/textViewTDescr" />
 
     <TextView
@@ -82,7 +83,7 @@
         android:layout_width="104dp"
         android:layout_height="21dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="56dp"
         android:text="@string/descr"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -94,7 +95,7 @@
         android:layout_width="131dp"
         android:layout_height="24dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="28dp"
         android:text="@string/updated"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -111,5 +112,28 @@
         app:layout_constraintBottom_toBottomOf="@+id/textViewTUpdate"
         app:layout_constraintStart_toEndOf="@+id/textViewTUpdate"
         app:layout_constraintTop_toTopOf="@+id/textViewTUpdate"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textViewTLocation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/location"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textViewTCreate"
+        app:layout_constraintStart_toStartOf="@+id/textViewTCreate"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTCreate" />
+
+    <TextView
+        android:id="@+id/textViewLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTLocation"
+        app:layout_constraintStart_toEndOf="@+id/textViewTLocation"
+        app:layout_constraintTop_toTopOf="@+id/textViewTLocation"
         app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

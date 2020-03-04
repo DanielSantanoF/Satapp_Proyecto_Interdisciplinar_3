@@ -77,6 +77,8 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
 
         holder.tvDate.setText(Constants.FORMATTER.print(changer));
 
+        holder.tvLocation.setText(holder.mItem.getUbicacion());
+
         photoCode = holder.mItem.getImagen().split("/")[3];
         Call<ResponseBody> call = service.getInventariableImage(photoCode);
 //        Toast.makeText(ctx, photoCode, Toast.LENGTH_SHORT).show();
@@ -161,6 +163,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
         public final TextView tvDescription;
         public final ImageView ivType;
         public final TextView tvDate;
+        public final TextView tvLocation;
         public final ImageView ivPhoto;
         public Inventariable mItem;
 
@@ -170,6 +173,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
             tvTitle = view.findViewById(R.id.textViewTitle);
             tvDescription = view.findViewById(R.id.textViewDescription);
             tvDate = view.findViewById(R.id.textViewWhen);
+            tvLocation = view.findViewById(R.id.textViewLocation);
             ivType = view.findViewById(R.id.imageViewInventa);
             ivPhoto = view.findViewById(R.id.imageViewType);
         }

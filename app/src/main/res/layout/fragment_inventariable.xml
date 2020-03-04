@@ -69,7 +69,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textViewWhen"
                 app:layout_constraintEnd_toStartOf="@+id/textViewWhen"
                 app:layout_constraintTop_toTopOf="@+id/textViewWhen"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/ic_timer_black_24dp" />
 
             <ImageView
@@ -81,6 +81,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background" />
+
+            <TextView
+                android:id="@+id/textViewLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:text="TextView"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewWhen"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewTime"
+                app:layout_constraintTop_toTopOf="@+id/textViewWhen"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="17dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="1dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewLocation"
+                app:layout_constraintEnd_toStartOf="@+id/textViewLocation"
+                app:layout_constraintTop_toTopOf="@+id/textViewLocation"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_place_black_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
