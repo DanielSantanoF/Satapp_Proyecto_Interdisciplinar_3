@@ -29,6 +29,7 @@ import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
 import com.groupfive.satapp.ui.tickets.addtechnician.AddThechnicianShowActivity;
+import com.groupfive.satapp.ui.tickets.changestate.ChangeStateTicketActivity;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -158,12 +159,14 @@ public class TicketDetailActivity extends AppCompatActivity {
                 startActivity(shareIntent);
                 return true;
             case R.id.action_add_thecnical:
-                Intent i = new Intent(TicketDetailActivity.this, AddThechnicianShowActivity.class);
-                i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
-                startActivity(i);
+                Intent addTechnicanl = new Intent(TicketDetailActivity.this, AddThechnicianShowActivity.class);
+                addTechnicanl.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+                startActivity(addTechnicanl);
                 return true;
             case R.id.action_change_state:
-                //TODO ACTION FOR CHANGE THE STATE OF THE TICKET
+                Intent changeState = new Intent(TicketDetailActivity.this, ChangeStateTicketActivity.class);
+                changeState.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+                startActivity(changeState);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

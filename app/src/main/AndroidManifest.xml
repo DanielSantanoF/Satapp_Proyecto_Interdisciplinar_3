@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.groupfive.satapp">
+    package="com.groupfive.satapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".ui.tickets.assignedtickets.ShowAssignedTicketsActivity"></activity>
+        android:usesCleartextTraffic="true" >
+        <activity android:name=".ui.tickets.changestate.ChangeStateTicketActivity" >
+        </activity>
+        <activity android:name=".ui.tickets.assignedtickets.ShowAssignedTicketsActivity" />
         <activity android:name=".ui.tickets.usertickets.ShowAllMyTicketsActivity" />
         <activity android:name=".ui.tickets.ticketdetail.TicketDetailActivity" />
         <activity android:name=".ui.tickets.addtechnician.AddThechnicianShowActivity" />
@@ -23,7 +25,7 @@
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.auth.RegisterActivity" />
-        <activity android:name=".ui.auth.LoginActivity">
+        <activity android:name=".ui.auth.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

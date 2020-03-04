@@ -4,6 +4,7 @@ package com.groupfive.satapp.retrofit;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.AddTechnician;
+import com.groupfive.satapp.models.tickets.ChangeTicketState;
 import com.groupfive.satapp.models.tickets.EditTicketBody;
 import com.groupfive.satapp.models.tickets.TicketModel;
 
@@ -107,7 +108,7 @@ public interface SatAppService {
     Call<TicketModel> updateTickeAddTechnician(@Path("id") String id, @Body AddTechnician addTechnician);
 
     @PUT("/ticket/{id}/estado")
-    Call<TicketModel> updateTicketState(@Path("id") String id, @Body AddTechnician addTechnician);
+    Call<TicketModel> updateTicketState(@Path("id") String id, @Body ChangeTicketState changeTicketState);
 
     @GET("/ticket/user/me")
     Call<List<TicketModel>> getAllMyTickets(@Query("q") String toSearch,
