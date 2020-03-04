@@ -12,7 +12,7 @@ import com.groupfive.satapp.models.auth.AuthLoginUser;
 import java.util.List;
 
 import okhttp3.ResponseBody;
-import okhttp3.internal.connection.Exchange;
+
 
 public class UserViewModel extends AndroidViewModel {
 
@@ -31,19 +31,15 @@ public class UserViewModel extends AndroidViewModel {
         return user;
     }
 
-    public void AllUser(){
-        allUser = userSatAppRepository.getAllUsers();
-    }
 
     public MutableLiveData<List<AuthLoginUser>> getAllUser(){
+        allUser = userSatAppRepository.getAllUsers();
         return allUser;
     }
 
-    public void UsersValidated(){
-        usersValidated = userSatAppRepository.getUsersValidate();
-    }
 
     public MutableLiveData<List<AuthLoginUser>> getUsersValidated(){
+        usersValidated = userSatAppRepository.getUsersValidate();
         return usersValidated;
     }
 
@@ -53,5 +49,13 @@ public class UserViewModel extends AndroidViewModel {
 
     public void putValidated(String id){
         userSatAppRepository.putValidated(id);
+    }
+
+    public void deleteUser(String id){
+        userSatAppRepository.deleteUser(id);
+    }
+
+    public void putTecnico(String id){
+        userSatAppRepository.putTecnico(id);
     }
 }

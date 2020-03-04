@@ -86,8 +86,6 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
             }
         });
 
-        userViewModel.AllUser();
-        userViewModel.UsersValidated();
 
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
             @Override

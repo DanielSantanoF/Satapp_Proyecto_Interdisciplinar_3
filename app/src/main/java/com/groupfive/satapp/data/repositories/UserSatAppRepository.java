@@ -142,4 +142,42 @@ public class UserSatAppRepository {
             }
         });
     }
+
+    public void deleteUser(String id){
+        Call<ResponseBody> call = service.deleteUser(id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    Log.i("Deleted","Usuario borrado");
+                }else {
+                    Log.e("Deleted","Error al devolver el usuario borrado.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Deleted","Error al realizar la paticion de borrado de usuario.");
+            }
+        });
+    }
+
+    public void putTecnico(String id){
+        Call<AuthLoginUser> call = service.putTecnico(id);
+        call.enqueue(new Callback<AuthLoginUser>() {
+            @Override
+            public void onResponse(Call<AuthLoginUser> call, Response<AuthLoginUser> response) {
+                if (response.isSuccessful()){
+                    Log.i("Tecnico","Usuario ascendido a tecnico.");
+                }else {
+                    Log.e("Tecnico","Error al devolver el usuario ascendido a tecnico.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthLoginUser> call, Throwable t) {
+                Log.e("Tecnico","Error realizar la petición de ascender a tecnico.");
+            }
+        });
+    }
 }

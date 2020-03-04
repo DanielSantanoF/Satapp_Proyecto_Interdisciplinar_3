@@ -7,6 +7,7 @@ import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.List;
 
+import kotlin.PublishedApi;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -52,6 +53,12 @@ public interface SatAppService {
 
     @PUT("/users/{id}/validate")
     Call<AuthLoginUser> putValidated(@Path("id")String id);
+
+    @PUT("/users/{id}/tecnico")
+    Call<AuthLoginUser> putTecnico(@Path("id")String id);
+
+    @DELETE("/users/{id}")
+    Call<ResponseBody> deleteUser(@Path("id")String id);
 
 //    @Multipart
 //    @POST("/ticket")
