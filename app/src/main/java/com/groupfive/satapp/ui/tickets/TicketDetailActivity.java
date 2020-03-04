@@ -1,30 +1,27 @@
 package com.groupfive.satapp.ui.tickets;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
-import com.bumptech.glide.Glide;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.data.viewModel.TicketByIdViewModel;
@@ -38,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TicketDetailScrollingActivity extends AppCompatActivity {
+public class TicketDetailActivity extends AppCompatActivity {
 
     DateTransformation dateTransformer = new DateTransformation();
     String ticketId;
@@ -46,18 +43,15 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
     ImageView ivToolbar;
     SatAppService service;
     TextView txtTitle, txtCreatedByName, txtEmailCreatedBy, txtDate, txtState, txtDescription;
-    CollapsingToolbarLayout toolbarLayout;
     Button btnImgs;
     TicketModel ticketDetail;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ticket_detail_scrolling);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_ticket_detail);
 
-        toolbarLayout = findViewById(R.id.toolbar_layout);
         ivToolbar = findViewById(R.id.imageViewDetailTicketToolbar);
         txtTitle = findViewById(R.id.textViewTitleTicketDetail);
         txtCreatedByName = findViewById(R.id.textViewCreatedByTicketDetail);
@@ -66,6 +60,7 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
         txtState = findViewById(R.id.textViewStateTicketDetail);
         txtDescription = findViewById(R.id.textViewDescriptionTicketDetail);
         btnImgs = findViewById(R.id.buttonFotosTicektDetail);
+        progressBar = findViewById(R.id.progressBarTicketDetail);
 
         ticketId = getIntent().getExtras().get(Constants.EXTRA_TICKET_ID).toString();
 
@@ -79,7 +74,7 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EdtiTicketDialogFragment dialog = new EdtiTicketDialogFragment(TicketDetailScrollingActivity.this, ticketId);
+                EdtiTicketDialogFragment dialog = new EdtiTicketDialogFragment(TicketDetailActivity.this, ticketId);
                 dialog.show(getSupportFragmentManager(), "EdtiTicketDialogFragment");
                 //TODO REVISAR RECARGAR TICKET AL EDITARLO
                 dialog.onDismiss(new DialogInterface.OnDismissListener() {
@@ -109,7 +104,7 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_ticket_detail_scrolling, menu);
+        getMenuInflater().inflate(R.menu.menu_ticket_detail, menu);
         return true;
     }
 
@@ -117,7 +112,7 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_delete_ticket:
-                AlertDialog.Builder alert = new AlertDialog.Builder(TicketDetailScrollingActivity.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(TicketDetailActivity.this);
                 alert.setTitle(getResources().getString(R.string.delete_ticket_title));
                 alert.setMessage(getResources().getString(R.string.delete_ticket_message));
                 alert.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -129,14 +124,14 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                 if(response.code() == 204){
-                                    Toast.makeText(TicketDetailScrollingActivity.this, getResources().getString(R.string.ticket_deleted), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(TicketDetailActivity.this, getResources().getString(R.string.ticket_deleted), Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                Toast.makeText(TicketDetailScrollingActivity.this, getResources().getString(R.string.error_ticket_deleted), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TicketDetailActivity.this, getResources().getString(R.string.error_ticket_deleted), Toast.LENGTH_SHORT).show();
                             }
                         });
                         dialog.dismiss();
@@ -164,7 +159,7 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
                 return true;
             case R.id.action_add_thecnical:
                 //TODO Añadir tecnico NECESARIO UN USUARIO TECNICO EN LA BD
-                Intent i = new Intent(TicketDetailScrollingActivity.this, AddThechnicianShowActivity.class);
+                Intent i = new Intent(TicketDetailActivity.this, AddThechnicianShowActivity.class);
                 i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
                 startActivity(i);
                 return true;
@@ -178,7 +173,6 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
             @Override
             public void onChanged(TicketModel ticketModel) {
                 ticketDetail = ticketModel;
-                toolbarLayout.setTitle(ticketModel.getTitulo());
                 String string = ticketModel.getFotos().get(0);
                 String[] parts = string.split("/");
                 String part1 = parts[3];
@@ -191,25 +185,25 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
                             if (response.body() != null) {
                                 Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
                                 Glide
-                                        .with(TicketDetailScrollingActivity.this)
+                                        .with(TicketDetailActivity.this)
                                         .load(bmp)
-                                        .error(Glide.with(TicketDetailScrollingActivity.this).load(R.drawable.image_not_loaded_icon))
-                                        .thumbnail(Glide.with(TicketDetailScrollingActivity.this).load(R.drawable.loading_gif))
+                                        .error(Glide.with(TicketDetailActivity.this).load(R.drawable.image_not_loaded_icon))
+                                        .thumbnail(Glide.with(TicketDetailActivity.this).load(R.drawable.loading_gif))
                                         .into(ivToolbar);
                             }
                         } else {
                             Glide
-                                    .with(TicketDetailScrollingActivity.this)
+                                    .with(TicketDetailActivity.this)
                                     .load(R.drawable.image_not_loaded_icon)
-                                    .error(Glide.with(TicketDetailScrollingActivity.this).load(R.drawable.image_not_loaded_icon))
-                                    .thumbnail(Glide.with(TicketDetailScrollingActivity.this).load(R.drawable.loading_gif))
+                                    .error(Glide.with(TicketDetailActivity.this).load(R.drawable.image_not_loaded_icon))
+                                    .thumbnail(Glide.with(TicketDetailActivity.this).load(R.drawable.loading_gif))
                                     .into(ivToolbar);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(TicketDetailScrollingActivity.this, getResources().getString(R.string.error_loading_ticket), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TicketDetailActivity.this, getResources().getString(R.string.error_loading_ticket), Toast.LENGTH_SHORT).show();
                     }
                 });
                 txtTitle.setText(ticketModel.getTitulo());
@@ -222,6 +216,16 @@ public class TicketDetailScrollingActivity extends AppCompatActivity {
                 txtDate.setText(dateToShow);
                 txtState.setText(ticketModel.getEstado());
                 txtDescription.setText(ticketModel.getDescripcion());
+                progressBar.setVisibility(View.GONE);
+                ivToolbar.setVisibility(View.VISIBLE);
+                txtTitle.setVisibility(View.VISIBLE);
+                txtCreatedByName.setVisibility(View.VISIBLE);
+                txtEmailCreatedBy.setVisibility(View.VISIBLE);
+                txtDate.setVisibility(View.VISIBLE);
+                txtState.setVisibility(View.VISIBLE);
+                txtDescription.setVisibility(View.VISIBLE);
+                btnImgs.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
     }

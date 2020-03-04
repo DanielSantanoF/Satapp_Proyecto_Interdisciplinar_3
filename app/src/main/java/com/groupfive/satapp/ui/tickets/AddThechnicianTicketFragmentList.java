@@ -13,11 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.groupfive.satapp.R;
+import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.viewModel.AddThecnicianViewModel;
 import com.groupfive.satapp.listeners.IAddTechnicianListener;
 import com.groupfive.satapp.models.auth.AuthLogin;
+import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.ArrayList;
@@ -30,7 +34,7 @@ public class AddThechnicianTicketFragmentList extends Fragment {
     Context context;
     RecyclerView recyclerView;
     MyAddTechnicianTicketRecyclerViewAdapter adapter;
-    List<AuthLogin> allUsers = new ArrayList<>();
+    List<AuthLoginUser> allUsers = new ArrayList<>();
     AddThecnicianViewModel addThecnicianViewModel;
 
     public AddThechnicianTicketFragmentList() {
@@ -58,16 +62,22 @@ public class AddThechnicianTicketFragmentList extends Fragment {
             }
             adapter = new MyAddTechnicianTicketRecyclerViewAdapter(context, allUsers, mListener);
             recyclerView.setAdapter(adapter);
+            Toast.makeText(context, "Slect the user to assign to the ticket", Toast.LENGTH_SHORT).show();
             loadAllUsers();
         }
         return view;
     }
 
     public void loadAllUsers(){
-        addThecnicianViewModel.getAllUsers().observe(getActivity(), new Observer<List<AuthLogin>>() {
+        addThecnicianViewModel.getAllUsers().observe(getActivity(), new Observer<List<AuthLoginUser>>() {
             @Override
-            public void onChanged(List<AuthLogin> list) {
-                allUsers = list;
+            public void onChanged(List<AuthLoginUser> list) {
+                for (int i = 0; i <list.size() ; i++) {
+                    if(list.get(i).getRole().equals(Constants.ROLE_TECNICO)){
+                        allUsers.add(list.get(i));
+                    }
+                }
+                //allUsers = list;
                 adapter.setData(allUsers);
             }
         });

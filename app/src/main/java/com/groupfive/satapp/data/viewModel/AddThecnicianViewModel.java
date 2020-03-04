@@ -8,20 +8,21 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.groupfive.satapp.data.repositories.SatAppRepository;
 import com.groupfive.satapp.models.auth.AuthLogin;
+import com.groupfive.satapp.models.auth.AuthLoginUser;
 
 import java.util.List;
 
 public class AddThecnicianViewModel extends AndroidViewModel {
 
     private SatAppRepository satAppRepository;
-    private MutableLiveData<List<AuthLogin>> allUsers;
+    private MutableLiveData<List<AuthLoginUser>> allUsers;
 
     public AddThecnicianViewModel(@NonNull Application application) {
         super(application);
         satAppRepository = new SatAppRepository();
     }
 
-    public MutableLiveData<List<AuthLogin>> getAllUsers(){
+    public MutableLiveData<List<AuthLoginUser>> getAllUsers(){
         allUsers = satAppRepository.getAllUsers();
         return allUsers;
     }

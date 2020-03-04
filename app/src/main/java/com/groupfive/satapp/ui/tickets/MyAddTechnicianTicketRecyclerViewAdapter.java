@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.listeners.IAddTechnicianListener;
 import com.groupfive.satapp.models.auth.AuthLogin;
+import com.groupfive.satapp.models.auth.AuthLoginUser;
 
 import java.util.List;
 
@@ -18,10 +20,10 @@ import java.util.List;
 public class MyAddTechnicianTicketRecyclerViewAdapter extends RecyclerView.Adapter<MyAddTechnicianTicketRecyclerViewAdapter.ViewHolder> {
 
     private final Context context;
-    private List<AuthLogin> mValues;
+    private List<AuthLoginUser> mValues;
     private final IAddTechnicianListener mListener;
 
-    public MyAddTechnicianTicketRecyclerViewAdapter(Context context, List<AuthLogin> mValues, IAddTechnicianListener mListener) {
+    public MyAddTechnicianTicketRecyclerViewAdapter(Context context, List<AuthLoginUser> mValues, IAddTechnicianListener mListener) {
         this.context = context;
         this.mValues = mValues;
         this.mListener = mListener;
@@ -38,9 +40,9 @@ public class MyAddTechnicianTicketRecyclerViewAdapter extends RecyclerView.Adapt
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if(mValues != null){
             holder.mItem = mValues.get(position);
-            holder.txtName.setText(holder.mItem.getUser().getName());
-            holder.txtRole.setText(holder.mItem.getUser().getRole());
-            holder.txtContact.setText(holder.mItem.getUser().getEmail());
+            holder.txtName.setText(holder.mItem.getName());
+            holder.txtRole.setText(holder.mItem.getRole());
+            holder.txtContact.setText(holder.mItem.getEmail());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,9 +55,14 @@ public class MyAddTechnicianTicketRecyclerViewAdapter extends RecyclerView.Adapt
         }
     }
 
-    public void setData(List<AuthLogin> list){
-        this.mValues = list;
-        notifyDataSetChanged();
+    public void setData(List<AuthLoginUser> list){
+        if(mValues != null){
+            this.mValues = list;
+            notifyDataSetChanged();
+        } else {
+            Toast.makeText(context, "No technician users aviable", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -72,7 +79,7 @@ public class MyAddTechnicianTicketRecyclerViewAdapter extends RecyclerView.Adapt
         public final TextView txtName;
         public final TextView txtRole;
         public final TextView txtContact;
-        public AuthLogin mItem;
+        public AuthLoginUser mItem;
 
         public ViewHolder(View view) {
             super(view);
