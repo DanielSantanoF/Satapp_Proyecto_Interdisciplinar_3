@@ -55,6 +55,7 @@ public class NewTicketDialogFragment extends DialogFragment {
     ImageView ivFotoLoaded;
     SatAppService service;
     ArrayList<Uri> fileUris = new ArrayList<Uri>();
+    Activity act;
 
     public NewTicketDialogFragment(Context ctx) {
         this.ctx = ctx;
@@ -71,6 +72,8 @@ public class NewTicketDialogFragment extends DialogFragment {
 
         v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_new_ticket, null);
         builder.setView(v);
+
+        act = (Activity) ctx;
 
         edTitle = v.findViewById(R.id.editTextTitleNewTicket);
         edDescription = v.findViewById(R.id.editTextDescriptionNewTicket);
@@ -101,7 +104,6 @@ public class NewTicketDialogFragment extends DialogFragment {
                 } else {
                     if (fileUris != null) {
                         try {
-                            Activity act = (Activity) ctx;
 
                             //TEXT PARTS
                             RequestBody titleBody = RequestBody.create(MultipartBody.FORM, title);
@@ -142,7 +144,7 @@ public class NewTicketDialogFragment extends DialogFragment {
                                     if (response.isSuccessful()) {
                                         Log.d("Uploaded", "Éxito");
                                         Log.d("Uploaded", response.body().toString());
-                                        Toast.makeText(MyApp.getContext(), getResources().getString(R.string.new_ticket_created), Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(act, getResources().getString(R.string.new_ticket_created), Toast.LENGTH_SHORT).show();
                                     } else {
                                         Log.e("Upload error", response.errorBody().toString());
                                     }
@@ -193,16 +195,21 @@ public class NewTicketDialogFragment extends DialogFragment {
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK && resultData != null) {
             ClipData clipData = resultData.getClipData();
             fileUris.clear();
-            for (int i = 0; i < clipData.getItemCount(); i++) {
-                ClipData.Item item = clipData.getItemAt(i);
-                Uri uri = item.getUri();
+            if(clipData != null){
+                for (int i = 0; i < clipData.getItemCount(); i++) {
+                    ClipData.Item item = clipData.getItemAt(i);
+                    Uri uri = item.getUri();
+                    fileUris.add(uri);
+                }
+            } else {
+                Uri uri = resultData.getData();
                 fileUris.add(uri);
             }
             Glide
-                            .with(this)
-                            .load(fileUris.get(0))
-                            .transform(new CircleCrop())
-                            .into(ivFotoLoaded);
+                    .with(this)
+                    .load(fileUris.get(0))
+                    .transform(new CircleCrop())
+                    .into(ivFotoLoaded);
         }
     }
 
