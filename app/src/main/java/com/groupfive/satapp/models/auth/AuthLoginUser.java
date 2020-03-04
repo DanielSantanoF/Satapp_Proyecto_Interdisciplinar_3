@@ -34,5 +34,5 @@ public class AuthLoginUser {
     public String updatedAt;
     @SerializedName("validated")
     @Expose
-    public String validated;
+    public Boolean validated;
 }

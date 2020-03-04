@@ -9,6 +9,8 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.groupfive.satapp.R;
+import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
@@ -30,12 +33,14 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
     private Context ctx;
     private UserViewModel userViewModel;
     private UserSatAppRepository userSatAppRepository;
+    private Boolean validated;
 
-    public MyUsersRecyclerViewAdapter(Context ctx, List<AuthLoginUser> items, UserViewModel userViewModel) {
+    public MyUsersRecyclerViewAdapter(Context ctx, List<AuthLoginUser> items, UserViewModel userViewModel,Boolean validated) {
         this.ctx = ctx;
         this.mValues = items;
         this.userViewModel = userViewModel;
         this.userSatAppRepository = new UserSatAppRepository();
+        this.validated = validated;
     }
 
     @Override
@@ -69,6 +74,19 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
                     .circleCrop()
                     .into(holder.foto);
         }
+
+        if (validated){
+            holder.vali.setVisibility(View.GONE);
+        }else {
+            holder.check.setVisibility(View.GONE);
+            holder.cancel.setVisibility(View.GONE);
+            if (!holder.mItem.validated){
+                Glide.with(ctx)
+                        .load(R.drawable.ic_validated)
+                        .centerCrop()
+                        .into(holder.vali);
+            }
+        }
     }
 
     @Override
@@ -82,6 +100,9 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
         public final TextView name;
         public final TextView email;
         public final TextView rol;
+        public final ImageButton check;
+        public final ImageButton cancel;
+        public final ImageView vali;
         public AuthLoginUser mItem;
 
         public ViewHolder(View view) {
@@ -91,6 +112,9 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
             email = view.findViewById(R.id.textViewEmailList);
             rol = view.findViewById(R.id.textViewRolList);
             foto = view.findViewById(R.id.imageViewFotoList);
+            check = view.findViewById(R.id.imageButtonValidated);
+            cancel = view.findViewById(R.id.imageButtonCancel);
+            vali = view.findViewById(R.id.imageViewValidated);
 
         }
     }

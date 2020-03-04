@@ -78,7 +78,8 @@ public class UsersFragment extends Fragment {
         adapterUser = new MyUsersRecyclerViewAdapter(
                 context,
                 listUsers,
-                userViewModel
+                userViewModel,
+                false
         );
         users.setAdapter(adapterUser);
 
@@ -102,7 +103,8 @@ public class UsersFragment extends Fragment {
         adapterValidate = new MyUsersRecyclerViewAdapter(
                 context,
                 listValidates,
-                userViewModel
+                userViewModel,
+                true
         );
 
         validated.setAdapter(adapterValidate);

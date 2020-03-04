@@ -123,4 +123,23 @@ public class UserSatAppRepository {
         usersValidated = data;
         return data;
     }
+
+    public void putValidated(String id){
+        Call<AuthLoginUser> call = service.putValidated(id);
+        call.enqueue(new Callback<AuthLoginUser>() {
+            @Override
+            public void onResponse(Call<AuthLoginUser> call, Response<AuthLoginUser> response) {
+                if (response.isSuccessful()){
+                    Log.i("Validated","Usuario Validado");
+                }else {
+                    Log.e("Validated","Error al devolver el usuario validado");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthLoginUser> call, Throwable t) {
+                Log.e("Validated","Error al realizar la petición de validación");
+            }
+        });
+    }
 }
