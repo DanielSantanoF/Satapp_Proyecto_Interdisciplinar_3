@@ -17,6 +17,7 @@ import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.listeners.ITicketAnnotationListener;
+import com.groupfive.satapp.listeners.OnUpdateAnnotationDialogListener;
 import com.groupfive.satapp.models.tickets.TicketAnotaciones;
 import com.groupfive.satapp.models.tickets.TicketWithAnnotations;
 import com.groupfive.satapp.retrofit.SatAppService;
@@ -29,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AllTicketAnnotationFragmentList extends Fragment {
+public class AllTicketAnnotationFragmentList extends Fragment implements OnUpdateAnnotationDialogListener {
 
     private int mColumnCount = 1;
     private ITicketAnnotationListener mListener;
@@ -38,6 +39,7 @@ public class AllTicketAnnotationFragmentList extends Fragment {
     MyAllTicketAnnotationRecyclerViewAdapter adapter;
     List<TicketAnotaciones> annotationList = new ArrayList<>();
     SatAppService service;
+    OnUpdateAnnotationDialogListener onUpdateAnnotationDialogListener;
 
     public AllTicketAnnotationFragmentList() {
     }
@@ -60,7 +62,9 @@ public class AllTicketAnnotationFragmentList extends Fragment {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            } adapter = new MyAllTicketAnnotationRecyclerViewAdapter(context,annotationList, mListener);
+            }
+            onUpdateAnnotationDialogListener = this;
+            adapter = new MyAllTicketAnnotationRecyclerViewAdapter(context,annotationList, mListener, onUpdateAnnotationDialogListener);
             recyclerView.setAdapter(adapter);
             loadAnnotations();
         }
@@ -106,5 +110,10 @@ public class AllTicketAnnotationFragmentList extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onAnnotationUpdate() {
+        loadAnnotations();
     }
 }

@@ -38,11 +38,13 @@ public class MyAllTicketAnnotationRecyclerViewAdapter extends RecyclerView.Adapt
     private final ITicketAnnotationListener mListener;
     SatAppService service;
     Activity activity;
+    private final OnUpdateAnnotationDialogListener onUpdateAnnotationDialogListener;
 
-    public MyAllTicketAnnotationRecyclerViewAdapter(Context context, List<TicketAnotaciones> mValues, ITicketAnnotationListener mListener) {
+    public MyAllTicketAnnotationRecyclerViewAdapter(Context context, List<TicketAnotaciones> mValues, ITicketAnnotationListener mListener, OnUpdateAnnotationDialogListener onUpdateAnnotationDialogListener) {
         this.context = context;
         this.mValues = mValues;
         this.mListener = mListener;
+        this.onUpdateAnnotationDialogListener = onUpdateAnnotationDialogListener;
         service = SatAppServiceGenerator.createService(SatAppService.class);
         activity = (Activity)context;
     }
@@ -66,8 +68,8 @@ public class MyAllTicketAnnotationRecyclerViewAdapter extends RecyclerView.Adapt
             holder.btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO REFRESH AFTER UPDATE AND DISMISS DIALOG
-                    EditAnnotationDialogFragment dialog = new EditAnnotationDialogFragment(activity, holder.mItem.getId(), null);
+                    //TODO SET LISTENER TO DIALOG TO REFRESH
+                    EditAnnotationDialogFragment dialog = new EditAnnotationDialogFragment(activity, holder.mItem.getId(), onUpdateAnnotationDialogListener);
                     dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "EditAnnotationDialogFragment");
                 }
             });
