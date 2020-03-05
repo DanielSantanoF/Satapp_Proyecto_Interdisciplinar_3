@@ -18,12 +18,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.listeners.ITicketAnnotationListener;
+import com.groupfive.satapp.listeners.OnUpdateAnnotationDialogListener;
 import com.groupfive.satapp.models.tickets.TicketAnotaciones;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.ui.annotations.EditAnnotationDialogFragment;
-import com.groupfive.satapp.ui.tickets.ticketdetail.EdtiTicketDialogFragment;
-import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
 
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class MyAllTicketAnnotationRecyclerViewAdapter extends RecyclerView.Adapt
                 @Override
                 public void onClick(View v) {
                     //TODO REFRESH AFTER UPDATE AND DISMISS DIALOG
-                    EditAnnotationDialogFragment dialog = new EditAnnotationDialogFragment(activity, holder.mItem.getId());
+                    EditAnnotationDialogFragment dialog = new EditAnnotationDialogFragment(activity, holder.mItem.getId(), null);
                     dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "EditAnnotationDialogFragment");
                 }
             });

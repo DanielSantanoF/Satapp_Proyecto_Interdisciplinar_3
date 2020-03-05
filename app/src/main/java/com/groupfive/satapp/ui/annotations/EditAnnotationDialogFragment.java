@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
+import com.groupfive.satapp.listeners.OnUpdateAnnotationDialogListener;
 import com.groupfive.satapp.models.annotations.NewAnnotation;
 import com.groupfive.satapp.models.annotations.UpdateAnnotation;
 import com.groupfive.satapp.retrofit.SatAppService;
@@ -31,10 +32,12 @@ public class EditAnnotationDialogFragment extends DialogFragment {
     EditText edCuerpo;
     SatAppService service;
     String idAnnotation;
+    OnUpdateAnnotationDialogListener mListener;
 
-    public EditAnnotationDialogFragment(Context ctx, String annotationId) {
+    public EditAnnotationDialogFragment(Context ctx, String annotationId, OnUpdateAnnotationDialogListener onUpdateAnnotationDialogListener) {
         this.ctx = ctx;
         this.idAnnotation = annotationId;
+        this.mListener = onUpdateAnnotationDialogListener;
     }
 
     @NonNull
@@ -66,6 +69,9 @@ public class EditAnnotationDialogFragment extends DialogFragment {
                     call.enqueue(new Callback<NewAnnotation>() {
                         @Override
                         public void onResponse(Call<NewAnnotation> call, Response<NewAnnotation> response) {
+                            if(mListener != null){
+                                mListener.onAnnotationUpdate();
+                            }
                             Toast.makeText(MyApp.getContext(), "Annotation edited", Toast.LENGTH_SHORT).show();
                         }
 

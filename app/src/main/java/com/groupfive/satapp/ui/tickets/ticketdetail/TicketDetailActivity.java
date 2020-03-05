@@ -25,6 +25,7 @@ import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.data.viewModel.TicketByIdViewModel;
+import com.groupfive.satapp.listeners.OnNewTicketDialogListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
@@ -40,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TicketDetailActivity extends AppCompatActivity {
+public class TicketDetailActivity extends AppCompatActivity implements OnNewTicketDialogListener{
 
     DateTransformation dateTransformer = new DateTransformation();
     String ticketId;
@@ -52,6 +53,7 @@ public class TicketDetailActivity extends AppCompatActivity {
     TicketModel ticketDetail;
     FloatingActionButton fab;
     //ProgressBar progressBar;
+    OnNewTicketDialogListener newTicketDialogListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,15 +83,8 @@ public class TicketDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EdtiTicketDialogFragment dialog = new EdtiTicketDialogFragment(TicketDetailActivity.this, ticketId);
+                EdtiTicketDialogFragment dialog = new EdtiTicketDialogFragment(TicketDetailActivity.this, ticketId, TicketDetailActivity.this);
                 dialog.show(getSupportFragmentManager(), "EdtiTicketDialogFragment");
-                //TODO REVISAR RECARGAR TICKET AL EDITARLO
-                dialog.onDismiss(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        loadTicket();
-                    }
-                });
             }
         });
 
@@ -249,5 +244,11 @@ public class TicketDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onTicketUpdated() {
+        loadTicket();
+    }
+
 
 }
