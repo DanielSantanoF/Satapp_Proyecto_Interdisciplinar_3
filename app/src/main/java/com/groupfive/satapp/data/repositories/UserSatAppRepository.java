@@ -18,6 +18,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -139,6 +140,82 @@ public class UserSatAppRepository {
             @Override
             public void onFailure(Call<AuthLoginUser> call, Throwable t) {
                 Log.e("Validated","Error al realizar la petición de validación");
+            }
+        });
+    }
+
+    public void deleteUser(String id){
+        Call<ResponseBody> call = service.deleteUser(id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    Log.i("Deleted","Usuario borrado");
+                }else {
+                    Log.e("Deleted","Error al devolver el usuario borrado.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Deleted","Error al realizar la paticion de borrado de usuario.");
+            }
+        });
+    }
+
+    public void putTecnico(String id){
+        Call<AuthLoginUser> call = service.putTecnico(id);
+        call.enqueue(new Callback<AuthLoginUser>() {
+            @Override
+            public void onResponse(Call<AuthLoginUser> call, Response<AuthLoginUser> response) {
+                if (response.isSuccessful()){
+                    Log.i("Tecnico","Usuario ascendido a tecnico.");
+                }else {
+                    Log.e("Tecnico","Error al devolver el usuario ascendido a tecnico.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthLoginUser> call, Throwable t) {
+                Log.e("Tecnico","Error realizar la petición de ascender a tecnico.");
+            }
+        });
+    }
+
+    public void updatePhoto(String id, MultipartBody.Part avatar){
+        Call<AuthLoginUser> call = service.updatePhoto(id,avatar);
+        call.enqueue(new Callback<AuthLoginUser>() {
+            @Override
+            public void onResponse(Call<AuthLoginUser> call, Response<AuthLoginUser> response) {
+                if (response.isSuccessful()){
+                    Log.i("uptade","Foto actualizada correctamente");
+                }else{
+                    Log.e("update","Error al recivir el usuario cuando se cambia la foto");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthLoginUser> call, Throwable t) {
+                Log.e("update","Error al realizar la peticion de actualización de foto");
+            }
+        });
+    }
+
+    public void deletePhoto (String id){
+        Call<ResponseBody> call = service.deletePhoto(id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    Log.i("deletePhoto","Foto borrada correctamente");
+                }else{
+                    Log.e("deletePhoto","Error al recivir el usuario sn foto");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("deletePhoto","Error al realizar la petición de borrado de foto");
             }
         });
     }
