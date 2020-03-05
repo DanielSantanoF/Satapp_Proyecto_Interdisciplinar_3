@@ -3,6 +3,7 @@ package com.groupfive.satapp.retrofit;
 
 import com.groupfive.satapp.models.annotations.NewAnnotation;
 import com.groupfive.satapp.models.annotations.NewAnnotationBody;
+import com.groupfive.satapp.models.annotations.UpdateAnnotation;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.AddTechnician;
@@ -132,5 +133,11 @@ public interface SatAppService {
 
     @POST("/anotacion")
     Call<NewAnnotation> postAnnotation(@Body NewAnnotationBody newAnnotationBody);
+
+    @DELETE("/anotacion/{id}")
+    Call<ResponseBody> deleteAnnotationById(@Path("id") String id);
+
+    @PUT("/anotacion/{id}")
+    Call<NewAnnotation> updateAnotation(@Path("id") String id, @Body UpdateAnnotation updateAnnotation);
 
 }
