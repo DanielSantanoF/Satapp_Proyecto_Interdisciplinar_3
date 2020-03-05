@@ -75,6 +75,13 @@ public interface SatAppService {
                                     @Part("titulo") RequestBody titulo,
                                     @Part("descripcion") RequestBody descripcion);
 
+    @Multipart
+    @POST("/ticket")
+    Call<TicketModel> postNewTicketByInventariableId(@Part List<MultipartBody.Part> fotos,
+                                                     @Part("titulo") RequestBody titulo,
+                                                     @Part("descripcion") RequestBody descripcion,
+                                                     @Part("inventariable") RequestBody inventariable);
+
     /* ALL QUERYS ARE OPTIONALS IF ISN'T NEED SEND IT AS A null
     Query -> q: Query to search
     Query -> page: Page number

@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewTicketDialogFragment dialog = new NewTicketDialogFragment(MainActivity.this);
+                NewTicketDialogFragment dialog = new NewTicketDialogFragment(MainActivity.this, null);
                 dialog.show(getSupportFragmentManager(), "NewTicketDialogFragment");
             }
         });

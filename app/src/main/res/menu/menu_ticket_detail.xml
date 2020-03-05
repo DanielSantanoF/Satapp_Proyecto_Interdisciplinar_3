@@ -25,4 +25,7 @@
     <item
         android:id="@+id/action_all_anotations"
         android:title="@string/action_all_anotations" />
+    <item
+        android:id="@+id/action_add_to_calendar"
+        android:title="@string/action_add_to_calendar" />
 </menu>

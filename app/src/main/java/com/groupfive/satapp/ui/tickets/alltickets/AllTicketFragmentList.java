@@ -131,7 +131,7 @@ public class AllTicketFragmentList extends Fragment {
                 startActivity(created);
                 break;
             case R.id.action_add_ticket:
-                NewTicketDialogFragment dialog = new NewTicketDialogFragment(getActivity());
+                NewTicketDialogFragment dialog = new NewTicketDialogFragment(getActivity(), null);
                 dialog.show(getActivity().getSupportFragmentManager(), "NewTicketDialogFragment");
                 break;
         }

@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.annotations;
+package com.groupfive.satapp.ui.annotations.editannotation;
 
 import android.app.Activity;
 import android.app.AlertDialog;

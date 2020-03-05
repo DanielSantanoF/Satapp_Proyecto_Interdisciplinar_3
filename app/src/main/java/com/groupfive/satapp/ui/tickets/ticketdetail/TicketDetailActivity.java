@@ -177,6 +177,10 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                 Intent intentAnnotation = new Intent(TicketDetailActivity.this, ShowAllTicketAnnotationsActivity.class);
                 startActivity(intentAnnotation);
                 return true;
+            case R.id.action_add_to_calendar:
+                //TODO ADD THIS TICKET TO THE CALENDAR
+                Toast.makeText(this, "WORKING", Toast.LENGTH_SHORT).show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -59,4 +59,6 @@
     <string name="edt_cuerpo_new_annotation">Anotación...</string>
     <string name="action_add_ticket" >Añadir un nuevo ticket</string>
     <string name="hint_cuerpo_update_annotation">Cuerpo</string>
+    <string name="action_add_to_calendar">Añadir ticket al calendario</string>
+    <string name="action_add_all_to_calendar">Añadir tickets al calendario</string>
 </resources>

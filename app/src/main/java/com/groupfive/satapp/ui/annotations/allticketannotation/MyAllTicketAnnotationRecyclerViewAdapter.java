@@ -22,7 +22,7 @@ import com.groupfive.satapp.listeners.OnUpdateAnnotationDialogListener;
 import com.groupfive.satapp.models.tickets.TicketAnotaciones;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
-import com.groupfive.satapp.ui.annotations.EditAnnotationDialogFragment;
+import com.groupfive.satapp.ui.annotations.editannotation.EditAnnotationDialogFragment;
 
 import java.util.List;
 
@@ -68,7 +68,6 @@ public class MyAllTicketAnnotationRecyclerViewAdapter extends RecyclerView.Adapt
             holder.btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO SET LISTENER TO DIALOG TO REFRESH
                     EditAnnotationDialogFragment dialog = new EditAnnotationDialogFragment(activity, holder.mItem.getId(), onUpdateAnnotationDialogListener);
                     dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "EditAnnotationDialogFragment");
                 }
