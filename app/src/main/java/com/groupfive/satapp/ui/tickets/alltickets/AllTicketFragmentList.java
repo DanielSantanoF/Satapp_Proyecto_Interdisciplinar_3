@@ -24,7 +24,9 @@ import com.groupfive.satapp.R;
 import com.groupfive.satapp.data.viewModel.GetAllTicketsViewModel;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
+import com.groupfive.satapp.ui.MainActivity;
 import com.groupfive.satapp.ui.tickets.assignedtickets.ShowAssignedTicketsActivity;
+import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
 import com.groupfive.satapp.ui.tickets.usertickets.ShowAllMyTicketsActivity;
 
 import java.util.ArrayList;
@@ -127,6 +129,10 @@ public class AllTicketFragmentList extends Fragment {
             case R.id.action_created_tickets:
                 Intent created = new Intent(getActivity(), ShowAllMyTicketsActivity.class);
                 startActivity(created);
+                break;
+            case R.id.action_add_ticket:
+                NewTicketDialogFragment dialog = new NewTicketDialogFragment(getActivity());
+                dialog.show(getActivity().getSupportFragmentManager(), "NewTicketDialogFragment");
                 break;
         }
         return super.onOptionsItemSelected(item);

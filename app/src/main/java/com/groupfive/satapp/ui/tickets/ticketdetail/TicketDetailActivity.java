@@ -29,7 +29,8 @@ import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
-import com.groupfive.satapp.ui.annotations.NewAnnotationDialogFragment;
+import com.groupfive.satapp.ui.annotations.allticketannotation.ShowAllTicketAnnotationsActivity;
+import com.groupfive.satapp.ui.annotations.newannotation.NewAnnotationDialogFragment;
 import com.groupfive.satapp.ui.tickets.addtechnician.AddThechnicianShowActivity;
 import com.groupfive.satapp.ui.tickets.changestate.ChangeStateTicketActivity;
 import com.groupfive.satapp.ui.tickets.phototicketdetail.ShowPhotosTicektActivity;
@@ -68,6 +69,7 @@ public class TicketDetailActivity extends AppCompatActivity {
        // progressBar = findViewById(R.id.progressBarTicketDetail);
 
         ticketId = getIntent().getExtras().get(Constants.EXTRA_TICKET_ID).toString();
+        SharedPreferencesManager.setStringValue("ticketId", ticketId);
 
         ticketByIdViewModel = new ViewModelProvider(this).get(TicketByIdViewModel.class);
         ticketByIdViewModel.setTicketId(ticketId);
@@ -96,13 +98,7 @@ public class TicketDetailActivity extends AppCompatActivity {
         btnImgs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO MOSTRAR IMAGENES DE MANERA DINAMICA
-//                Intent fotos = new Intent(TicketDetailActivity.this, FotosTicketDetailActivity.class);
-//                fotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
-//                startActivity(fotos);
                 Intent intentFotos = new Intent(TicketDetailActivity.this, ShowPhotosTicektActivity.class);
-                //intentFotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
-                SharedPreferencesManager.setStringValue("ticketId", ticketId);
                 startActivity(intentFotos);
             }
         });
@@ -183,7 +179,8 @@ public class TicketDetailActivity extends AppCompatActivity {
                 dialog.show(getSupportFragmentManager(), "NewAnnotationDialogFragment");
                 return true;
             case R.id.action_all_anotations:
-                //TODO VER TODAS LAS ANOTACIONES DEL TICKET
+                Intent intentAnnotation = new Intent(TicketDetailActivity.this, ShowAllTicketAnnotationsActivity.class);
+                startActivity(intentAnnotation);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

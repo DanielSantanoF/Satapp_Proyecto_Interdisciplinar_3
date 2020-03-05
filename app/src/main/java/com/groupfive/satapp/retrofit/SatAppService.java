@@ -9,6 +9,7 @@ import com.groupfive.satapp.models.tickets.AddTechnician;
 import com.groupfive.satapp.models.tickets.ChangeTicketState;
 import com.groupfive.satapp.models.tickets.EditTicketBody;
 import com.groupfive.satapp.models.tickets.TicketModel;
+import com.groupfive.satapp.models.tickets.TicketWithAnnotations;
 
 import java.util.List;
 
@@ -125,6 +126,9 @@ public interface SatAppService {
                                             @Query("limit") Integer limitOfElements,
                                             @Query("sort") String orderOfReturnedItems,
                                             @Query("fields") String fieldsToBeReturned);
+
+    @GET("/ticket/{id}")
+    Call<TicketWithAnnotations> getTicketByIdForAnnotaions(@Path("id") String id);
 
     @POST("/anotacion")
     Call<NewAnnotation> postAnnotation(@Body NewAnnotationBody newAnnotationBody);

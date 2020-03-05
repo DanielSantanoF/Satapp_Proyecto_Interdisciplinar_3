@@ -57,4 +57,5 @@
     <string name="action_all_anotations">Ver anotaciones del ticket</string>
     <string name="action_add_anotation">Añadir anotación</string>
     <string name="edt_cuerpo_new_annotation">Anotación...</string>
+    <string name="action_add_ticket" >Añadir un nuevo ticket</string>
 </resources>

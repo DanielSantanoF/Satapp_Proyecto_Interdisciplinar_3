@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TicketModel {
+public class TicketWithAnnotations {
     @SerializedName("id")
     @Expose
     public String id;
@@ -33,7 +33,7 @@ public class TicketModel {
     public String descripcion;
     @SerializedName("anotaciones")
     @Expose
-    public List<AnnotationTicketModel> anotaciones = null;
+    public List<TicketAnotaciones> anotaciones = null;
     @SerializedName("asignaciones")
     @Expose
     public List<TicketAsignaciones> asignaciones = null;
