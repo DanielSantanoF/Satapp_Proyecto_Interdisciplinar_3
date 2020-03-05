@@ -43,8 +43,8 @@ public class NewAnnotationDialogFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("New Annotation");
-        builder.setMessage("Make a new Annotation with your data");
+        builder.setTitle(getResources().getString(R.string.new_annotation_title));
+        builder.setMessage(getResources().getString(R.string.new_annotation_message));
 
         builder.setCancelable(true);
 
@@ -53,13 +53,13 @@ public class NewAnnotationDialogFragment extends DialogFragment {
 
         etCuerpo= v.findViewById(R.id.editTextCorpNewAnnotation);
 
-        builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.create), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String cuerpo = etCuerpo.getText().toString();
 
                 if(cuerpo.isEmpty()) {
-                    etCuerpo.setError("Needed a corp");
+                    etCuerpo.setError(getResources().getString(R.string.edit_annotation_corp_needed));
                 } else {
                     act = (Activity) ctx;
                     service = SatAppServiceGenerator.createService(SatAppService.class);
@@ -68,12 +68,12 @@ public class NewAnnotationDialogFragment extends DialogFragment {
                     call.enqueue(new Callback<NewAnnotation>() {
                         @Override
                         public void onResponse(Call<NewAnnotation> call, Response<NewAnnotation> response) {
-                            Toast.makeText(act, "Annotation created", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(act, getResources().getString(R.string.new_annotation_succed), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onFailure(Call<NewAnnotation> call, Throwable t) {
-                            Toast.makeText(act, "Error creating the new annotation", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(act, getResources().getString(R.string.new_annotation_error), Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -82,7 +82,7 @@ public class NewAnnotationDialogFragment extends DialogFragment {
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

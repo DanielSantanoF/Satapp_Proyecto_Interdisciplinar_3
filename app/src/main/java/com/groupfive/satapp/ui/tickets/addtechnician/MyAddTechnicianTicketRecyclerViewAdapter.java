@@ -59,7 +59,7 @@ public class MyAddTechnicianTicketRecyclerViewAdapter extends RecyclerView.Adapt
             this.mValues = list;
             notifyDataSetChanged();
         } else {
-            Toast.makeText(context, "No technician users aviable", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getResources().getString(R.string.technician_added_no_one_aviable), Toast.LENGTH_SHORT).show();
         }
 
     }

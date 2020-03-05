@@ -82,13 +82,13 @@ public class AllTicketAnnotationFragmentList extends Fragment implements OnUpdat
                     annotationList = response.body().getAnotaciones();
                     adapter.setData(annotationList);
                 } else {
-                    Toast.makeText(getActivity(), "This ticket have 0 Annotations", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.ticket_have_cero_annotations), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<TicketWithAnnotations> call, Throwable t) {
-                Toast.makeText(getActivity(), "Error loadin Annotations", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.error_loading_annotations), Toast.LENGTH_SHORT).show();
             }
         });
 

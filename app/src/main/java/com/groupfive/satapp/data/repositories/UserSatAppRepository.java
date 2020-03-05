@@ -59,7 +59,7 @@ public class UserSatAppRepository {
 
             @Override
             public void onFailure(Call<AuthLoginUser> call, Throwable t) {
-                Toast.makeText(MyApp.getContext(), "Error al realizar la petición de usuario.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         user = data;
@@ -116,7 +116,7 @@ public class UserSatAppRepository {
             }
             @Override
             public void onFailure(Call<List<AuthLoginUser>> call, Throwable t) {
-
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         allUser = data;
@@ -139,7 +139,7 @@ public class UserSatAppRepository {
             }
             @Override
             public void onFailure(Call<List<AuthLoginUser>> call, Throwable t) {
-
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         usersValidated = data;
@@ -161,6 +161,7 @@ public class UserSatAppRepository {
             @Override
             public void onFailure(Call<AuthLoginUser> call, Throwable t) {
                 Log.e("Validated","Error al realizar la petición de validación");
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -180,6 +181,7 @@ public class UserSatAppRepository {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Deleted","Error al realizar la paticion de borrado de usuario.");
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -199,6 +201,7 @@ public class UserSatAppRepository {
             @Override
             public void onFailure(Call<AuthLoginUser> call, Throwable t) {
                 Log.e("Tecnico","Error realizar la petición de ascender a tecnico.");
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -218,6 +221,7 @@ public class UserSatAppRepository {
             @Override
             public void onFailure(Call<AuthLoginUser> call, Throwable t) {
                 Log.e("update","Error al realizar la peticion de actualización de foto");
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -237,6 +241,7 @@ public class UserSatAppRepository {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("deletePhoto","Error al realizar la petición de borrado de foto");
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -258,6 +263,7 @@ public class UserSatAppRepository {
             @Override
             public void onFailure(Call<AuthLoginUser> call, Throwable t) {
                 Log.e("putUser","Error al realizar la petición de modificar usuario");
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         userModificate = data;
@@ -282,6 +288,7 @@ public class UserSatAppRepository {
             @Override
             public void onFailure(Call<AuthLoginUser> call, Throwable t) {
                 Log.e("putPasswor","Error al realizar la petición de cambio de contraseña");
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         userPassword = data;
@@ -305,6 +312,7 @@ public class UserSatAppRepository {
             @Override
             public void onFailure(Call<AuthLoginUser> call, Throwable t) {
                 Log.e("getUserId","Error al realizar la petición por id");
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         userId = data;

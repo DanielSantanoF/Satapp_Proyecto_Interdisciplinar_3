@@ -263,7 +263,15 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                 String date = partsDate[0];
                 String dateToShow = dateTransformer.dateTransformation(date);
                 txtDate.setText(dateToShow);
-                txtState.setText(ticketModel.getEstado());
+                if(ticketModel.getEstado() == getResources().getString(R.string.btn_state_pendiente)){
+                    txtState.setText(getResources().getString(R.string.state) + " " + getResources().getString(R.string.btn_state_pendiente));
+                } else if(ticketModel.getEstado() == getResources().getString(R.string.btn_asignada)){
+                    txtState.setText(getResources().getString(R.string.state) + " " + getResources().getString(R.string.btn_asignada));
+                } else if(ticketModel.getEstado() == getResources().getString(R.string.btn_en_proceso)){
+                    txtState.setText(getResources().getString(R.string.state) + " " + getResources().getString(R.string.btn_en_proceso));
+                } else if(ticketModel.getEstado() == getResources().getString(R.string.btn_solucionada)){
+                    txtState.setText(getResources().getString(R.string.state) + " " + getResources().getString(R.string.btn_solucionada));
+                }
                 txtDescription.setText(ticketModel.getDescripcion());
                 //progressBar.setVisibility(View.INVISIBLE);
                 ivToolbar.setVisibility(View.VISIBLE);
@@ -341,7 +349,7 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
         }
         Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values);
 
-        Toast.makeText(this, "New event added to the calendar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.calendar_event_added), Toast.LENGTH_SHORT).show();
     }
 
     private void requestPermissionReadCalendar() {

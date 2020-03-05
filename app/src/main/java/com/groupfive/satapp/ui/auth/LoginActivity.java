@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthLogin> call, Throwable t) {
-                Toast.makeText(MyApp.getContext(), "Error al hacer la petición.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
                 Log.i("user", "peor");
             }
         });
@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(i);
                         finish();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Token expired", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_token_expired), Toast.LENGTH_SHORT).show();
                         cardView.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                     }
@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<AuthLoginUser> call, Throwable t) {
-                    Toast.makeText(LoginActivity.this, "Error in the connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
                     cardView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
                 }

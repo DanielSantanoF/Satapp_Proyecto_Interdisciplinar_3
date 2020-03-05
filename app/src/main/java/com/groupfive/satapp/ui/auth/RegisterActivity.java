@@ -68,12 +68,12 @@ public class RegisterActivity extends AppCompatActivity {
                 if (
                         email.getText().toString().isEmpty() || name.getText().toString().isEmpty() || passwor1.getText().toString().isEmpty() || password2.getText().toString().isEmpty()
                 ){
-                    Toast.makeText(RegisterActivity.this, "Debe rellenar todos los campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.register_complete_all_fields), Toast.LENGTH_SHORT).show();
 
                 }else if(
                         !passwor1.getText().toString().equals(password2.getText().toString())
                 ){
-                    Toast.makeText(RegisterActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.register_paswords_not_match), Toast.LENGTH_SHORT).show();
                 }else {
                     if (uriS != null) {
 

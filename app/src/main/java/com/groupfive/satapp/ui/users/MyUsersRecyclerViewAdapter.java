@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.groupfive.satapp.R;
+import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
@@ -63,7 +64,7 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
         holder.check.setVisibility(View.GONE);
         holder.tecnico.setVisibility(View.GONE);
 
-        if(holder.mItem.role.equals("admin")){
+        if(holder.mItem.role.equals(Constants.ROLE_ADMIN)){
             holder.cancel.setVisibility(View.GONE);
         }
 
@@ -88,7 +89,7 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
         if (!holder.mItem.validated){
             holder.check.setVisibility(View.VISIBLE);
         }else {
-            if (holder.mItem.role.equals("user")){
+            if (holder.mItem.role.equals(Constants.ROLE_USER)){
                 holder.tecnico.setVisibility(View.VISIBLE);
             }
         }
@@ -163,7 +164,7 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
                             public void onClick(DialogInterface dialog,int id) {
                                 holder.tecnico.setVisibility(View.GONE);
                                 userViewModel.putTecnico(holder.mItem.id);
-                                holder.mItem.setRole("tecnico");
+                                holder.mItem.setRole(Constants.ROLE_TECNICO);
                                 notifyDataSetChanged();
                             }
                         })

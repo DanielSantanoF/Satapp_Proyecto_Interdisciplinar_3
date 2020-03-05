@@ -46,8 +46,8 @@ public class EditAnnotationDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Edit annotation");
-        builder.setMessage("Set the new corp of the annotation");
+        builder.setTitle(getResources().getString(R.string.edit_annotation_title));
+        builder.setMessage(getResources().getString(R.string.edit_anntation_message));
 
         builder.setCancelable(true);
 
@@ -62,7 +62,7 @@ public class EditAnnotationDialogFragment extends DialogFragment {
                 String cuerpo = edCuerpo.getText().toString();
 
                 if(cuerpo.isEmpty() ) {
-                    edCuerpo.setError("Corp needed");
+                    edCuerpo.setError(getResources().getString(R.string.edit_annotation_corp_needed));
                 } else {
                     service = SatAppServiceGenerator.createService(SatAppService.class);
                     UpdateAnnotation updateAnnotation = new UpdateAnnotation(cuerpo);
@@ -73,12 +73,12 @@ public class EditAnnotationDialogFragment extends DialogFragment {
                             if(mListener != null){
                                 mListener.onAnnotationUpdate();
                             }
-                            Toast.makeText(MyApp.getContext(), "Annotation edited", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyApp.getContext(), getResources().getString(R.string.edit_annotation_succed), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onFailure(Call<NewAnnotation> call, Throwable t) {
-                            Toast.makeText(MyApp.getContext(), "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyApp.getContext(), getResources().getString(R.string.edit_annotation_error), Toast.LENGTH_SHORT).show();
                         }
                     });
 

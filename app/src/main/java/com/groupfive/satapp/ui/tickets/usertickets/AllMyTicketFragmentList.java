@@ -71,7 +71,7 @@ public class AllMyTicketFragmentList extends Fragment {
             adapter = new MyAllMyTicketRecyclerViewAdapter(context , myTicketList, mListener);
             recyclerView.setAdapter(adapter);
             loadAllMyTickets();
-            Toast.makeText(context, "This are your tickets", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getResources().getString(R.string.user_tickets_this_are_yours), Toast.LENGTH_SHORT).show();
         }
         return view;
     }

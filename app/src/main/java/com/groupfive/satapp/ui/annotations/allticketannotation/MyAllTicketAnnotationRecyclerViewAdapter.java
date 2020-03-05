@@ -77,8 +77,8 @@ public class MyAllTicketAnnotationRecyclerViewAdapter extends RecyclerView.Adapt
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
-                    alert.setTitle("Eliminar anotación");
-                    alert.setMessage("¿Seguro que desea eliminar la anotación");
+                    alert.setTitle(context.getResources().getString(R.string.delete_annotation_title));
+                    alert.setMessage(context.getResources().getString(R.string.delete_annotation_message));
                     alert.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 
                         @Override
@@ -88,7 +88,7 @@ public class MyAllTicketAnnotationRecyclerViewAdapter extends RecyclerView.Adapt
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                     if(response.code() == 204){
-                                        Toast.makeText(context, "Annotation deleted", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, context.getResources().getString(R.string.delete_annotation_succed), Toast.LENGTH_SHORT).show();
                                         mValues.remove(position);
                                         notifyDataSetChanged();
                                     }
@@ -96,7 +96,7 @@ public class MyAllTicketAnnotationRecyclerViewAdapter extends RecyclerView.Adapt
 
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    Toast.makeText(context, "Error deleting the annotation", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, context.getResources().getString(R.string.delete_annotation_error), Toast.LENGTH_SHORT).show();
                                 }
                             });
                             dialog.dismiss();

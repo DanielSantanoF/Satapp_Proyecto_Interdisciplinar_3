@@ -66,13 +66,13 @@ public class ChangeStateTicketActivity extends AppCompatActivity implements View
         call.enqueue(new Callback<TicketModel>() {
             @Override
             public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
-                Toast.makeText(ChangeStateTicketActivity.this, "State edited correctly", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeStateTicketActivity.this, getResources().getString(R.string.edit_state_succed), Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onFailure(Call<TicketModel> call, Throwable t) {
-                Toast.makeText(ChangeStateTicketActivity.this, "Error editing the state", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeStateTicketActivity.this, getResources().getString(R.string.edit_state_error), Toast.LENGTH_SHORT).show();
             }
         });
     }

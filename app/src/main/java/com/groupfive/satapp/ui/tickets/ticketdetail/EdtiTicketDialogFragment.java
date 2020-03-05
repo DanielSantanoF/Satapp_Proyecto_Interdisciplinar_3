@@ -77,12 +77,12 @@ public class EdtiTicketDialogFragment extends DialogFragment {
                         @Override
                         public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
                             mListener.onTicketUpdated();
-                            Toast.makeText(MyApp.getContext(), "Ticket edited", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyApp.getContext(), getResources().getString(R.string.edit_ticket_succed), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onFailure(Call<TicketModel> call, Throwable t) {
-                            Toast.makeText(MyApp.getContext(), "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyApp.getContext(), getResources().getString(R.string.edit_ticket_error), Toast.LENGTH_SHORT).show();
                         }
                     });
 

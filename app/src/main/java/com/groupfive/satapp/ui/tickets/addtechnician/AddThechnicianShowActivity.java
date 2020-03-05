@@ -40,13 +40,13 @@ public class AddThechnicianShowActivity extends AppCompatActivity implements IAd
         call.enqueue(new Callback<TicketModel>() {
             @Override
             public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
-                Toast.makeText(AddThechnicianShowActivity.this, "Technician added", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddThechnicianShowActivity.this, getResources().getString(R.string.technician_added), Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onFailure(Call<TicketModel> call, Throwable t) {
-                Toast.makeText(AddThechnicianShowActivity.this, "Error in the assignament", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddThechnicianShowActivity.this, getResources().getString(R.string.technician_addded_error), Toast.LENGTH_SHORT).show();
             }
         });
     }

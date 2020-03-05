@@ -36,7 +36,6 @@ public class PhotoTicketFragmentList extends Fragment {
     private int mColumnCount = 1;
     private IPhotoTicketDetailListener mListener;
     List<String> fotosList = new ArrayList<>();
-    TicketByIdViewModel ticketByIdViewModel;
     Context context;
     RecyclerView recyclerView;
     MyPhotosTicketRecyclerViewAdapter adapter;
@@ -48,7 +47,6 @@ public class PhotoTicketFragmentList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //ticketByIdViewModel = new ViewModelProvider(getActivity()).get(TicketByIdViewModel.class);
     }
 
     @Override
@@ -84,16 +82,9 @@ public class PhotoTicketFragmentList extends Fragment {
 
             @Override
             public void onFailure(Call<TicketModel> call, Throwable t) {
-                Toast.makeText(getActivity(), "Error loading ticket", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.error_loading_ticket), Toast.LENGTH_SHORT).show();
             }
         });
-//        ticketByIdViewModel.getTicketById().observe(getActivity(), new Observer<TicketModel>() {
-//            @Override
-//            public void onChanged(TicketModel ticketModel) {
-//                fotosList = ticketModel.getFotos();
-//                adapter.setData(fotosList);
-//            }
-//        });
     }
     @Override
     public void onAttach(Context context) {

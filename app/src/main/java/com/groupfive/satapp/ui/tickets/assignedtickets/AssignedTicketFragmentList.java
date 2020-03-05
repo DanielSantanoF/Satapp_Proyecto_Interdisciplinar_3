@@ -189,7 +189,7 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     DialogFragment datePickerFragment = DialogDatePickerFragment.newInstance(activity);
                     datePickerFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "datePicker");
-                    Toast.makeText(activity, "Select the date where all teh tickets will be added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, getResources().getString(R.string.date_all_tickets_add), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(activity,  getResources().getString(R.string.calendar_permission_denied), Toast.LENGTH_SHORT).show();
                 }
@@ -260,7 +260,7 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
             }
             Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values);
         }
-        Toast.makeText(activity, "All events added to the calendar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, getResources().getString(R.string.calendar_all_events_added), Toast.LENGTH_SHORT).show();
     }
 
 

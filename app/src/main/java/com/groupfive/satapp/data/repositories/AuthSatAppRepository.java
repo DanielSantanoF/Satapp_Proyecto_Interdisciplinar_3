@@ -5,6 +5,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.MyApp;
@@ -39,7 +40,7 @@ public class AuthSatAppRepository {
             public void onResponse(Call<AuthLoginUser> call, Response<AuthLoginUser> response) {
                 if (response.isSuccessful()) {
                     Log.i("usuario",""+response.body());
-                    Toast.makeText(MyApp.getContext(), "Usuario creado Correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.correctly_created_user), Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e("Upload error", response.errorBody().toString());
                 }

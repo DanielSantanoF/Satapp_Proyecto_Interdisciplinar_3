@@ -249,9 +249,9 @@ public class ProfileActivity extends AppCompatActivity {
                     String base = emailPass.getText().toString() + ":" + passwordActual.getText().toString();
                     String authHeader = "Basic " + Base64.encodeToString(base.getBytes(), Base64.NO_WRAP);
                     userViewModel.putPassword(user.getId(),authHeader,passawor1.getText().toString());
-                    Toast.makeText(ProfileActivity.this, "Contraseña cambiada correctamente.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, getResources().getString(R.string.password_edit_succed), Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(ProfileActivity.this, "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, getResources().getString(R.string.register_paswords_not_match), Toast.LENGTH_SHORT).show();
                 }
             }
         });

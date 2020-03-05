@@ -4,6 +4,7 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
@@ -58,13 +59,13 @@ public class SatAppRepository {
                         tiket.setPalabrasClave(lista);
                     }
                 } else {
-                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<TicketModel>> call, Throwable t) {
-                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         allTickets = data;
@@ -81,13 +82,13 @@ public class SatAppRepository {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
                 } else {
-                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<TicketModel> call, Throwable t) {
-                Toast.makeText(MyApp.getContext(), "Error in the connection at ticket by id", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         ticketById = data;
@@ -104,13 +105,13 @@ public class SatAppRepository {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
                 } else {
-                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<AuthLoginUser>> call, Throwable t) {
-                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         allUsers = data;
@@ -143,13 +144,13 @@ public class SatAppRepository {
                         tiket.setPalabrasClave(lista);
                     }
                 } else {
-                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<TicketModel>> call, Throwable t) {
-                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         allMyTickets = data;
@@ -166,13 +167,13 @@ public class SatAppRepository {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
                 } else {
-                    Toast.makeText(MyApp.getContext(), "You dont have any ticket assigned", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.no_ticket_assigned), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<TicketModel>> call, Throwable t) {
-                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApp.getContext(), MyApp.getContext().getResources().getString(R.string.error_in_the_connection), Toast.LENGTH_SHORT).show();
             }
         });
         assignedTickets = data;
