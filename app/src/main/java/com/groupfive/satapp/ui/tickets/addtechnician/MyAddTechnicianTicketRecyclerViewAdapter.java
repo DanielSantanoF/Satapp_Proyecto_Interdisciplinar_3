@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.tickets;
+package com.groupfive.satapp.ui.tickets.addtechnician;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.listeners.IAddTechnicianListener;
-import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 
 import java.util.List;

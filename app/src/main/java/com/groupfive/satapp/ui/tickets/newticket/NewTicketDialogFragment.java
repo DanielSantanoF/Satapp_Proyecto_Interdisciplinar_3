@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.tickets;
+package com.groupfive.satapp.ui.tickets.newticket;
 
 import android.app.Activity;
 import android.app.AlertDialog;

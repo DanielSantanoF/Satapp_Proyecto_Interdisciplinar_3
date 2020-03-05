@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.tickets;
+package com.groupfive.satapp.ui.tickets.addtechnician;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,12 +17,9 @@ import android.widget.Toast;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
-import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.viewModel.AddThecnicianViewModel;
 import com.groupfive.satapp.listeners.IAddTechnicianListener;
-import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
-import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.ArrayList;
 import java.util.List;

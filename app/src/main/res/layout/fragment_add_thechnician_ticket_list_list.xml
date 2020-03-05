@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
+    android:background="@color/colorPrimary"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.tickets.AddThechnicianTicketFragmentList"
+    tools:context=".ui.tickets.addtechnician.AddThechnicianTicketFragmentList"
     tools:listitem="@layout/fragment_add_thechnician_ticket_list" />

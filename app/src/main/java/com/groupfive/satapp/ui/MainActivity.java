@@ -1,6 +1,8 @@
 package com.groupfive.satapp.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -9,8 +11,10 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -28,8 +32,9 @@ import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.ui.tickets.NewTicketDialogFragment;
-import com.groupfive.satapp.ui.tickets.TicketDetailActivity;
+import com.groupfive.satapp.ui.auth.LoginActivity;
+import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
+import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
 import com.groupfive.satapp.ui.user.ProfileActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -86,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
             }
         });
 
-        userViewModel.AllUser();
-        userViewModel.UsersValidated();
 
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
             @Override
@@ -122,8 +125,6 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 NewTicketDialogFragment dialog = new NewTicketDialogFragment(MainActivity.this);
                 dialog.show(getSupportFragmentManager(), "NewTicketDialogFragment");
             }
@@ -131,11 +132,27 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
 
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                SharedPreferences settings = this.getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE);
+                settings.edit().clear().apply();
+                Intent i = new Intent(this, LoginActivity.class);
+                startActivity(i);
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -154,5 +171,38 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
         Intent i = new Intent(MainActivity.this, TicketDetailActivity.class);
         i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketModel.getId()));
         startActivity(i);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
+            @Override
+            public void onChanged(AuthLoginUser authLoginUser) {
+                user = authLoginUser;
+                nameUser.setText(user.name);
+                emailUser.setText(user.email);
+
+                if (user.picture != null) {
+                    userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {
+                        @Override
+                        public void onChanged(ResponseBody responseBody) {
+                            Bitmap bmp = BitmapFactory.decodeStream(responseBody.byteStream());
+                            Glide.with(MyApp.getContext())
+                                    .load(bmp)
+                                    .circleCrop()
+                                    .into(ivFotoPerfil);
+                        }
+                    });
+                }else {
+                    Glide.with(MyApp.getContext())
+                            .load(R.drawable.ic_perfil)
+                            .circleCrop()
+                            .into(ivFotoPerfil);
+                }
+
+            }
+        });
     }
 }

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.groupfive.satapp.ui.tickets.AllTicketFragmentList"
+        android:name="com.groupfive.satapp.ui.tickets.alltickets.AllTicketFragmentList"
         android:label="@string/menu_gallery"
         tools:layout="@layout/all_fragment_ticket_list" />
 

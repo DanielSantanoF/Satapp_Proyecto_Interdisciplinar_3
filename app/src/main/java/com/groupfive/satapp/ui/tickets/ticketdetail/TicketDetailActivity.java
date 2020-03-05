@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.tickets;
+package com.groupfive.satapp.ui.tickets.ticketdetail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +23,16 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.data.viewModel.TicketByIdViewModel;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
+import com.groupfive.satapp.ui.annotations.NewAnnotationDialogFragment;
+import com.groupfive.satapp.ui.tickets.addtechnician.AddThechnicianShowActivity;
+import com.groupfive.satapp.ui.tickets.changestate.ChangeStateTicketActivity;
+import com.groupfive.satapp.ui.tickets.phototicketdetail.ShowPhotosTicektActivity;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -45,7 +49,8 @@ public class TicketDetailActivity extends AppCompatActivity {
     TextView txtTitle, txtCreatedByName, txtEmailCreatedBy, txtDate, txtState, txtDescription;
     Button btnImgs;
     TicketModel ticketDetail;
-    ProgressBar progressBar;
+    FloatingActionButton fab;
+    //ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,7 @@ public class TicketDetailActivity extends AppCompatActivity {
         txtState = findViewById(R.id.textViewStateTicketDetail);
         txtDescription = findViewById(R.id.textViewDescriptionTicketDetail);
         btnImgs = findViewById(R.id.buttonFotosTicektDetail);
-        progressBar = findViewById(R.id.progressBarTicketDetail);
+       // progressBar = findViewById(R.id.progressBarTicketDetail);
 
         ticketId = getIntent().getExtras().get(Constants.EXTRA_TICKET_ID).toString();
 
@@ -70,7 +75,7 @@ public class TicketDetailActivity extends AppCompatActivity {
 
         loadTicket();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabEditTicketDetail);
+        fab = (FloatingActionButton) findViewById(R.id.fabEditTicketDetail);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +96,14 @@ public class TicketDetailActivity extends AppCompatActivity {
         btnImgs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //TODO MOSTRAR IMAGENES DE MANERA DINAMICA
+//                Intent fotos = new Intent(TicketDetailActivity.this, FotosTicketDetailActivity.class);
+//                fotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+//                startActivity(fotos);
+                Intent intentFotos = new Intent(TicketDetailActivity.this, ShowPhotosTicektActivity.class);
+                //intentFotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+                SharedPreferencesManager.setStringValue("ticketId", ticketId);
+                startActivity(intentFotos);
             }
         });
     }
@@ -148,7 +160,6 @@ public class TicketDetailActivity extends AppCompatActivity {
                 alert.show();
                 return true;
             case R.id.action_share_ticket:
-                //TODO COMPARTIR TICKET
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Ticket: " + ticketDetail.getTitulo() + ", " + getResources().getString(R.string.share_ticket_content) + " " + ticketDetail.getDescripcion());
@@ -158,10 +169,21 @@ public class TicketDetailActivity extends AppCompatActivity {
                 startActivity(shareIntent);
                 return true;
             case R.id.action_add_thecnical:
-                //TODO Añadir tecnico NECESARIO UN USUARIO TECNICO EN LA BD
-                Intent i = new Intent(TicketDetailActivity.this, AddThechnicianShowActivity.class);
-                i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
-                startActivity(i);
+                Intent addTechnicanl = new Intent(TicketDetailActivity.this, AddThechnicianShowActivity.class);
+                addTechnicanl.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+                startActivity(addTechnicanl);
+                return true;
+            case R.id.action_change_state:
+                Intent changeState = new Intent(TicketDetailActivity.this, ChangeStateTicketActivity.class);
+                changeState.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+                startActivity(changeState);
+                return true;
+            case R.id.action_add_anotation:
+                NewAnnotationDialogFragment dialog = new NewAnnotationDialogFragment(TicketDetailActivity.this, ticketId);
+                dialog.show(getSupportFragmentManager(), "NewAnnotationDialogFragment");
+                return true;
+            case R.id.action_all_anotations:
+                //TODO VER TODAS LAS ANOTACIONES DEL TICKET
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -216,7 +238,7 @@ public class TicketDetailActivity extends AppCompatActivity {
                 txtDate.setText(dateToShow);
                 txtState.setText(ticketModel.getEstado());
                 txtDescription.setText(ticketModel.getDescripcion());
-                progressBar.setVisibility(View.GONE);
+                //progressBar.setVisibility(View.INVISIBLE);
                 ivToolbar.setVisibility(View.VISIBLE);
                 txtTitle.setVisibility(View.VISIBLE);
                 txtCreatedByName.setVisibility(View.VISIBLE);
@@ -225,7 +247,8 @@ public class TicketDetailActivity extends AppCompatActivity {
                 txtState.setVisibility(View.VISIBLE);
                 txtDescription.setVisibility(View.VISIBLE);
                 btnImgs.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
+                fab.show();
+                //progressBar.setVisibility(View.VISIBLE);
             }
         });
     }

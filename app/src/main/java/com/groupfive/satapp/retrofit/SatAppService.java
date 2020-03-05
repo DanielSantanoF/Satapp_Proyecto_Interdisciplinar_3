@@ -1,14 +1,18 @@
 package com.groupfive.satapp.retrofit;
 
 
+import com.groupfive.satapp.models.annotations.NewAnnotation;
+import com.groupfive.satapp.models.annotations.NewAnnotationBody;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.AddTechnician;
+import com.groupfive.satapp.models.tickets.ChangeTicketState;
 import com.groupfive.satapp.models.tickets.EditTicketBody;
 import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.List;
 
+import kotlin.PublishedApi;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -55,6 +59,12 @@ public interface SatAppService {
 
     @PUT("/users/{id}/validate")
     Call<AuthLoginUser> putValidated(@Path("id")String id);
+
+    @PUT("/users/{id}/tecnico")
+    Call<AuthLoginUser> putTecnico(@Path("id")String id);
+
+    @DELETE("/users/{id}")
+    Call<ResponseBody> deleteUser(@Path("id")String id);
 
 //    @Multipart
 //    @POST("/ticket")
@@ -105,4 +115,35 @@ public interface SatAppService {
 
     @PUT("/ticket/{id}/asignar")
     Call<TicketModel> updateTickeAddTechnician(@Path("id") String id, @Body AddTechnician addTechnician);
+
+
+    @PUT("/ticket/{id}/estado")
+    Call<TicketModel> updateTicketState(@Path("id") String id, @Body ChangeTicketState changeTicketState);
+
+    @GET("/ticket/user/me")
+    Call<List<TicketModel>> getAllMyTickets(@Query("q") String toSearch,
+                                          @Query("page") Integer pageNumber,
+                                          @Query("limit") Integer limitOfElements,
+                                          @Query("sort") String orderOfReturnedItems,
+                                          @Query("fields") String fieldsToBeReturned);
+
+    @GET("ticket/asignados/me")
+    Call<List<TicketModel>> getAssignedTickets(@Query("q") String toSearch,
+                                            @Query("page") Integer pageNumber,
+                                            @Query("limit") Integer limitOfElements,
+                                            @Query("sort") String orderOfReturnedItems,
+                                            @Query("fields") String fieldsToBeReturned);
+
+    @POST("/anotacion")
+    Call<NewAnnotation> postAnnotation(@Body NewAnnotationBody newAnnotationBody);
+
+
+    @Multipart
+    @PUT("/users/{id}/img")
+    Call<AuthLoginUser> updatePhoto(@Path("id")String id,
+                                    @Part MultipartBody.Part avatar);
+
+    @DELETE("/users/{id}/img")
+    Call<ResponseBody> deletePhoto(@Path("id")String id);
+
 }

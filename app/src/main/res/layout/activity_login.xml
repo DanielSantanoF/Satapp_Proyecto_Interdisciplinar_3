@@ -31,6 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewLogin"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -65,7 +66,7 @@
                 android:textColor="#FCFAFA"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextPassword2Pfrofile" />
 
             <Button
                 android:id="@+id/buttonRegister"
@@ -82,7 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
             <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/editTextPassword2Pfrofile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -97,5 +98,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

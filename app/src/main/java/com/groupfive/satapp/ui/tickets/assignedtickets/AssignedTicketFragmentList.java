@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.tickets;
+package com.groupfive.satapp.ui.tickets.assignedtickets;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,36 +15,37 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.groupfive.satapp.R;
-import com.groupfive.satapp.data.viewModel.GetAllTicketsViewModel;
-import com.groupfive.satapp.listeners.IAllTicketsListener;
+import com.groupfive.satapp.data.viewModel.AssignedTicketsViewModel;
+import com.groupfive.satapp.listeners.IAssignedTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllTicketFragmentList extends Fragment {
+
+public class AssignedTicketFragmentList extends Fragment {
 
     private int mColumnCount = 1;
-    private IAllTicketsListener mListener;
-    MyAllTicketRecyclerViewAdapter adapter;
+    private IAssignedTicketsListener mListener;
+    MyAssignedTicketRecyclerViewAdapter adapter;
     Context context;
     RecyclerView recyclerView;
-    GetAllTicketsViewModel getAllTicketsViewModel;
-    List<TicketModel> ticketList = new ArrayList<>();
+    List<TicketModel> assignedTickets = new ArrayList<>();
+    AssignedTicketsViewModel assignedTicketsViewModel;
 
-    public AllTicketFragmentList() {
+    public AssignedTicketFragmentList() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getAllTicketsViewModel =new ViewModelProvider(getActivity()).get(GetAllTicketsViewModel.class);
+        assignedTicketsViewModel = new ViewModelProvider(getActivity()).get(AssignedTicketsViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.all_fragment_ticket_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_assigned_ticket_list_list, container, false);
 
         if (view instanceof RecyclerView) {
             context = view.getContext();
@@ -54,19 +55,19 @@ public class AllTicketFragmentList extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter = new MyAllTicketRecyclerViewAdapter(getActivity(), ticketList, mListener);
+            adapter = new MyAssignedTicketRecyclerViewAdapter(context, assignedTickets, mListener);
             recyclerView.setAdapter(adapter);
-            loadAllTickets();
+            loadAssignedTickets();
         }
         return view;
     }
 
-    public void loadAllTickets(){
-        getAllTicketsViewModel.getAllTickets().observe(getActivity(), new Observer<List<TicketModel>>() {
+    public void loadAssignedTickets(){
+        assignedTicketsViewModel.getAssignedTickets().observe(getActivity(), new Observer<List<TicketModel>>() {
             @Override
             public void onChanged(List<TicketModel> list) {
-                ticketList = list;
-                adapter.setData(ticketList);
+                assignedTickets = list;
+                adapter.setData(assignedTickets);
             }
         });
     }
@@ -75,11 +76,11 @@ public class AllTicketFragmentList extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IAllTicketsListener) {
-            mListener = (IAllTicketsListener) context;
+        if (context instanceof IAssignedTicketsListener) {
+            mListener = (IAssignedTicketsListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement IAllTicketsListener");
+                    + " must implement IAssignedTicketsListener");
         }
     }
 
@@ -93,8 +94,9 @@ public class AllTicketFragmentList extends Fragment {
     public void onResume() {
         super.onResume();
         recyclerView.setVisibility(View.GONE);
-        loadAllTickets();
+        loadAssignedTickets();
         recyclerView.setVisibility(View.VISIBLE);
     }
+
 
 }
