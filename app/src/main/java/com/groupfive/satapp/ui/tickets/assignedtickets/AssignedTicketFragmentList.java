@@ -57,6 +57,7 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
     List<TicketModel> assignedTickets = new ArrayList<>();
     AssignedTicketsViewModel assignedTicketsViewModel;
     Activity activity;
+    String userRole;
     //CALENDAR
     // The indices for the projection array above.
     private static final int PROJECTION_ID_INDEX = 0;
@@ -77,6 +78,8 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
         super.onCreate(savedInstanceState);
         assignedTicketsViewModel = new ViewModelProvider(getActivity()).get(AssignedTicketsViewModel.class);
         activity = (Activity)context;
+        userRole = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString(Constants.SHARED_PREFERENCES_ROLE, null);
+
     }
 
     @Override
@@ -152,7 +155,11 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
         switch (item.getItemId()) {
             case R.id.action_add_all_to_calendar:
                 //TODO CHECK IT ALL ARE ADDED WITH A GOOGLE ACC
-                requestPermissionReadCalendar();
+                if(userRole.equals(Constants.ROLE_TECNICO)) {
+                    requestPermissionReadCalendar();
+                } else {
+                    Toast.makeText(activity, getResources().getString(R.string.acces_denied_by_role), Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

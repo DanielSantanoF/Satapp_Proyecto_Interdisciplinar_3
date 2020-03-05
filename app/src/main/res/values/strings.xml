@@ -112,4 +112,5 @@
     <string name="user_tickets_this_are_yours">Estos son tus tickets</string>
     <string name="password_edit_succed">Contraseña editada correctamente</string>
     <string name="state">Estado:</string>
+    <string name="acces_denied_by_role">No tienes permiso para hacer esa acción</string>
 </resources>

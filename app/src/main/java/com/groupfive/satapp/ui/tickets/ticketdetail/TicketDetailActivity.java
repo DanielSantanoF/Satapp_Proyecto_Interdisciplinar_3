@@ -66,7 +66,7 @@ import retrofit2.Response;
 public class TicketDetailActivity extends AppCompatActivity implements OnNewTicketDialogListener, IDatePickerListener {
 
     DateTransformation dateTransformer = new DateTransformation();
-    String ticketId;
+    String ticketId, userRole;
     TicketByIdViewModel ticketByIdViewModel;
     ImageView ivToolbar;
     SatAppService service;
@@ -104,6 +104,7 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
 
         ticketId = getIntent().getExtras().get(Constants.EXTRA_TICKET_ID).toString();
         SharedPreferencesManager.setStringValue(Constants.SHARED_PREFERENCES_TICKET_ID, ticketId);
+        userRole = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString(Constants.SHARED_PREFERENCES_ROLE, null);
 
         ticketByIdViewModel = new ViewModelProvider(this).get(TicketByIdViewModel.class);
         ticketByIdViewModel.setTicketId(ticketId);
@@ -191,9 +192,13 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                 startActivity(shareIntent);
                 return true;
             case R.id.action_add_thecnical:
-                Intent addTechnicanl = new Intent(TicketDetailActivity.this, AddThechnicianShowActivity.class);
-                addTechnicanl.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
-                startActivity(addTechnicanl);
+                if(userRole.equals(Constants.ROLE_ADMIN) || userRole.equals(Constants.ROLE_TECNICO)){
+                    Intent addTechnicanl = new Intent(TicketDetailActivity.this, AddThechnicianShowActivity.class);
+                    addTechnicanl.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+                    startActivity(addTechnicanl);
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.acces_denied_by_role), Toast.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id.action_change_state:
                 Intent changeState = new Intent(TicketDetailActivity.this, ChangeStateTicketActivity.class);
@@ -210,7 +215,11 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                 return true;
             case R.id.action_add_to_calendar:
                 //TODO CHECK IT ADDED WITH A GOOGLE ACC
-                requestPermissionReadCalendar();
+                if(userRole.equals(Constants.ROLE_TECNICO)) {
+                    requestPermissionReadCalendar();
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.acces_denied_by_role), Toast.LENGTH_SHORT).show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
