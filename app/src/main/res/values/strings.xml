@@ -35,9 +35,9 @@
     <string name="mensagepromocion">¿Estas seguro que deseas hacer tecnico a este usuario?</string>
     <string name="tecnico">tecnico</string>
     <string name="modificarContrase">Modificar Contraseña</string>
-    <string name="modificarDatos">Modificar Datos</string>
+    <string name="modificarDatos">Modificar Nombre</string>
     <string name="guardarContra">Guardar Contraseña</string>
-    <string name="guardarDatos">Guardar Datos</string>
+    <string name="guardarDatos">Guardar Nombre</string>
     <string name="savePhoto">La foto se guardo correctamente</string>
     <string name="selecPhoto">Debe seleccionar una foto antes de guardarla</string>
     <string name="title_activity_profile">Perfil</string>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.ProfileActivity">
+    tools:context=".ui.users.ProfileActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             app:toolbarId="@+id/toolbar">
 
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/imageViewDetallePerfil"
+                android:id="@+id/imageViewPhotoProfileAdmin"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="32dp"
@@ -37,9 +37,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewDetallePerfil" />
+                app:layout_constraintTop_toBottomOf="@+id/imageViewPhotoProfileAdmin" />
 
             <TextView
                 android:id="@+id/textViewEmailProfile"
@@ -47,6 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewNameProfile" />
@@ -60,24 +64,13 @@
                 app:backgroundTint="#C7E5F4"
                 app:layout_anchorGravity="bottom|end"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_delete_photo"
-                app:useCompatPadding="true" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                app:backgroundTint="#C7E5F4"
-                app:layout_anchorGravity="bottom|start"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_update_photo"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEmailProfile"
+                app:srcCompat="@drawable/ic_delete_forever_red_24dp"
                 app:useCompatPadding="true" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewCheckPhoto"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
@@ -87,7 +80,7 @@
                 app:srcCompat="@drawable/ic_check" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageViewCancelPhoto"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
@@ -124,7 +117,7 @@
                     android:inputType="textPassword"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/editTextPasswordActual" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -157,25 +150,52 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/round_bg"
+                    android:background="@drawable/round_bg_blue"
                     android:text="@string/guardarContra"
+                    android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextPassword2Pfrofile"
                     app:layout_constraintVertical_bias="0.0" />
+
+                <EditText
+                    android:id="@+id/editTextEmailPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <EditText
+                    android:id="@+id/editTextPasswordActual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ems="10"
+                    android:hint="Password actual"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextEmailPassword" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="350dp"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp"
             app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -207,27 +227,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-                <EditText
-                    android:id="@+id/editTextEmailProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:ems="10"
-                    android:inputType="textEmailAddress"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextNameProfile" />
-
                 <Button
                     android:id="@+id/buttonSaveDateProfile"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/round_bg"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/round_bg_blue"
                     android:text="@string/guardarDatos"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextEmailProfile" />
+                    app:layout_constraintTop_toBottomOf="@+id/editTextNameProfile" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

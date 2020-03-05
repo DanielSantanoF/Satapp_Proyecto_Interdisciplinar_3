@@ -34,7 +34,7 @@ import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.auth.LoginActivity;
 import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
 import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
-import com.groupfive.satapp.ui.user.ProfileActivity;
+import com.groupfive.satapp.ui.users.ProfileActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 

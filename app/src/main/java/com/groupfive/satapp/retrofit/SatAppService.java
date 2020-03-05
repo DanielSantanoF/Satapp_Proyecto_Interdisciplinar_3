@@ -5,6 +5,7 @@ import com.groupfive.satapp.models.annotations.NewAnnotation;
 import com.groupfive.satapp.models.annotations.NewAnnotationBody;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
+import com.groupfive.satapp.models.auth.Password;
 import com.groupfive.satapp.models.tickets.AddTechnician;
 import com.groupfive.satapp.models.tickets.ChangeTicketState;
 import com.groupfive.satapp.models.tickets.EditTicketBody;
@@ -146,4 +147,15 @@ public interface SatAppService {
     @DELETE("/users/{id}/img")
     Call<ResponseBody> deletePhoto(@Path("id")String id);
 
+    @PUT("/users/{id}")
+    Call<AuthLoginUser> putUser(@Path("id")String id,
+                                @Query("name") String name);
+
+    @PUT("/users/{id}/password")
+    Call<AuthLoginUser> putPassword(@Path("id")String id,
+                                    @Header("Authorization") String authHeader,
+                                   @Body Password password);
+
+    @GET("/users/{id}")
+    Call<AuthLoginUser> getUserId(@Path("id") String id);
 }
