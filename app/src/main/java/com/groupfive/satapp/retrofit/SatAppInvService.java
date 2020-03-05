@@ -30,7 +30,7 @@ public interface SatAppInvService {
 
     @Multipart
     @PUT("/inventariable/{id}/img")
-    Call<Inventariable> putInventariableImg(@Path("id") String id,
+    Call<ResponseBody> putInventariableImg(@Path("id") String id,
                                             @Part MultipartBody.Part imagen);
 
     @GET("/inventariable/img/{img_url}")

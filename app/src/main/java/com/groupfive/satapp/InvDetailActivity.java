@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,8 @@ public class InvDetailActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private EditInventariableFragment inventariableFragment;
     private Uri uriS;
+    private ImageButton ibUpdate, ibCancel;
+    private ResponseBody media;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,11 @@ public class InvDetailActivity extends AppCompatActivity {
         tvLocation = findViewById(R.id.textViewLocation);
         ivPhoto = findViewById(R.id.imageViewPhotoPlus);
         ivType = findViewById(R.id.imageViewType);
+        ibUpdate = findViewById(R.id.imageButtonUpdate);
+        ibCancel = findViewById(R.id.imageButtonCancel);
+
+        ibUpdate.setVisibility(View.GONE);
+        ibCancel.setVisibility(View.GONE);
 
         id = getIntent().getExtras().getString("id");
 
@@ -97,6 +105,72 @@ public class InvDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 performFileSearch();
+            }
+        });
+
+        ibUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(uriS);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+                    int cantBytes;
+                    byte[] buffer = new byte[1024*4];
+
+                    while ((cantBytes = bufferedInputStream.read(buffer,0,1024*4)) != -1) {
+                        baos.write(buffer,0,cantBytes);
+                    }
+
+
+                    RequestBody requestFile =
+                            RequestBody.create(baos.toByteArray(),
+                                    MediaType.parse(getContentResolver().getType(uriS)));
+
+
+                    MultipartBody.Part body =
+                            MultipartBody.Part.createFormData("imagen", "avatar", requestFile);
+
+                    Call<ResponseBody> call = service.putInventariableImg(id, body);
+
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if(response.isSuccessful()) {
+                                Snackbar.make(v, "Edit", Snackbar.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
+
+                    ibUpdate.setVisibility(View.GONE);
+                    ibCancel.setVisibility(View.GONE);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        ibCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ibUpdate.setVisibility(View.GONE);
+                ibCancel.setVisibility(View.GONE);
+
+                Bitmap bmp = BitmapFactory.decodeStream(media.byteStream());
+                Glide
+                        .with(InvDetailActivity.this)
+                        .load(bmp)
+                        .error(Glide.with(InvDetailActivity.this).load(R.drawable.ic_interrogation))
+                        .thumbnail(Glide.with(InvDetailActivity.this).load(Constants.LOADING_GIF))
+                        .into(ivPhoto);
             }
         });
 
@@ -114,6 +188,9 @@ public class InvDetailActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        ibUpdate.setVisibility(View.VISIBLE);
+        ibCancel.setVisibility(View.VISIBLE);
+
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Uri uri = null;
             if (data != null) {
@@ -125,34 +202,6 @@ public class InvDetailActivity extends AppCompatActivity {
                         .into(ivPhoto);
                 uriS = uri;
             }
-        }
-
-        try {
-            InputStream inputStream = getContentResolver().openInputStream(uriS);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-            int cantBytes;
-            byte[] buffer = new byte[1024*4];
-
-            while ((cantBytes = bufferedInputStream.read(buffer,0,1024*4)) != -1) {
-                baos.write(buffer,0,cantBytes);
-            }
-
-
-            RequestBody requestFile =
-                    RequestBody.create(baos.toByteArray(),
-                            MediaType.parse(getContentResolver().getType(uriS)));
-
-
-            MultipartBody.Part body =
-                    MultipartBody.Part.createFormData("avatar", "avatar", requestFile);
-
-            service.putInventariableImg(id, body);
-            finish();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -200,6 +249,7 @@ public class InvDetailActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
+                                media = response.body();
                                 Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
                                 Glide
                                         .with(InvDetailActivity.this)
