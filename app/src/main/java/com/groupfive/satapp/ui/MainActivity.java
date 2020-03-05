@@ -23,6 +23,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.groupfive.satapp.IHistoryListener;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
@@ -48,7 +49,7 @@ import android.widget.TextView;
 
 import okhttp3.ResponseBody;
 
-public class MainActivity extends AppCompatActivity implements IInventariableListener, IAllTicketsListener {
+public class MainActivity extends AppCompatActivity implements IInventariableListener, IAllTicketsListener, IHistoryListener {
     private AppBarConfiguration mAppBarConfiguration;
     private UserViewModel userViewModel;
     private AuthLoginUser user;
@@ -204,5 +205,10 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
 
             }
         });
+    }
+
+    @Override
+    public void onHistoryClick(TicketModel ticketModel) {
+
     }
 }

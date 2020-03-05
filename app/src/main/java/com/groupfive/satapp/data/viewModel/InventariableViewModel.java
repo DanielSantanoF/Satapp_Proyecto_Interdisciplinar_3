@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 
 import com.groupfive.satapp.data.repositories.InventariableRepository;
 import com.groupfive.satapp.models.inventariable.Inventariable;
+import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class InventariableViewModel extends AndroidViewModel {
     Context ctx;
     LiveData<List<Inventariable>> direct;
     LiveData<Inventariable> result;
+    LiveData<List<TicketModel>> result2;
 
     public InventariableViewModel(@NonNull Application application) {
         super(application);
@@ -32,5 +34,10 @@ public class InventariableViewModel extends AndroidViewModel {
     public LiveData<Inventariable> getInventariable(String id) {
         result = inventariableRepository.getInventariable(id);
         return result;
+    }
+
+    public LiveData<List<TicketModel>> getTicketFrom(String id) {
+        result2 = inventariableRepository.getTicketsFrom(id);
+        return result2;
     }
 }

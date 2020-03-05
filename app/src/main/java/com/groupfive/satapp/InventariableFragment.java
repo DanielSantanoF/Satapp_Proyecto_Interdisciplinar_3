@@ -1,8 +1,11 @@
 package com.groupfive.satapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -11,13 +14,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.groupfive.satapp.commons.MyApp;
+import com.groupfive.satapp.commons.NameComparator;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.ui.IInventariableListener;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class InventariableFragment extends Fragment {
@@ -42,6 +52,28 @@ public class InventariableFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.addButton:
+                Intent i = new Intent(MyApp.getContext(), AddInvActivity.class);
+                startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.inv_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inventariable_list, container, false);
@@ -55,6 +87,7 @@ public class InventariableFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
 
             adapter = new MyInventariableRecyclerViewAdapter(inventariableList, mListener, context);
             recyclerView.setAdapter(adapter);
@@ -89,6 +122,7 @@ public class InventariableFragment extends Fragment {
             @Override
             public void onChanged(List<Inventariable> inventariables) {
                 inventariableList = inventariables;
+                Collections.sort(inventariableList, new NameComparator());
                 adapter.setData(inventariableList);
                 adapter.notifyDataSetChanged();
             }

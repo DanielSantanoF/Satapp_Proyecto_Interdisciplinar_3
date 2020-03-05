@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.google.android.material.snackbar.Snackbar;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
 import com.groupfive.satapp.models.inventariable.Inventariable;
@@ -57,6 +58,7 @@ public class AddInvActivity extends AppCompatActivity {
     SatAppInvService service;
     ArrayAdapter arrayAdapter;
     InventariableViewModel inventariableViewModel;
+    MyInventariableRecyclerViewAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,55 +74,14 @@ public class AddInvActivity extends AppCompatActivity {
         spinnerTypes = findViewById(R.id.spinnerType);
         btAction = findViewById(R.id.buttonAction);
 
+        Glide.with(AddInvActivity.this).load("https://cdn2.iconfinder.com/data/icons/photo-and-video/500/Landscape_moon_mountains_multiple_photo_photograph_pictury_sun-512.png").into(ivPhoto);
+
         arrayAdapter = new ArrayAdapter(AddInvActivity.this, R.layout.support_simple_spinner_dropdown_item, TipoInventariable.values());
         spinnerTypes.setAdapter(arrayAdapter);
 
         inventariableViewModel = ViewModelProviders.of(AddInvActivity.this).get(InventariableViewModel.class);
 
-        if(getIntent().getExtras().getString("id") != null) {
-            tvTitle.setText(getResources().getString(R.string.editInv));
-            id = getIntent().getExtras().getString("id");
-
-            getInventariable();
-
-            btAction.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        InputStream inputStream = getContentResolver().openInputStream(uriS);
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-                        int cantBytes;
-                        byte[] buffer = new byte[1024*4];
-
-                        while ((cantBytes = bufferedInputStream.read(buffer,0,1024*4)) != -1) {
-                            baos.write(buffer,0,cantBytes);
-                        }
-
-
-                        RequestBody requestFile =
-                                RequestBody.create(baos.toByteArray(),
-                                        MediaType.parse(getContentResolver().getType(uriS)));
-
-
-                        MultipartBody.Part body =
-                                MultipartBody.Part.createFormData("avatar", "avatar", requestFile);
-
-
-                        RequestBody nameRequest = RequestBody.create(MultipartBody.FORM,etName.getText().toString());
-                        RequestBody descriptionRequest = RequestBody.create(MultipartBody.FORM,etDescription.getText().toString());
-                        RequestBody locationRequest = RequestBody.create(MultipartBody.FORM,etLocation.getText().toString());
-
-
-//                        service.putInventariable(id, body,nameRequest,descriptionRequest,locationRequest);
-                        finish();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+            tvTitle.setText(getResources().getString(R.string.addInv));
 
             ivPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -129,9 +90,67 @@ public class AddInvActivity extends AppCompatActivity {
                 }
             });
 
-        } else {
-            tvTitle.setText(getResources().getString(R.string.addInv));
-        }
+            btAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    if(etName.getText().toString().isEmpty() || etDescription.getText().toString().isEmpty() || etLocation.getText().toString().isEmpty() || uriS == null) {
+
+                    } else {
+                        try {
+                            InputStream inputStream = getContentResolver().openInputStream(uriS);
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+                            int cantBytes;
+                            byte[] buffer = new byte[1024*4];
+
+                            while ((cantBytes = bufferedInputStream.read(buffer,0,1024*4)) != -1) {
+                                baos.write(buffer,0,cantBytes);
+                            }
+
+
+                            RequestBody requestFile =
+                                    RequestBody.create(baos.toByteArray(),
+                                            MediaType.parse(getContentResolver().getType(uriS)));
+
+
+                            MultipartBody.Part body =
+                                    MultipartBody.Part.createFormData("imagen", "avatar", requestFile);
+
+                            RequestBody nameRequest = RequestBody.create(MultipartBody.FORM,etName.getText().toString());
+                            RequestBody typeRequest = RequestBody.create(MultipartBody.FORM,spinnerTypes.getSelectedItem().toString());
+                            RequestBody descriptionRequest = RequestBody.create(MultipartBody.FORM, etDescription.getText().toString());
+                            RequestBody locationRequest = RequestBody.create(MultipartBody.FORM, etLocation.getText().toString());
+
+                            Call<Inventariable> call = service.addInventariable(body, typeRequest, nameRequest, descriptionRequest, locationRequest);
+
+                                    call.enqueue(new Callback<Inventariable>() {
+                                @Override
+                                public void onResponse(Call<Inventariable> call, Response<Inventariable> response) {
+                                    if(response.isSuccessful()) {
+                                        Snackbar.make(v, "Added successfully", Snackbar.LENGTH_SHORT).show();
+                                        adapter.notifyDataSetChanged();
+
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Inventariable> call, Throwable t) {
+
+                                }
+                            });
+
+                            finish();
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+            });
+
     }
 
     public void performFileSearch() {
@@ -159,50 +178,5 @@ public class AddInvActivity extends AppCompatActivity {
         }
     }
 
-    public void getInventariable() {
-        inventariableViewModel.getInventariable(id).observe(AddInvActivity.this, new Observer<Inventariable>() {
-            @Override
-            public void onChanged(Inventariable inventariable) {
-                etName.setText(inventariable.getNombre());
-                etDescription.setText(inventariable.getDescripcion());
-                etLocation.setText(inventariable.getUbicacion());
 
-
-
-                photoCode = inventariable.getImagen().split("/")[3];
-                Call<ResponseBody> call = service.getInventariableImage(photoCode);
-//        Toast.makeText(ctx, photoCode, Toast.LENGTH_SHORT).show();
-
-                call.enqueue(new Callback<ResponseBody>() {
-                    @SneakyThrows
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
-                                Glide
-                                        .with(AddInvActivity.this)
-                                        .load(bmp)
-                                        .error(Glide.with(AddInvActivity.this).load(R.drawable.ic_interrogation))
-                                        .thumbnail(Glide.with(AddInvActivity.this).load(Constants.LOADING_GIF))
-                                        .into(ivPhoto);
-                            } else {
-                                Glide
-                                        .with(AddInvActivity.this)
-                                        .load(R.drawable.ic_faqs)
-                                        .error(Glide.with(AddInvActivity.this).load(R.drawable.ic_interrogation))
-                                        .thumbnail(Glide.with(AddInvActivity.this).load(Constants.LOADING_GIF))
-                                        .into(ivPhoto);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(AddInvActivity.this, "Error loading picture", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-    }
 }

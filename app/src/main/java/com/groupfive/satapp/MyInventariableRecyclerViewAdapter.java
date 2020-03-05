@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.retrofit.SatAppInvService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
@@ -33,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyInventariableRecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
+public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyInventariableRecyclerViewAdapter.ViewHolder>{
 
     private List<Inventariable> mValues;
     private final IInventariableListener mListener;
@@ -56,8 +57,6 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
 
         service = SatAppServiceGenerator.createService(SatAppInvService.class);
 
-        view.setOnClickListener(this);
-
         return new ViewHolder(view);
     }
 
@@ -65,11 +64,19 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
 
-        changer = LocalDate.parse(holder.mItem.getCreatedAt().split("T")[0], DateTimeFormat.forPattern("yyyy-mm-dd"));
-
-        mSelected = holder.mItem;
+        changer = LocalDate.parse(holder.mItem.getUpdatedAt().split("T")[0], DateTimeFormat.forPattern("yyyy-mm-dd"));
 
         holder.tvTitle.setText(holder.mItem.getNombre());
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferencesManager.setStringValue("id", holder.mItem.getId());
+                Intent i = new Intent(ctx, InvDetailActivity.class);
+                i.putExtra("id", holder.mItem.getId());
+                ctx.startActivity(i);
+            }
+        });
 
         if(holder.mItem.getDescripcion().length() > 30) {
             holder.tvDescription.setText(holder.mItem.getDescripcion().substring(0, 28) + "...");
@@ -172,13 +179,6 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
         } else {
             return 0;
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent i = new Intent(ctx, InvDetailActivity.class);
-        i.putExtra("id", mSelected.getId());
-        ctx.startActivity(i);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

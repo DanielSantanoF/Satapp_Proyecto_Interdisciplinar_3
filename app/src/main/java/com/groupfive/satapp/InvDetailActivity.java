@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
 import com.groupfive.satapp.models.inventariable.Inventariable;
+import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppInvService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 
@@ -48,7 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InvDetailActivity extends AppCompatActivity {
+public class InvDetailActivity extends AppCompatActivity implements IHistoryListener {
     private TextView tvName, tvDescription, tvCreate, tvUpdate, tvLocation;
     private ImageView ivPhoto, ivType;
     private InventariableViewModel inventariableViewModel;
@@ -97,6 +98,8 @@ public class InvDetailActivity extends AppCompatActivity {
         ibCancel.setVisibility(View.GONE);
 
         id = getIntent().getExtras().getString("id");
+
+        Log.d("idddd", id);
 
         inventariableFragment = new EditInventariableFragment(InvDetailActivity.this, id);
 
@@ -287,5 +290,10 @@ public class InvDetailActivity extends AppCompatActivity {
                 Toast.makeText(InvDetailActivity.this, "Error loading picture", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onHistoryClick(TicketModel ticketModel) {
+
     }
 }

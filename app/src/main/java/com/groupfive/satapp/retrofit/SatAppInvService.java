@@ -2,6 +2,7 @@ package com.groupfive.satapp.retrofit;
 
 import com.groupfive.satapp.models.inventariable.EditInventariable;
 import com.groupfive.satapp.models.inventariable.Inventariable;
+import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.List;
 
@@ -39,6 +40,9 @@ public interface SatAppInvService {
 
     @GET("/inventariable/img/{img_url}")
     Call<ResponseBody> getInventariableImage(@Path("img_url") String img_url);
+
+    @GET("/ticket/inventariable/{id}")
+    Call<List<TicketModel>> getTicketsFromInventariable(@Path("id") String id);
 
     @Multipart
     @POST("/inventariable")

@@ -74,4 +74,5 @@
     <string name="action_share_ticket">Share ticket</string>
     <string name="ubi">Location</string>
     <string name="location">Location:</string>
+    <string name="record">Ticket\'s Record</string>
 </resources>
