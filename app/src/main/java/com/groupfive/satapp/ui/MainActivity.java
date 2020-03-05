@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.view.MenuItem;
 import android.view.View;
@@ -23,16 +22,17 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.groupfive.satapp.ui.inventariable.IHistoryListener;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.auth.LoginActivity;
-import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
 import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
 import com.groupfive.satapp.ui.users.ProfileActivity;
 
@@ -47,8 +47,7 @@ import android.widget.TextView;
 
 import okhttp3.ResponseBody;
 
-public class MainActivity extends AppCompatActivity implements IAllTicketsListener {
-
+public class MainActivity extends AppCompatActivity implements IInventariableListener, IAllTicketsListener, IHistoryListener {
     private AppBarConfiguration mAppBarConfiguration;
     private UserViewModel userViewModel;
     private AuthLoginUser user;
@@ -119,16 +118,6 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
             }
         });
 
-
-        FloatingActionButton fab = findViewById(R.id.fabAddNewTicket);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NewTicketDialogFragment dialog = new NewTicketDialogFragment(MainActivity.this, null);
-                dialog.show(getSupportFragmentManager(), "NewTicketDialogFragment");
-            }
-        });
-
     }
 
 
@@ -159,6 +148,10 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onInventariableClick(Inventariable iv) {
     }
 
     @Override
@@ -199,5 +192,10 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
 
             }
         });
+    }
+
+    @Override
+    public void onHistoryClick(TicketModel ticketModel) {
+
     }
 }

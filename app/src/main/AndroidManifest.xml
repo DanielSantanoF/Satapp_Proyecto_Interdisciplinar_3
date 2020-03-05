@@ -16,8 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.inventariable.InvLocationListActivity"></activity>
+        <activity android:name=".ui.inventariable.LocationActivity" />
+        <activity android:name=".ui.inventariable.AddInvActivity" />
+        <activity
+            android:name=".ui.inventariable.InvDetailActivity"
+            android:label="@string/title_activity_inv_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".ui.annotations.allticketannotation.ShowAllTicketAnnotationsActivity"></activity>
         <activity android:name=".ui.users.ProfileAdminActivity"></activity>
+
         <activity android:name=".ui.tickets.phototicketdetail.ShowPhotosTicektActivity" />
         <activity android:name=".ui.tickets.changestate.ChangeStateTicketActivity" />
         <activity android:name=".ui.tickets.assignedtickets.ShowAssignedTicketsActivity" />
@@ -25,6 +34,7 @@
         <activity android:name=".ui.tickets.ticketdetail.TicketDetailActivity" />
         <activity android:name=".ui.tickets.addtechnician.AddThechnicianShowActivity" />
         <activity android:name=".ui.users.ProfileActivity" />
+
         <activity android:name=".ui.auth.RegisterActivity" />
         <activity android:name=".ui.auth.LoginActivity">
             <intent-filter>
