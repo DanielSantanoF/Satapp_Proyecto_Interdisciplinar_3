@@ -28,9 +28,12 @@ import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
+import com.groupfive.satapp.ui.MainActivity;
+import com.groupfive.satapp.ui.annotations.NewAnnotationDialogFragment;
 import com.groupfive.satapp.ui.tickets.addtechnician.AddThechnicianShowActivity;
 import com.groupfive.satapp.ui.tickets.changestate.ChangeStateTicketActivity;
 import com.groupfive.satapp.ui.tickets.fotosticketdetail.ShowFotosTicketDetailActivity;
+import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -174,6 +177,13 @@ public class TicketDetailActivity extends AppCompatActivity {
                 Intent changeState = new Intent(TicketDetailActivity.this, ChangeStateTicketActivity.class);
                 changeState.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
                 startActivity(changeState);
+                return true;
+            case R.id.action_add_anotation:
+                NewAnnotationDialogFragment dialog = new NewAnnotationDialogFragment(TicketDetailActivity.this, ticketId);
+                dialog.show(getSupportFragmentManager(), "NewAnnotationDialogFragment");
+                return true;
+            case R.id.action_all_anotations:
+                //TODO VER TODAS LAS ANOTACIONES DEL TICKET
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

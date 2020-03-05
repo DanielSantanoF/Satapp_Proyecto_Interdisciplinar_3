@@ -19,4 +19,10 @@
     <item
         android:id="@+id/action_change_state"
         android:title="@string/action_change_state" />
+    <item
+        android:id="@+id/action_add_anotation"
+        android:title="@string/action_add_anotation" />
+    <item
+        android:id="@+id/action_all_anotations"
+        android:title="@string/action_all_anotations" />
 </menu>
