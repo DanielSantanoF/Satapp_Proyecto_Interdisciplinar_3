@@ -9,11 +9,13 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.retrofit.SatAppInvService;
@@ -60,7 +62,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
 
         changer = LocalDate.parse(holder.mItem.getCreatedAt().split("T")[0], DateTimeFormat.forPattern("yyyy-mm-dd"));
@@ -134,6 +136,28 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
                 break;
         }
 
+        holder.ibDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<Void> call = service.deleteInventariable(holder.mItem.getId());
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()) {
+                            mValues.remove(position);
+                            notifyDataSetChanged();
+                            Snackbar.make(holder.mView, "Eliminado correctamente", Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
     }
 
     public void setData(List<Inventariable> result) {
@@ -165,6 +189,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
         public final TextView tvDate;
         public final TextView tvLocation;
         public final ImageView ivPhoto;
+        public final ImageButton ibDelete;
         public Inventariable mItem;
 
         public ViewHolder(View view) {
@@ -176,6 +201,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
             tvLocation = view.findViewById(R.id.textViewLocation);
             ivType = view.findViewById(R.id.imageViewInventa);
             ivPhoto = view.findViewById(R.id.imageViewType);
+            ibDelete = view.findViewById(R.id.imageButtonDelete);
         }
 
 

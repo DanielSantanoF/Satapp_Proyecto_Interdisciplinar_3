@@ -62,6 +62,7 @@ public class InvDetailActivity extends AppCompatActivity {
     private Uri uriS;
     private ImageButton ibUpdate, ibCancel;
     private ResponseBody media;
+    private Inventariable mInventariable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +105,10 @@ public class InvDetailActivity extends AppCompatActivity {
         ivPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(uriS != null) {
+                    ibUpdate.setVisibility(View.VISIBLE);
+                    ibCancel.setVisibility(View.VISIBLE);
+                }
                 performFileSearch();
             }
         });
@@ -150,6 +155,8 @@ public class InvDetailActivity extends AppCompatActivity {
                     ibUpdate.setVisibility(View.GONE);
                     ibCancel.setVisibility(View.GONE);
 
+                    uriS = null;
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -161,16 +168,11 @@ public class InvDetailActivity extends AppCompatActivity {
         ibCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadPicture(mInventariable);
                 ibUpdate.setVisibility(View.GONE);
                 ibCancel.setVisibility(View.GONE);
 
-                Bitmap bmp = BitmapFactory.decodeStream(media.byteStream());
-                Glide
-                        .with(InvDetailActivity.this)
-                        .load(bmp)
-                        .error(Glide.with(InvDetailActivity.this).load(R.drawable.ic_interrogation))
-                        .thumbnail(Glide.with(InvDetailActivity.this).load(Constants.LOADING_GIF))
-                        .into(ivPhoto);
+                uriS = null;
             }
         });
 
@@ -188,8 +190,7 @@ public class InvDetailActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        ibUpdate.setVisibility(View.VISIBLE);
-        ibCancel.setVisibility(View.VISIBLE);
+
 
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Uri uri = null;
@@ -201,6 +202,9 @@ public class InvDetailActivity extends AppCompatActivity {
                         .load(uri)
                         .into(ivPhoto);
                 uriS = uri;
+
+                    ibUpdate.setVisibility(View.VISIBLE);
+                    ibCancel.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -209,6 +213,8 @@ public class InvDetailActivity extends AppCompatActivity {
         inventariableViewModel.getInventariable(id).observe(InvDetailActivity.this, new Observer<Inventariable>() {
             @Override
             public void onChanged(Inventariable inventariable) {
+
+                mInventariable = inventariable;
 
                 changerCreated = LocalDate.parse(inventariable.getCreatedAt().split("T")[0], DateTimeFormat.forPattern("yyyy-mm-dd"));
                 changerUpdated = LocalDate.parse(inventariable.getUpdatedAt().split("T")[0], DateTimeFormat.forPattern("yyyy-mm-dd"));
@@ -239,40 +245,46 @@ public class InvDetailActivity extends AppCompatActivity {
                         Glide.with(InvDetailActivity.this).load(getResources().getDrawable(R.drawable.ic_teclado)).into(ivType);
                         break;
                 }
-                photoCode = inventariable.getImagen().split("/")[3];
-                Call<ResponseBody> call = service.getInventariableImage(photoCode);
+
+                loadPicture(inventariable);
+
+            }
+        });
+    }
+
+    public void loadPicture(Inventariable inventariable) {
+        photoCode = inventariable.getImagen().split("/")[3];
+        Call<ResponseBody> call = service.getInventariableImage(photoCode);
 //        Toast.makeText(ctx, photoCode, Toast.LENGTH_SHORT).show();
 
-                call.enqueue(new Callback<ResponseBody>() {
-                    @SneakyThrows
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                media = response.body();
-                                Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
-                                Glide
-                                        .with(InvDetailActivity.this)
-                                        .load(bmp)
-                                        .error(Glide.with(InvDetailActivity.this).load(R.drawable.ic_interrogation))
-                                        .thumbnail(Glide.with(InvDetailActivity.this).load(Constants.LOADING_GIF))
-                                        .into(ivPhoto);
-                            } else {
-                                Glide
-                                        .with(InvDetailActivity.this)
-                                        .load(R.drawable.ic_faqs)
-                                        .error(Glide.with(InvDetailActivity.this).load(R.drawable.ic_interrogation))
-                                        .thumbnail(Glide.with(InvDetailActivity.this).load(Constants.LOADING_GIF))
-                                        .into(ivPhoto);
-                            }
-                        }
+        call.enqueue(new Callback<ResponseBody>() {
+            @SneakyThrows
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        media = response.body();
+                        Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
+                        Glide
+                                .with(InvDetailActivity.this)
+                                .load(bmp)
+                                .error(Glide.with(InvDetailActivity.this).load(R.drawable.ic_interrogation))
+                                .thumbnail(Glide.with(InvDetailActivity.this).load(Constants.LOADING_GIF))
+                                .into(ivPhoto);
+                    } else {
+                        Glide
+                                .with(InvDetailActivity.this)
+                                .load(R.drawable.ic_faqs)
+                                .error(Glide.with(InvDetailActivity.this).load(R.drawable.ic_interrogation))
+                                .thumbnail(Glide.with(InvDetailActivity.this).load(Constants.LOADING_GIF))
+                                .into(ivPhoto);
                     }
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(InvDetailActivity.this, "Error loading picture", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(InvDetailActivity.this, "Error loading picture", Toast.LENGTH_SHORT).show();
             }
         });
     }

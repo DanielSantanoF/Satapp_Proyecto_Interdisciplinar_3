@@ -10,6 +10,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -32,6 +33,9 @@ public interface SatAppInvService {
     @PUT("/inventariable/{id}/img")
     Call<ResponseBody> putInventariableImg(@Path("id") String id,
                                             @Part MultipartBody.Part imagen);
+
+    @DELETE("/inventariable/{id}")
+    Call<Void> deleteInventariable(@Path("id") String id);
 
     @GET("/inventariable/img/{img_url}")
     Call<ResponseBody> getInventariableImage(@Path("img_url") String img_url);
