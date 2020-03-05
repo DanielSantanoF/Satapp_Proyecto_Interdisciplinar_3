@@ -25,7 +25,7 @@ import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.commons.NameComparator;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
 import com.groupfive.satapp.models.inventariable.Inventariable;
-import com.groupfive.satapp.ui.IInventariableListener;
+import com.groupfive.satapp.listeners.IInventariableListener;
 
 import java.util.Collections;
 import java.util.List;

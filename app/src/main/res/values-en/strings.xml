@@ -126,4 +126,8 @@
     <string name="password_edit_succed">Password edited</string>
     <string name="state">State:</string>
     <string name="acces_denied_by_role">You dont have permission to do that action</string>
+    <string name="title_activity_inv_detail">InvDetailActivity</string>
+    <string name="ubi">Location</string>
+    <string name="location">Location:</string>
+    <string name="record">Tickets historial</string>
 </resources>

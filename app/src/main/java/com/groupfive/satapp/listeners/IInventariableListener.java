@@ -1,7 +1,7 @@
-package com.groupfive.satapp.ui;
+package com.groupfive.satapp.listeners;
 
 import com.groupfive.satapp.models.inventariable.Inventariable;
 
 public interface IInventariableListener {
-    public void onInventariableClick(Inventariable iv);
+    void onInventariableClick(Inventariable iv);
 }

@@ -22,7 +22,7 @@ import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.retrofit.SatAppInvService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
-import com.groupfive.satapp.ui.IInventariableListener;
+import com.groupfive.satapp.listeners.IInventariableListener;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
