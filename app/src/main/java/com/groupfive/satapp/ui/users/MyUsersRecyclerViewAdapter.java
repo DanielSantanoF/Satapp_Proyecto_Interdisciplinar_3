@@ -3,7 +3,10 @@ package com.groupfive.satapp.ui.users;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -56,6 +59,12 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
         holder.name.setText(holder.mItem.name);
         holder.email.setText(holder.mItem.email);
         holder.rol.setText(holder.mItem.role);
+        holder.check.setVisibility(View.GONE);
+        holder.tecnico.setVisibility(View.GONE);
+
+        if(holder.mItem.role.equals("admin")){
+            holder.cancel.setVisibility(View.GONE);
+        }
 
         if (holder.mItem.picture != null) {
             userViewModel.getPicture(holder.mItem.id).observeForever(new Observer<ResponseBody>() {
@@ -75,25 +84,105 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
                     .into(holder.foto);
         }
 
-        if (validated){
-            holder.vali.setVisibility(View.GONE);
+        if (!holder.mItem.validated){
+            holder.check.setVisibility(View.VISIBLE);
         }else {
-            holder.check.setVisibility(View.GONE);
-            holder.cancel.setVisibility(View.GONE);
-            if (!holder.mItem.validated){
-                Glide.with(ctx)
-                        .load(R.drawable.ic_validated)
-                        .centerCrop()
-                        .into(holder.vali);
+            if (holder.mItem.role.equals("user")){
+                holder.tecnico.setVisibility(View.VISIBLE);
             }
         }
 
         holder.check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userViewModel.putValidated(holder.mItem.id);
-                userViewModel.AllUser();
-                userViewModel.UsersValidated();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        ctx);
+                alertDialogBuilder.setTitle(R.string.validacion);
+                alertDialogBuilder
+                        .setMessage(R.string.mensageValidacion)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                userViewModel.putValidated(holder.mItem.id);
+                                if (validated){
+                                    mValues.remove(holder.mItem);
+                                    notifyDataSetChanged();
+                                }else {
+                                    holder.check.setVisibility(View.GONE);
+                                }
+
+                            }
+                        })
+                        .setNegativeButton(R.string.no,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+
+        holder.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        ctx);
+                alertDialogBuilder.setTitle(R.string.borrado);
+                alertDialogBuilder
+                        .setMessage(R.string.mensageBorrado)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                mValues.remove(holder.mItem);
+                                notifyDataSetChanged();
+                                userViewModel.deleteUser(holder.mItem.id);
+                            }
+                        })
+                        .setNegativeButton(R.string.no,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+
+        holder.tecnico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        ctx);
+                alertDialogBuilder.setTitle(R.string.promocion);
+                alertDialogBuilder
+                        .setMessage(R.string.mensagepromocion)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                holder.tecnico.setVisibility(View.GONE);
+                                userViewModel.putTecnico(holder.mItem.id);
+                                holder.mItem.setRole("tecnico");
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton(R.string.no,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+
+        holder.foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MyApp.getContext(),ProfileAdminActivity.class);
+                i.putExtra("id",holder.mItem.getId());
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MyApp.getContext().startActivity(i);
             }
         });
     }
@@ -111,7 +200,7 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
         public final TextView rol;
         public final ImageButton check;
         public final ImageButton cancel;
-        public final ImageView vali;
+        public final ImageButton tecnico;
         public AuthLoginUser mItem;
 
         public ViewHolder(View view) {
@@ -123,8 +212,7 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
             foto = view.findViewById(R.id.imageViewFotoList);
             check = view.findViewById(R.id.imageButtonValidated);
             cancel = view.findViewById(R.id.imageButtonCancel);
-            vali = view.findViewById(R.id.imageViewValidated);
-
+            tecnico = view.findViewById(R.id.imageButtonTecnico);
         }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
-import com.groupfive.satapp.ui.users.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,12 @@ public class UsersFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     private Context context;
-    private RecyclerView users , validated;
+    private RecyclerView users;
     private UserViewModel userViewModel;
     private List<AuthLoginUser> listUsers, listValidates;
     private MyUsersRecyclerViewAdapter adapterUser, adapterValidate;
+    private Button allUsers,allValidated;
+
 
     public UsersFragment() {
     }
@@ -59,11 +62,27 @@ public class UsersFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_users_list, container, false);
         users = view.findViewById(R.id.listUsers);
-        validated = view.findViewById(R.id.listValidated);
+        allUsers = view.findViewById(R.id.buttonAllUsers);
+        allValidated = view.findViewById(R.id.buttonAllValidated);
         context = view.getContext();
 
         loadUser();
-        loadValidated();
+
+        allUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadUser();
+            }
+        });
+
+        allValidated.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadValidated();
+            }
+        });
+
+        //loadValidated();
 
         return view;
     }
@@ -95,9 +114,9 @@ public class UsersFragment extends Fragment {
     public void loadValidated(){
         listValidates = new ArrayList<>();
         if (mColumnCount <= 1) {
-            validated.setLayoutManager(new LinearLayoutManager(context));
+            users.setLayoutManager(new LinearLayoutManager(context));
         } else {
-            validated.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            users.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
 
         adapterValidate = new MyUsersRecyclerViewAdapter(
@@ -107,7 +126,7 @@ public class UsersFragment extends Fragment {
                 true
         );
 
-        validated.setAdapter(adapterValidate);
+        users.setAdapter(adapterValidate);
 
         userViewModel.getUsersValidated().observe(getActivity(), new Observer<List<AuthLoginUser>>() {
             @Override

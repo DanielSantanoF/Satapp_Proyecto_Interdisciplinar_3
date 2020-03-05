@@ -34,7 +34,7 @@ import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.auth.LoginActivity;
 import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
 import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
-import com.groupfive.satapp.ui.user.ProfileActivity;
+import com.groupfive.satapp.ui.users.ProfileActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -91,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
             }
         });
 
-        userViewModel.AllUser();
-        userViewModel.UsersValidated();
 
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
             @Override
@@ -169,5 +167,38 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
         Intent i = new Intent(MainActivity.this, TicketDetailActivity.class);
         i.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketModel.getId()));
         startActivity(i);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
+            @Override
+            public void onChanged(AuthLoginUser authLoginUser) {
+                user = authLoginUser;
+                nameUser.setText(user.name);
+                emailUser.setText(user.email);
+
+                if (user.picture != null) {
+                    userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {
+                        @Override
+                        public void onChanged(ResponseBody responseBody) {
+                            Bitmap bmp = BitmapFactory.decodeStream(responseBody.byteStream());
+                            Glide.with(MyApp.getContext())
+                                    .load(bmp)
+                                    .circleCrop()
+                                    .into(ivFotoPerfil);
+                        }
+                    });
+                }else {
+                    Glide.with(MyApp.getContext())
+                            .load(R.drawable.ic_perfil)
+                            .circleCrop()
+                            .into(ivFotoPerfil);
+                }
+
+            }
+        });
     }
 }

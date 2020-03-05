@@ -6,6 +6,7 @@ import com.groupfive.satapp.models.annotations.NewAnnotationBody;
 import com.groupfive.satapp.models.annotations.UpdateAnnotation;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
+import com.groupfive.satapp.models.auth.Password;
 import com.groupfive.satapp.models.tickets.AddTechnician;
 import com.groupfive.satapp.models.tickets.ChangeTicketState;
 import com.groupfive.satapp.models.tickets.EditTicketBody;
@@ -14,6 +15,7 @@ import com.groupfive.satapp.models.tickets.TicketWithAnnotations;
 
 import java.util.List;
 
+import kotlin.PublishedApi;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -60,6 +62,12 @@ public interface SatAppService {
 
     @PUT("/users/{id}/validate")
     Call<AuthLoginUser> putValidated(@Path("id")String id);
+
+    @PUT("/users/{id}/tecnico")
+    Call<AuthLoginUser> putTecnico(@Path("id")String id);
+
+    @DELETE("/users/{id}")
+    Call<ResponseBody> deleteUser(@Path("id")String id);
 
 //    @Multipart
 //    @POST("/ticket")
@@ -118,6 +126,7 @@ public interface SatAppService {
     @PUT("/ticket/{id}/asignar")
     Call<TicketModel> updateTickeAddTechnician(@Path("id") String id, @Body AddTechnician addTechnician);
 
+
     @PUT("/ticket/{id}/estado")
     Call<TicketModel> updateTicketState(@Path("id") String id, @Body ChangeTicketState changeTicketState);
 
@@ -146,5 +155,25 @@ public interface SatAppService {
 
     @PUT("/anotacion/{id}")
     Call<NewAnnotation> updateAnotation(@Path("id") String id, @Body UpdateAnnotation updateAnnotation);
+
+    @Multipart
+    @PUT("/users/{id}/img")
+    Call<AuthLoginUser> updatePhoto(@Path("id")String id,
+                                    @Part MultipartBody.Part avatar);
+
+    @DELETE("/users/{id}/img")
+    Call<ResponseBody> deletePhoto(@Path("id")String id);
+
+    @PUT("/users/{id}")
+    Call<AuthLoginUser> putUser(@Path("id")String id,
+                                @Query("name") String name);
+
+    @PUT("/users/{id}/password")
+    Call<AuthLoginUser> putPassword(@Path("id")String id,
+                                    @Header("Authorization") String authHeader,
+                                   @Body Password password);
+
+    @GET("/users/{id}")
+    Call<AuthLoginUser> getUserId(@Path("id") String id);
 
 }

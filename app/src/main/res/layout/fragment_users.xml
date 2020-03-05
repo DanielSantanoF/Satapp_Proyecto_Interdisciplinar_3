@@ -9,10 +9,13 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,16 +66,6 @@
                 app:layout_constraintStart_toEndOf="@+id/imageViewFotoList"
                 app:layout_constraintTop_toBottomOf="@+id/textViewEmailList" />
 
-            <ImageView
-                android:id="@+id/imageViewValidated"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButtonValidated"
-                tools:srcCompat="@tools:sample/avatars" />
-
             <ImageButton
                 android:id="@+id/imageButtonCancel"
                 style="@style/Widget.AppCompat.ImageButton"
@@ -80,7 +73,7 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="#F61F1F"
+                android:backgroundTint="#FFFEFE"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,11 +85,24 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="#2BD505"
+                android:backgroundTint="#FEFFFE"
                 android:scaleType="centerCrop"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButtonCancel"
                 app:srcCompat="@drawable/ic_check" />
+
+            <ImageButton
+                android:id="@+id/imageButtonTecnico"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#FBF9F9"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageButtonValidated"
+                app:srcCompat="@drawable/ic_tecnico" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
