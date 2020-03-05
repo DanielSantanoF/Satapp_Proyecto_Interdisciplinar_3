@@ -19,6 +19,7 @@ public class InventariableViewModel extends AndroidViewModel {
     LiveData<List<Inventariable>> direct;
     LiveData<Inventariable> result;
     LiveData<List<TicketModel>> result2;
+    LiveData<List<String>> result3;
 
     public InventariableViewModel(@NonNull Application application) {
         super(application);
@@ -39,5 +40,10 @@ public class InventariableViewModel extends AndroidViewModel {
     public LiveData<List<TicketModel>> getTicketFrom(String id) {
         result2 = inventariableRepository.getTicketsFrom(id);
         return result2;
+    }
+
+    public LiveData<List<String>> getLocations() {
+        result3 = inventariableRepository.getAllLocations();
+        return result3;
     }
 }

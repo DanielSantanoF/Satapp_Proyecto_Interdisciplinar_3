@@ -1,4 +1,4 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.ui.inventariable;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.models.inventariable.Inventariable;

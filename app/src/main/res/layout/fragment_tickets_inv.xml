@@ -89,8 +89,6 @@
                 android:id="@+id/imageButtonDelete"
                 android:layout_width="42dp"
                 android:layout_height="38dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="16dp"
                 android:backgroundTint="#00FFFFFF"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"

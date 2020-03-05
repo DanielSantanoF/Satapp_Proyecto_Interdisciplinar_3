@@ -1,4 +1,4 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.ui.inventariable;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,18 +8,18 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
-import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.retrofit.SatAppInvService;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
-import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -100,6 +100,25 @@ public class MyticketsInvRecyclerViewAdapter extends RecyclerView.Adapter<Mytick
             }
         });
 
+        holder.ibDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<ResponseBody> call2 = service.deleteTicketById(holder.mItem.getId());
+                call2.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Snackbar.make(holder.mView, "Eliminado correctamente", Snackbar.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Snackbar.make(holder.mView, "Error en el servidor", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
     }
 
     public void setData(List<TicketModel> result) {
@@ -122,6 +141,7 @@ public class MyticketsInvRecyclerViewAdapter extends RecyclerView.Adapter<Mytick
         public final TextView tvDate;
         public final TextView tvStatus;
         public final ImageView ivPhoto;
+        public final ImageButton ibDelete;
         public TicketModel mItem;
 
         public ViewHolder(View view) {
@@ -131,6 +151,7 @@ public class MyticketsInvRecyclerViewAdapter extends RecyclerView.Adapter<Mytick
             tvDate = view.findViewById(R.id.textViewDate);
             tvStatus = view.findViewById(R.id.textViewStatus);
             ivPhoto = view.findViewById(R.id.imageViewPhoto);
+            ibDelete = view.findViewById(R.id.imageButtonDelete);
         }
     }
 }

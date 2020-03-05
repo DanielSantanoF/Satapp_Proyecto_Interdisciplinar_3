@@ -1,4 +1,4 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.ui.inventariable;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.commons.NameComparator;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
@@ -27,7 +28,6 @@ import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.ui.IInventariableListener;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class InventariableFragment extends Fragment {
@@ -63,6 +63,10 @@ public class InventariableFragment extends Fragment {
             case R.id.addButton:
                 Intent i = new Intent(MyApp.getContext(), AddInvActivity.class);
                 startActivity(i);
+                break;
+            case R.id.showLocations:
+                Intent j = new Intent(MyApp.getContext(), LocationActivity.class);
+                startActivity(j);
         }
         return super.onOptionsItemSelected(item);
     }

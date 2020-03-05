@@ -1,4 +1,4 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.ui.inventariable;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
 import com.groupfive.satapp.models.inventariable.EditInventariable;

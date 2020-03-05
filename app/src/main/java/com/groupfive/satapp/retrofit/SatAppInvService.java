@@ -35,6 +35,9 @@ public interface SatAppInvService {
     Call<ResponseBody> putInventariableImg(@Path("id") String id,
                                             @Part MultipartBody.Part imagen);
 
+    @GET("/inventariable/ubicaciones")
+    Call<List<String>> getLocations();
+
     @DELETE("/inventariable/{id}")
     Call<Void> deleteInventariable(@Path("id") String id);
 

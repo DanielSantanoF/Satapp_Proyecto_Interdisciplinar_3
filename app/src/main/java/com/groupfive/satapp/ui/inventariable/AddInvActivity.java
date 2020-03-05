@@ -1,14 +1,11 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.ui.inventariable;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,12 +16,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.android.material.snackbar.Snackbar;
-import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.models.inventariable.TipoInventariable;
@@ -37,11 +32,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import lombok.SneakyThrows;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".InvDetailActivity"
+    tools:context=".ui.inventariable.InvDetailActivity"
     tools:showIn="@layout/activity_inv_detail">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".InvDetailActivity"
+        tools:context=".ui.inventariable.InvDetailActivity"
         tools:showIn="@layout/activity_inv_detail">
 
         <TextView
@@ -146,7 +146,7 @@
 
         <fragment
             android:id="@+id/fragment6"
-            android:name="com.groupfive.satapp.ticketsInvFragment"
+            android:name="com.groupfive.satapp.ui.inventariable.ticketsInvFragment"
             android:layout_width="408dp"
             android:layout_height="182dp"
             android:layout_marginTop="10dp"

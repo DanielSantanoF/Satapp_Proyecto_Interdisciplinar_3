@@ -1,4 +1,4 @@
-package com.groupfive.satapp;
+package com.groupfive.satapp.ui.inventariable;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
 import com.groupfive.satapp.models.inventariable.Inventariable;
@@ -20,7 +21,6 @@ import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 

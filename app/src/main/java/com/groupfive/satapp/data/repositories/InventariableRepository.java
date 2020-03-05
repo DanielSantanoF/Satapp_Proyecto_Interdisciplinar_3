@@ -5,7 +5,6 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.models.tickets.TicketModel;
@@ -95,5 +94,28 @@ public class InventariableRepository {
         });
 
         return data;
+    }
+
+    public LiveData<List<String>> getAllLocations() {
+        final MutableLiveData<List<String>> data2 = new MutableLiveData<>();
+
+        Call<List<String>> call = service.getLocations();
+
+        call.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if(response.isSuccessful()) {
+                    data2.setValue(response.body());
+                } else {
+                    Toast.makeText(MyApp.getContext(), "API Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "External error", Toast.LENGTH_LONG).show();
+            }
+        });
+        return data2;
     }
 }

@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.groupfive.satapp.IHistoryListener;
+import com.groupfive.satapp.ui.inventariable.IHistoryListener;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
@@ -34,7 +33,6 @@ import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.auth.LoginActivity;
-import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
 import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
 import com.groupfive.satapp.ui.user.ProfileActivity;
 
@@ -118,16 +116,6 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
                             .into(ivFotoPerfil);
                 }
 
-            }
-        });
-
-
-        FloatingActionButton fab = findViewById(R.id.fabAddNewTicket);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NewTicketDialogFragment dialog = new NewTicketDialogFragment(MainActivity.this);
-                dialog.show(getSupportFragmentManager(), "NewTicketDialogFragment");
             }
         });
 
