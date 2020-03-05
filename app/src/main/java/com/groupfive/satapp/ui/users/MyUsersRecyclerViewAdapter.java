@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -25,13 +26,14 @@ import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 
 public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecyclerViewAdapter.ViewHolder> {
 
-    private final List<AuthLoginUser> mValues;
+    private List<AuthLoginUser> mValues;
     private Context ctx;
     private UserViewModel userViewModel;
     private UserSatAppRepository userSatAppRepository;
@@ -174,6 +176,26 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
                 alertDialog.show();
             }
         });
+
+        holder.foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MyApp.getContext(),ProfileAdminActivity.class);
+                i.putExtra("id",holder.mItem.getId());
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MyApp.getContext().startActivity(i);
+            }
+        });
+    }
+
+    public void setData(List<AuthLoginUser> list){
+        if(this.mValues != null) {
+            this.mValues.clear();
+        } else {
+            this.mValues =  new ArrayList<>();
+        }
+        this.mValues.addAll(list);
+        notifyDataSetChanged();
     }
 
     @Override

@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
-import com.groupfive.satapp.data.viewModel.InventariableViewModel;
+import com.groupfive.satapp.listeners.OnNewTicketDialogListener;
 import com.groupfive.satapp.models.tickets.EditTicketBody;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
@@ -33,10 +33,12 @@ public class EdtiTicketDialogFragment extends DialogFragment {
     EditText edTitle, edDescription;
     SatAppService service;
     String idTicket;
+    OnNewTicketDialogListener mListener;
 
-    public EdtiTicketDialogFragment(Context ctx, String ticketId) {
+    public EdtiTicketDialogFragment(Context ctx, String ticketId, OnNewTicketDialogListener onNewTicketDialogListener) {
         this.ctx = ctx;
         this.idTicket = ticketId;
+        this.mListener = onNewTicketDialogListener;
     }
 
     @NonNull
@@ -75,6 +77,7 @@ public class EdtiTicketDialogFragment extends DialogFragment {
                     call.enqueue(new Callback<TicketModel>() {
                         @Override
                         public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
+                            mListener.onTicketUpdated();
                             Toast.makeText(MyApp.getContext(), "Ticket edited", Toast.LENGTH_SHORT).show();
                         }
 
@@ -98,6 +101,4 @@ public class EdtiTicketDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    public void onDismiss(DialogInterface.OnDismissListener onDismissListener) {
-    }
 }

@@ -34,7 +34,7 @@ import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.auth.LoginActivity;
 import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
-import com.groupfive.satapp.ui.user.ProfileActivity;
+import com.groupfive.satapp.ui.users.ProfileActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
         NavigationUI.setupWithNavController(navigationView, navController);
         userSatAppRepository = new UserSatAppRepository();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-
         // Header
         View header = navigationView.getHeaderView(0);
         ivFotoPerfil = header.findViewById(R.id.imageViewFotoPerfil);
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
             }
         });
 
-
+        
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
             @Override
             public void onChanged(AuthLoginUser authLoginUser) {

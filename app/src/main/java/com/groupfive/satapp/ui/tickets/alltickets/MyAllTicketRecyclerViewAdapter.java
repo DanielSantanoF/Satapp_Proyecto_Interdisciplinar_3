@@ -14,6 +14,7 @@ import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.transformations.DateTransformation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -63,7 +64,12 @@ public class MyAllTicketRecyclerViewAdapter extends RecyclerView.Adapter<MyAllTi
     }
 
     public void setData(List<TicketModel> list){
-        this.mValues = list;
+        if(this.mValues != null) {
+            this.mValues.clear();
+        } else {
+            this.mValues =  new ArrayList<>();
+        }
+        this.mValues.addAll(list);
         notifyDataSetChanged();
     }
 

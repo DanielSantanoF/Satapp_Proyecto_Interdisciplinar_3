@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.user;
+package com.groupfive.satapp.ui.users;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +14,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,10 +51,11 @@ public class ProfileActivity extends AppCompatActivity {
     private AuthLoginUser user;
     private TextView nombre, email;
     private CircularImageView circularImageView;
-    private FloatingActionButton fab,fab2;
+    private FloatingActionButton fab2;
     private Uri uriS;
-    private EditText nameE, emailE,passawor1,passswor2;
+    private EditText nameE,passawor1,passswor2,emailPass,passwordActual;
     private Button savePass, saveDate;
+    private ImageView check, cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,17 +65,22 @@ public class ProfileActivity extends AppCompatActivity {
         userSatAppRepository = new UserSatAppRepository();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         nombre = findViewById(R.id.textViewNameProfile);
-        email = findViewById(R.id.textViewEmailProfile);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        email = findViewById(R.id.textViewEmailProfile);;
         fab2 = findViewById(R.id.fab2);
         nameE = findViewById(R.id.editTextNameProfile);
-        emailE= findViewById(R.id.editTextEmailProfile);
         passawor1 = findViewById(R.id.editTextPassworProfile);
         passswor2 = findViewById(R.id.editTextPassword2Pfrofile);
         savePass = findViewById(R.id.buttonSavePassProfile);
         saveDate = findViewById(R.id.buttonSaveDateProfile);
+        check = findViewById(R.id.imageViewCheckPhoto);
+        cancel = findViewById(R.id.imageViewCancelPhoto);
+        emailPass = findViewById(R.id.editTextEmailPassword);
+        passwordActual = findViewById(R.id.editTextPasswordActual);
 
-        circularImageView = findViewById(R.id.imageViewDetallePerfil);
+        check.setVisibility(View.GONE);
+        cancel.setVisibility(View.GONE);
+
+        circularImageView = findViewById(R.id.imageViewPhotoProfileAdmin);
         circularImageView.setBorderWidth(3);
         circularImageView.setBorderColor(Color.WHITE);
 
@@ -91,7 +99,6 @@ public class ProfileActivity extends AppCompatActivity {
                 nombre.setText(user.getName());
                 email.setText(user.getEmail());
                 nameE.setText(user.getName());
-                emailE.setText(user.getEmail());
 
                 if (user.picture != null) {
                     userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {
@@ -146,7 +153,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (uriS != null) {
@@ -173,6 +180,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                         userViewModel.updatePhoto(user.id,body);
                         Toast.makeText(ProfileActivity.this, R.string.savePhoto, Toast.LENGTH_SHORT).show();
+                        check.setVisibility(View.GONE);
+                        cancel.setVisibility(View.GONE);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -180,6 +189,69 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }else{
                     Toast.makeText(ProfileActivity.this, R.string.selecPhoto, Toast.LENGTH_SHORT).show();
+                    check.setVisibility(View.GONE);
+                    cancel.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uriS = null;
+                userViewModel.getUser().observe(ProfileActivity.this, new Observer<AuthLoginUser>() {
+                    @Override
+                    public void onChanged(AuthLoginUser authLoginUser) {
+                        if (user.picture != null) {
+                            userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {
+                                @Override
+                                public void onChanged(ResponseBody responseBody) {
+                                    Bitmap bmp = BitmapFactory.decodeStream(responseBody.byteStream());
+                                    Glide.with(MyApp.getContext())
+                                            .load(bmp)
+                                            .thumbnail(Glide.with(ProfileActivity.this).load(R.drawable.loading_gif))
+                                            .centerCrop()
+                                            .into(circularImageView);
+                                }
+                            });
+                        }else {
+                            Glide.with(MyApp.getContext())
+                                    .load(R.drawable.ic_perfil)
+                                    .thumbnail(Glide.with(ProfileActivity.this).load(R.drawable.loading_gif))
+                                    .centerCrop()
+                                    .into(circularImageView);
+                        }
+
+                    }
+                });
+                check.setVisibility(View.GONE);
+                cancel.setVisibility(View.GONE);
+            }
+        });
+
+        saveDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userViewModel.putUser(user.getId(),nameE.getText().toString()).observeForever(new Observer<AuthLoginUser>() {
+                    @Override
+                    public void onChanged(AuthLoginUser authLoginUser) {
+                        user = authLoginUser;
+                        nombre.setText(user.getName());
+                    }
+                });
+            }
+        });
+
+        savePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (passawor1.getText().toString().equals(passswor2.getText().toString())){
+                    String base = emailPass.getText().toString() + ":" + passwordActual.getText().toString();
+                    String authHeader = "Basic " + Base64.encodeToString(base.getBytes(), Base64.NO_WRAP);
+                    userViewModel.putPassword(user.getId(),authHeader,passawor1.getText().toString());
+                    Toast.makeText(ProfileActivity.this, "Contraseña cambiada correctamente.", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(ProfileActivity.this, "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -210,6 +282,8 @@ public class ProfileActivity extends AppCompatActivity {
                         .centerCrop()
                         .into(circularImageView);
                 uriS = uri;
+                check.setVisibility(View.VISIBLE);
+                cancel.setVisibility(View.VISIBLE);
             }
         }
     }

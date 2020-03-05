@@ -49,6 +49,7 @@ public class NewTicketDialogFragment extends DialogFragment {
 
     View v;
     Context ctx;
+    String inventariableId;
     private static final int READ_REQUEST_CODE = Constants.IMAGE_READ_REQUEST_CODE;
     EditText edTitle, edDescription;
     Button btnUploadFoto;
@@ -56,9 +57,11 @@ public class NewTicketDialogFragment extends DialogFragment {
     SatAppService service;
     ArrayList<Uri> fileUris = new ArrayList<Uri>();
     Activity act;
+    RequestBody inventariableBody, titleBody, descriptionBody;
 
-    public NewTicketDialogFragment(Context ctx) {
+    public NewTicketDialogFragment(Context ctx, String invId) {
         this.ctx = ctx;
+        this.inventariableId = invId;
     }
 
     @Override
@@ -106,8 +109,11 @@ public class NewTicketDialogFragment extends DialogFragment {
                         try {
 
                             //TEXT PARTS
-                            RequestBody titleBody = RequestBody.create(MultipartBody.FORM, title);
-                            RequestBody descriptionBody = RequestBody.create(MultipartBody.FORM, description);
+                            titleBody = RequestBody.create(MultipartBody.FORM, title);
+                            descriptionBody = RequestBody.create(MultipartBody.FORM, description);
+                            if(inventariableId != null){
+                                inventariableBody = RequestBody.create(MultipartBody.FORM, inventariableId);
+                            }
 
                             //LIST OF PARTS FOTOS
                             List<MultipartBody.Part> parts = new ArrayList<>();
@@ -136,25 +142,43 @@ public class NewTicketDialogFragment extends DialogFragment {
                             }
                             //CALL TO API
                             service = SatAppServiceGenerator.createService(SatAppService.class);
-                            Call<TicketModel> callPostNewTicket = service.postNewTicket(parts, titleBody, descriptionBody);
-
-                            callPostNewTicket.enqueue(new Callback<TicketModel>() {
-                                @Override
-                                public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
-                                    if (response.isSuccessful()) {
-                                        Log.d("Uploaded", "Éxito");
-                                        Log.d("Uploaded", response.body().toString());
-                                        //Toast.makeText(act, getResources().getString(R.string.new_ticket_created), Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Log.e("Upload error", response.errorBody().toString());
+                            if(inventariableId != null){
+                                Call<TicketModel> callPostNewTicketInventariable = service.postNewTicketByInventariableId(parts, titleBody, descriptionBody, inventariableBody);
+                                callPostNewTicketInventariable.enqueue(new Callback<TicketModel>() {
+                                    @Override
+                                    public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
+                                        if (response.isSuccessful()) {
+                                            Log.d("Uploaded", "Éxito");
+                                            Log.d("Uploaded", response.body().toString());
+                                        } else {
+                                            Log.e("Upload error", response.errorBody().toString());
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onFailure(Call<TicketModel> call, Throwable t) {
-                                    Log.e("Upload error", t.getMessage());
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(Call<TicketModel> call, Throwable t) {
+                                        Log.e("Upload error", t.getMessage());
+                                    }
+                                });
+                            } else {
+                                Call<TicketModel> callPostNewTicket = service.postNewTicket(parts, titleBody, descriptionBody);
+                                callPostNewTicket.enqueue(new Callback<TicketModel>() {
+                                    @Override
+                                    public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
+                                        if (response.isSuccessful()) {
+                                            Log.d("Uploaded", "Éxito");
+                                            Log.d("Uploaded", response.body().toString());
+                                        } else {
+                                            Log.e("Upload error", response.errorBody().toString());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<TicketModel> call, Throwable t) {
+                                        Log.e("Upload error", t.getMessage());
+                                    }
+                                });
+                            }
 
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();

@@ -3,12 +3,15 @@ package com.groupfive.satapp.retrofit;
 
 import com.groupfive.satapp.models.annotations.NewAnnotation;
 import com.groupfive.satapp.models.annotations.NewAnnotationBody;
+import com.groupfive.satapp.models.annotations.UpdateAnnotation;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
+import com.groupfive.satapp.models.auth.Password;
 import com.groupfive.satapp.models.tickets.AddTechnician;
 import com.groupfive.satapp.models.tickets.ChangeTicketState;
 import com.groupfive.satapp.models.tickets.EditTicketBody;
 import com.groupfive.satapp.models.tickets.TicketModel;
+import com.groupfive.satapp.models.tickets.TicketWithAnnotations;
 
 import java.util.List;
 
@@ -80,6 +83,13 @@ public interface SatAppService {
                                     @Part("titulo") RequestBody titulo,
                                     @Part("descripcion") RequestBody descripcion);
 
+    @Multipart
+    @POST("/ticket")
+    Call<TicketModel> postNewTicketByInventariableId(@Part List<MultipartBody.Part> fotos,
+                                                     @Part("titulo") RequestBody titulo,
+                                                     @Part("descripcion") RequestBody descripcion,
+                                                     @Part("inventariable") RequestBody inventariable);
+
     /* ALL QUERYS ARE OPTIONALS IF ISN'T NEED SEND IT AS A null
     Query -> q: Query to search
     Query -> page: Page number
@@ -134,9 +144,17 @@ public interface SatAppService {
                                             @Query("sort") String orderOfReturnedItems,
                                             @Query("fields") String fieldsToBeReturned);
 
+    @GET("/ticket/{id}")
+    Call<TicketWithAnnotations> getTicketByIdForAnnotaions(@Path("id") String id);
+
     @POST("/anotacion")
     Call<NewAnnotation> postAnnotation(@Body NewAnnotationBody newAnnotationBody);
 
+    @DELETE("/anotacion/{id}")
+    Call<ResponseBody> deleteAnnotationById(@Path("id") String id);
+
+    @PUT("/anotacion/{id}")
+    Call<NewAnnotation> updateAnotation(@Path("id") String id, @Body UpdateAnnotation updateAnnotation);
 
     @Multipart
     @PUT("/users/{id}/img")
@@ -145,5 +163,17 @@ public interface SatAppService {
 
     @DELETE("/users/{id}/img")
     Call<ResponseBody> deletePhoto(@Path("id")String id);
+
+    @PUT("/users/{id}")
+    Call<AuthLoginUser> putUser(@Path("id")String id,
+                                @Query("name") String name);
+
+    @PUT("/users/{id}/password")
+    Call<AuthLoginUser> putPassword(@Path("id")String id,
+                                    @Header("Authorization") String authHeader,
+                                   @Body Password password);
+
+    @GET("/users/{id}")
+    Call<AuthLoginUser> getUserId(@Path("id") String id);
 
 }

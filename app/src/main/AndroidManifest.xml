@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:name=".commons.MyApp"
@@ -21,6 +23,10 @@
             android:name=".ui.inventariable.InvDetailActivity"
             android:label="@string/title_activity_inv_detail"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".ui.annotations.allticketannotation.ShowAllTicketAnnotationsActivity"></activity>
+        <activity android:name=".ui.users.ProfileAdminActivity"></activity>
+
         <activity android:name=".ui.tickets.phototicketdetail.ShowPhotosTicektActivity" />
         <activity android:name=".ui.tickets.ticketdetail.FotosTicketDetailActivity" />
         <activity android:name=".ui.tickets.changestate.ChangeStateTicketActivity" />
@@ -28,7 +34,8 @@
         <activity android:name=".ui.tickets.usertickets.ShowAllMyTicketsActivity" />
         <activity android:name=".ui.tickets.ticketdetail.TicketDetailActivity" />
         <activity android:name=".ui.tickets.addtechnician.AddThechnicianShowActivity" />
-        <activity android:name=".ui.user.ProfileActivity" />
+        <activity android:name=".ui.users.ProfileActivity" />
+
         <activity android:name=".ui.auth.RegisterActivity" />
         <activity android:name=".ui.auth.LoginActivity">
             <intent-filter>

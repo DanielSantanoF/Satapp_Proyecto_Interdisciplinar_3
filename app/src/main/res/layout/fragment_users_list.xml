@@ -48,8 +48,8 @@
             android:name="com.groupfive.satapp.ui.users.UsersFragment"
             android:layout_width="match_parent"
             android:layout_height="660dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             app:layoutManager="LinearLayoutManager"
             tools:context=".ui.users.UsersFragment"
             tools:listitem="@layout/fragment_users" />

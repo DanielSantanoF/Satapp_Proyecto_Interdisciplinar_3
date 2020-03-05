@@ -1,10 +1,7 @@
-package com.groupfive.satapp.models.auth;
+package com.groupfive.satapp.models.annotations;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,31 +10,26 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthLoginUser {
+public class AnnotationTicketDetail {
     @SerializedName("id")
     @Expose
     public String id;
-    @SerializedName("name")
+    @SerializedName("id_usuario")
     @Expose
-    public String name;
-    @SerializedName("email")
+    public AnnotationTicketDetailUser idUsuario;
+    @SerializedName("fecha")
     @Expose
-    public String email;
-    @SerializedName("role")
+    public String fecha;
+    @SerializedName("cuerpo")
     @Expose
-    public String role;
-    @SerializedName("picture")
+    public String cuerpo;
+    @SerializedName("ticket")
     @Expose
-    public String picture;
+    public AnnotationTicketDetailTicket ticket;
     @SerializedName("createdAt")
     @Expose
     public String createdAt;
     @SerializedName("updatedAt")
     @Expose
     public String updatedAt;
-    @SerializedName("validated")
-    @Expose
-    public Boolean validated;
-
-    public List<String> palabrasClave = new ArrayList<>();
 }

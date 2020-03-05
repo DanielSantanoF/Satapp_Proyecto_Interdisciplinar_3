@@ -3,7 +3,6 @@ package com.groupfive.satapp.models.tickets;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TicketModel {
+public class TicketWithAnnotations {
     @SerializedName("id")
     @Expose
     public String id;
@@ -34,7 +33,7 @@ public class TicketModel {
     public String descripcion;
     @SerializedName("anotaciones")
     @Expose
-    public List<AnnotationTicketModel> anotaciones = null;
+    public List<TicketAnotaciones> anotaciones = null;
     @SerializedName("asignaciones")
     @Expose
     public List<TicketAsignaciones> asignaciones = null;
@@ -47,6 +46,4 @@ public class TicketModel {
     @SerializedName("updatedAt")
     @Expose
     public String updatedAt;
-
-    public List<String> palabrasClave = new ArrayList<>();
 }

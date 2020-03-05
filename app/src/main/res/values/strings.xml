@@ -8,7 +8,7 @@
     <string name="action_settings">Settings</string>
     <string name="menu_home">Equipos</string>
     <string name="menu_gallery">Tickets</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_slideshow">Usuarios</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
@@ -35,9 +35,9 @@
     <string name="mensagepromocion">¿Estas seguro que deseas hacer tecnico a este usuario?</string>
     <string name="tecnico">tecnico</string>
     <string name="modificarContrase">Modificar Contraseña</string>
-    <string name="modificarDatos">Modificar Datos</string>
+    <string name="modificarDatos">Modificar Nombre</string>
     <string name="guardarContra">Guardar Contraseña</string>
-    <string name="guardarDatos">Guardar Datos</string>
+    <string name="guardarDatos">Guardar Nombre</string>
     <string name="savePhoto">La foto se guardo correctamente</string>
     <string name="selecPhoto">Debe seleccionar una foto antes de guardarla</string>
     <string name="title_activity_profile">Perfil</string>
@@ -48,6 +48,7 @@
     <string name="delete_ticket_message">¿Estas seguro de que quieres eliminar este ticket?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="nombre">Nombre:</string>
     <string name="ticket_deleted">Ticket eliminado</string>
     <string name="error_ticket_deleted">Error al eliminar el ticket</string>
     <string name="inv_edit">Editar..</string>
@@ -87,4 +88,8 @@
     <string name="action_add_anotation">Añadir anotación</string>
     <string name="edt_cuerpo_new_annotation">Anotación...</string>
     <string name="record">Historial de Tickets</string>
+    <string name="action_add_ticket" >Añadir un nuevo ticket</string>
+    <string name="hint_cuerpo_update_annotation">Cuerpo</string>
+    <string name="action_add_to_calendar">Añadir ticket al calendario</string>
+    <string name="action_add_all_to_calendar">Añadir tickets al calendario</string>
 </resources>

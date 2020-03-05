@@ -25,11 +25,13 @@ import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.data.viewModel.TicketByIdViewModel;
+import com.groupfive.satapp.listeners.OnNewTicketDialogListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
-import com.groupfive.satapp.ui.annotations.NewAnnotationDialogFragment;
+import com.groupfive.satapp.ui.annotations.allticketannotation.ShowAllTicketAnnotationsActivity;
+import com.groupfive.satapp.ui.annotations.newannotation.NewAnnotationDialogFragment;
 import com.groupfive.satapp.ui.tickets.addtechnician.AddThechnicianShowActivity;
 import com.groupfive.satapp.ui.tickets.changestate.ChangeStateTicketActivity;
 import com.groupfive.satapp.ui.tickets.phototicketdetail.ShowPhotosTicektActivity;
@@ -39,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TicketDetailActivity extends AppCompatActivity {
+public class TicketDetailActivity extends AppCompatActivity implements OnNewTicketDialogListener{
 
     DateTransformation dateTransformer = new DateTransformation();
     String ticketId;
@@ -51,6 +53,7 @@ public class TicketDetailActivity extends AppCompatActivity {
     TicketModel ticketDetail;
     FloatingActionButton fab;
     //ProgressBar progressBar;
+    OnNewTicketDialogListener newTicketDialogListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class TicketDetailActivity extends AppCompatActivity {
        // progressBar = findViewById(R.id.progressBarTicketDetail);
 
         ticketId = getIntent().getExtras().get(Constants.EXTRA_TICKET_ID).toString();
+        SharedPreferencesManager.setStringValue("ticketId", ticketId);
 
         ticketByIdViewModel = new ViewModelProvider(this).get(TicketByIdViewModel.class);
         ticketByIdViewModel.setTicketId(ticketId);
@@ -79,15 +83,8 @@ public class TicketDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EdtiTicketDialogFragment dialog = new EdtiTicketDialogFragment(TicketDetailActivity.this, ticketId);
+                EdtiTicketDialogFragment dialog = new EdtiTicketDialogFragment(TicketDetailActivity.this, ticketId, TicketDetailActivity.this);
                 dialog.show(getSupportFragmentManager(), "EdtiTicketDialogFragment");
-                //TODO REVISAR RECARGAR TICKET AL EDITARLO
-                dialog.onDismiss(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        loadTicket();
-                    }
-                });
             }
         });
 
@@ -96,13 +93,7 @@ public class TicketDetailActivity extends AppCompatActivity {
         btnImgs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO MOSTRAR IMAGENES DE MANERA DINAMICA
-//                Intent fotos = new Intent(TicketDetailActivity.this, FotosTicketDetailActivity.class);
-//                fotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
-//                startActivity(fotos);
                 Intent intentFotos = new Intent(TicketDetailActivity.this, ShowPhotosTicektActivity.class);
-                //intentFotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
-                SharedPreferencesManager.setStringValue("ticketId", ticketId);
                 startActivity(intentFotos);
             }
         });
@@ -183,7 +174,12 @@ public class TicketDetailActivity extends AppCompatActivity {
                 dialog.show(getSupportFragmentManager(), "NewAnnotationDialogFragment");
                 return true;
             case R.id.action_all_anotations:
-                //TODO VER TODAS LAS ANOTACIONES DEL TICKET
+                Intent intentAnnotation = new Intent(TicketDetailActivity.this, ShowAllTicketAnnotationsActivity.class);
+                startActivity(intentAnnotation);
+                return true;
+            case R.id.action_add_to_calendar:
+                //TODO ADD THIS TICKET TO THE CALENDAR
+                Toast.makeText(this, "WORKING", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -252,5 +248,11 @@ public class TicketDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onTicketUpdated() {
+        loadTicket();
+    }
+
 
 }

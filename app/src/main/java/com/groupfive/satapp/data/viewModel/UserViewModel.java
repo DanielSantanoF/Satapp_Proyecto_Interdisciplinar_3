@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 
+import java.security.PublicKey;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -66,5 +67,17 @@ public class UserViewModel extends AndroidViewModel {
 
     public void deletePhoto(String id){
         userSatAppRepository.deletePhoto(id);
+    }
+
+    public MutableLiveData<AuthLoginUser> putUser (String id, String name){
+        return userSatAppRepository.putUser(id,name);
+    }
+
+    public MutableLiveData<AuthLoginUser> putPassword (String id,String authHeader,String password){
+        return userSatAppRepository.putPassword(id,authHeader,password);
+    }
+
+    public MutableLiveData<AuthLoginUser> getUserId(String id){
+        return userSatAppRepository.getUserId(id);
     }
 }

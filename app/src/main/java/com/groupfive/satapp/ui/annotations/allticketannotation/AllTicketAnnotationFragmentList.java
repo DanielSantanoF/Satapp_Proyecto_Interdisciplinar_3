@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.tickets.phototicketdetail;
+package com.groupfive.satapp.ui.annotations.allticketannotation;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,9 +16,10 @@ import android.widget.Toast;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.MyApp;
-import com.groupfive.satapp.data.viewModel.TicketByIdViewModel;
-import com.groupfive.satapp.listeners.IPhotoTicketDetailListener;
-import com.groupfive.satapp.models.tickets.TicketModel;
+import com.groupfive.satapp.listeners.ITicketAnnotationListener;
+import com.groupfive.satapp.listeners.OnUpdateAnnotationDialogListener;
+import com.groupfive.satapp.models.tickets.TicketAnotaciones;
+import com.groupfive.satapp.models.tickets.TicketWithAnnotations;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 
@@ -29,32 +30,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-public class PhotoTicketFragmentList extends Fragment {
-
+public class AllTicketAnnotationFragmentList extends Fragment implements OnUpdateAnnotationDialogListener {
 
     private int mColumnCount = 1;
-    private IPhotoTicketDetailListener mListener;
-    List<String> fotosList = new ArrayList<>();
-    TicketByIdViewModel ticketByIdViewModel;
+    private ITicketAnnotationListener mListener;
     Context context;
     RecyclerView recyclerView;
-    MyPhotosTicketRecyclerViewAdapter adapter;
+    MyAllTicketAnnotationRecyclerViewAdapter adapter;
+    List<TicketAnotaciones> annotationList = new ArrayList<>();
     SatAppService service;
+    OnUpdateAnnotationDialogListener onUpdateAnnotationDialogListener;
 
-    public PhotoTicketFragmentList() {
+    public AllTicketAnnotationFragmentList() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //ticketByIdViewModel = new ViewModelProvider(getActivity()).get(TicketByIdViewModel.class);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_photos_ticket_list_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_all_ticket_annotation_list_list, container, false);
 
         if (view instanceof RecyclerView) {
             context = view.getContext();
@@ -64,45 +63,46 @@ public class PhotoTicketFragmentList extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter = new MyPhotosTicketRecyclerViewAdapter(context, fotosList, mListener);
+            onUpdateAnnotationDialogListener = this;
+            adapter = new MyAllTicketAnnotationRecyclerViewAdapter(context,annotationList, mListener, onUpdateAnnotationDialogListener);
             recyclerView.setAdapter(adapter);
-            loadAllFotos();
+            loadAnnotations();
         }
         return view;
     }
 
-    public void loadAllFotos(){
+    public void loadAnnotations(){
         service = SatAppServiceGenerator.createService(SatAppService.class);
         String id = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString("ticketId", null);
-        Call<TicketModel> call = service.getTicketById(id);
-        call.enqueue(new Callback<TicketModel>() {
+        Call<TicketWithAnnotations> call = service.getTicketByIdForAnnotaions(id);
+        call.enqueue(new Callback<TicketWithAnnotations>() {
             @Override
-            public void onResponse(Call<TicketModel> call, Response<TicketModel> response) {
-                fotosList = response.body().getFotos();
-                adapter.setData(fotosList);
+            public void onResponse(Call<TicketWithAnnotations> call, Response<TicketWithAnnotations> response) {
+                if(response.body().getAnotaciones() != null){
+                    annotationList = response.body().getAnotaciones();
+                    adapter.setData(annotationList);
+                } else {
+                    Toast.makeText(getActivity(), "This ticket have 0 Annotations", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<TicketModel> call, Throwable t) {
-                Toast.makeText(getActivity(), "Error loading ticket", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<TicketWithAnnotations> call, Throwable t) {
+                Toast.makeText(getActivity(), "Error loadin Annotations", Toast.LENGTH_SHORT).show();
             }
         });
-//        ticketByIdViewModel.getTicketById().observe(getActivity(), new Observer<TicketModel>() {
-//            @Override
-//            public void onChanged(TicketModel ticketModel) {
-//                fotosList = ticketModel.getFotos();
-//                adapter.setData(fotosList);
-//            }
-//        });
+
     }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IPhotoTicketDetailListener) {
-            mListener = (IPhotoTicketDetailListener) context;
+        if (context instanceof ITicketAnnotationListener) {
+            mListener = (ITicketAnnotationListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement IFotoTicketDetailListener");
+                    + " must implement ITicketAnnotationListener");
         }
     }
 
@@ -112,6 +112,8 @@ public class PhotoTicketFragmentList extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onAnnotationUpdate() {
+        loadAnnotations();
+    }
 }
-
-
