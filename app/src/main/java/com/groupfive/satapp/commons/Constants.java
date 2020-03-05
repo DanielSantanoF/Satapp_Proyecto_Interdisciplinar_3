@@ -11,5 +11,8 @@ public class Constants {
     public static final String ROLE_ADMIN = "admin";
     public static final String ROLE_USER = "user";
     public static final String ROLE_TECNICO = "tecnico";
+    public static final String SHARED_PREFERENCES_ROLE = "userLoggedRole";
+    public static final String SHARED_PREFERENCES_EMAIL = "userLoggedEmail";
+    public static final String SHARED_PREFERENCES_TICKET_ID = "ticketId";
 
 }

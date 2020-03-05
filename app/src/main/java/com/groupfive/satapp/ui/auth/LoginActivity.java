@@ -96,6 +96,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<AuthLogin> call, Response<AuthLogin> response) {
                 if (response.isSuccessful()) {
                     SharedPreferencesManager.setStringValue(Constants.SHARED_PREFERENCES_AUTH_TOKEN,response.body().getToken());
+                    SharedPreferencesManager.setStringValue(Constants.SHARED_PREFERENCES_EMAIL,response.body().getUser().getEmail());
+                    SharedPreferencesManager.setStringValue(Constants.SHARED_PREFERENCES_ROLE,response.body().getUser().getRole());
                     Intent i =  new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();

@@ -73,7 +73,7 @@ public class AllTicketAnnotationFragmentList extends Fragment implements OnUpdat
 
     public void loadAnnotations(){
         service = SatAppServiceGenerator.createService(SatAppService.class);
-        String id = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString("ticketId", null);
+        String id = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString(Constants.SHARED_PREFERENCES_TICKET_ID, null);
         Call<TicketWithAnnotations> call = service.getTicketByIdForAnnotaions(id);
         call.enqueue(new Callback<TicketWithAnnotations>() {
             @Override
