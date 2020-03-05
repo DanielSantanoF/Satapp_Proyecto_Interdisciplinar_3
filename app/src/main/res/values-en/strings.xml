@@ -30,6 +30,10 @@
     <string name="validacion">Validation</string>
     <string name="mensageValidacion">Are you sure you want to validate this user?</string>
     <string name="validaciones">Validotions</string>
+    <string name="modificarContrase">Modify password</string>
+    <string name="modificarDatos">Modify data</string>
+    <string name="guardarContra">Save password</string>
+    <string name="guardarDatos">Save data</string>
     <string name="borrado">Delete</string>
     <string name="mensageBorrado">Are you sure you want to delete this user?</string>
     <string name="promocion">Promotion</string>

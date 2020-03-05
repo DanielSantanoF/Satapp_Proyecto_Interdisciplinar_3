@@ -16,6 +16,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +50,9 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView nombre, email;
     private CircularImageView circularImageView;
     private FloatingActionButton fab,fab2;
-    Uri uriS;
+    private Uri uriS;
+    private EditText nameE, emailE,passawor1,passswor2;
+    private Button savePass, saveDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,12 @@ public class ProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.textViewEmailProfile);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab2 = findViewById(R.id.fab2);
+        nameE = findViewById(R.id.editTextNameProfile);
+        emailE= findViewById(R.id.editTextEmailProfile);
+        passawor1 = findViewById(R.id.editTextPassworProfile);
+        passswor2 = findViewById(R.id.editTextPassword2Pfrofile);
+        savePass = findViewById(R.id.buttonSavePassProfile);
+        saveDate = findViewById(R.id.buttonSaveDateProfile);
 
         circularImageView = findViewById(R.id.imageViewDetallePerfil);
         circularImageView.setBorderWidth(3);
@@ -78,8 +88,10 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onChanged(AuthLoginUser authLoginUser) {
                 user = authLoginUser;
-                nombre.setText(user.name);
-                email.setText(user.email);
+                nombre.setText(user.getName());
+                email.setText(user.getEmail());
+                nameE.setText(user.getName());
+                emailE.setText(user.getEmail());
 
                 if (user.picture != null) {
                     userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {
@@ -88,6 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
                             Bitmap bmp = BitmapFactory.decodeStream(responseBody.byteStream());
                             Glide.with(MyApp.getContext())
                                     .load(bmp)
+                                    .thumbnail(Glide.with(ProfileActivity.this).load(R.drawable.loading_gif))
                                     .centerCrop()
                                     .into(circularImageView);
                         }
@@ -95,6 +108,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }else {
                     Glide.with(MyApp.getContext())
                             .load(R.drawable.ic_perfil)
+                            .thumbnail(Glide.with(ProfileActivity.this).load(R.drawable.loading_gif))
                             .centerCrop()
                             .into(circularImageView);
                 }
@@ -117,6 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 Glide.with(MyApp.getContext())
                                         .load(R.drawable.ic_perfil)
+                                        .thumbnail(Glide.with(ProfileActivity.this).load(R.drawable.loading_gif))
                                         .centerCrop()
                                         .into(circularImageView);
                             }
@@ -191,6 +206,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Glide
                         .with(this)
                         .load(uri)
+                        .thumbnail(Glide.with(ProfileActivity.this).load(R.drawable.loading_gif))
                         .centerCrop()
                         .into(circularImageView);
                 uriS = uri;

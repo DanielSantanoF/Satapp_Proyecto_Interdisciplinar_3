@@ -22,7 +22,6 @@ import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.ui.MainActivity;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
-import com.groupfive.satapp.data.repositories.AuthSatAppRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
         logo = findViewById(R.id.imageViewLogo);
         username = findViewById(R.id.editTextEmail);
-        password = findViewById(R.id.editTextPassword);
+        password = findViewById(R.id.editTextPassword2Pfrofile);
         login = findViewById(R.id.buttonLogin);
         register = findViewById(R.id.buttonRegister);
 
