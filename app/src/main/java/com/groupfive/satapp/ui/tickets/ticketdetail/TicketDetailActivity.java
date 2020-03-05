@@ -23,17 +23,16 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.data.viewModel.TicketByIdViewModel;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
-import com.groupfive.satapp.ui.MainActivity;
 import com.groupfive.satapp.ui.annotations.NewAnnotationDialogFragment;
 import com.groupfive.satapp.ui.tickets.addtechnician.AddThechnicianShowActivity;
 import com.groupfive.satapp.ui.tickets.changestate.ChangeStateTicketActivity;
-import com.groupfive.satapp.ui.tickets.fotosticketdetail.ShowFotosTicketDetailActivity;
-import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
+import com.groupfive.satapp.ui.tickets.phototicketdetail.ShowPhotosTicektActivity;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -101,9 +100,10 @@ public class TicketDetailActivity extends AppCompatActivity {
 //                Intent fotos = new Intent(TicketDetailActivity.this, FotosTicketDetailActivity.class);
 //                fotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
 //                startActivity(fotos);
-                Intent fotos = new Intent(TicketDetailActivity.this, ShowFotosTicketDetailActivity.class);
-                fotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
-                startActivity(fotos);
+                Intent intentFotos = new Intent(TicketDetailActivity.this, ShowPhotosTicektActivity.class);
+                //intentFotos.putExtra(Constants.EXTRA_TICKET_ID, String.valueOf(ticketId));
+                SharedPreferencesManager.setStringValue("ticketId", ticketId);
+                startActivity(intentFotos);
             }
         });
     }

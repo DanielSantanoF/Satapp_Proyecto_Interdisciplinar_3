@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.tickets.fotosticketdetail.ShowFotosTicketDetailActivity"></activity>
+        <activity android:name=".ui.tickets.phototicketdetail.ShowPhotosTicektActivity"></activity>
         <activity android:name=".ui.tickets.ticketdetail.FotosTicketDetailActivity" />
         <activity android:name=".ui.tickets.changestate.ChangeStateTicketActivity" />
         <activity android:name=".ui.tickets.assignedtickets.ShowAssignedTicketsActivity" />

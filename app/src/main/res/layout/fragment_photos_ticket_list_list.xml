@@ -9,5 +9,5 @@
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.tickets.fotosticketdetail.FotosTicketFragmentList"
-    tools:listitem="@layout/fragment_fotos_ticket_list" />
+    tools:context=".ui.tickets.phototicketdetail.PhotoTicketFragmentList"
+    tools:listitem="@layout/fragment_phoyos_ticket_list" />
