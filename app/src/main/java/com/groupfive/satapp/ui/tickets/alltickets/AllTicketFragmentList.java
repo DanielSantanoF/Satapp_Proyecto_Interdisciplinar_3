@@ -19,10 +19,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.data.viewModel.GetAllTicketsViewModel;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
+import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.ui.MainActivity;
 import com.groupfive.satapp.ui.tickets.assignedtickets.ShowAssignedTicketsActivity;
@@ -41,6 +43,7 @@ public class AllTicketFragmentList extends Fragment {
     RecyclerView recyclerView;
     GetAllTicketsViewModel getAllTicketsViewModel;
     List<TicketModel> ticketList = new ArrayList<>();
+    private MenuItem busqueda;
 
     public AllTicketFragmentList() {
     }
@@ -49,6 +52,7 @@ public class AllTicketFragmentList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getAllTicketsViewModel =new ViewModelProvider(getActivity()).get(GetAllTicketsViewModel.class);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -115,10 +119,47 @@ public class AllTicketFragmentList extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_all_tickets, menu);
+        menu.clear();
+        super.onPrepareOptionsMenu(menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu_all_tickets, menu);
+        busqueda = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) busqueda.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                List<TicketModel> lista = busqueda(newText);
+                cargarBusqueda(lista);
+                return false;
+            }
+        });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+
+    public List<TicketModel> busqueda(String palabraClave){
+        List<TicketModel> result = new ArrayList<>();
+        for (TicketModel tiket : ticketList ){
+            for (String palabraClaveList : tiket.getPalabrasClave()){
+                if(palabraClaveList.equalsIgnoreCase(palabraClave) || palabraClaveList.toLowerCase().contains(palabraClave.toLowerCase())){
+                    if (!result.contains(tiket)){
+                        result.add(tiket);
+                    }
+                }
+            }
+        }
+        adapter.setData(result);
+        return result;
+    }
+
+    public void cargarBusqueda (List<TicketModel> busqueda){
+        adapter.setData(busqueda);
+        adapter.notifyDataSetChanged();
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

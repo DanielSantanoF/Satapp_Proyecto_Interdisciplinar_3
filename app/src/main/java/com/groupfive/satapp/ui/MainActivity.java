@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
         NavigationUI.setupWithNavController(navigationView, navController);
         userSatAppRepository = new UserSatAppRepository();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-
         // Header
         View header = navigationView.getHeaderView(0);
         ivFotoPerfil = header.findViewById(R.id.imageViewFotoPerfil);
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements IAllTicketsListen
             }
         });
 
-
+        
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
             @Override
             public void onChanged(AuthLoginUser authLoginUser) {

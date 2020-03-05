@@ -3,6 +3,9 @@ package com.groupfive.satapp.models.auth;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,4 +38,6 @@ public class AuthLoginUser {
     @SerializedName("validated")
     @Expose
     public Boolean validated;
+
+    public List<String> palabrasClave = new ArrayList<>();
 }

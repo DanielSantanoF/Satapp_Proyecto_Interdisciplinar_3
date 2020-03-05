@@ -3,6 +3,7 @@ package com.groupfive.satapp.models.tickets;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -46,4 +47,6 @@ public class TicketModel {
     @SerializedName("updatedAt")
     @Expose
     public String updatedAt;
+
+    public List<String> palabrasClave = new ArrayList<>();
 }

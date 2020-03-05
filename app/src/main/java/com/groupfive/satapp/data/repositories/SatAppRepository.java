@@ -11,6 +11,7 @@ import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,6 +41,22 @@ public class SatAppRepository {
             public void onResponse(Call<List<TicketModel>> call, Response<List<TicketModel>> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
+                    for (TicketModel tiket: data.getValue()) {
+                        List<String> lista = new ArrayList<>();
+                         if (tiket.getTitulo() == null || tiket.getTitulo().isEmpty()){
+                             tiket.setTitulo("No definido");
+                         }
+                        if (tiket.getFechaCreacion() == null || tiket.getFechaCreacion().isEmpty()){
+                            tiket.setFechaCreacion("No definido");
+                        }
+                        if (tiket.getEstado() == null || tiket.getEstado().isEmpty()){
+                            tiket.setEstado("No definido");
+                        }
+                        lista.add(tiket.getTitulo());
+                        lista.add(tiket.getFechaCreacion());
+                        lista.add(tiket.getEstado());
+                        tiket.setPalabrasClave(lista);
+                    }
                 } else {
                     Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
                 }
@@ -109,6 +126,22 @@ public class SatAppRepository {
             public void onResponse(Call<List<TicketModel>> call, Response<List<TicketModel>> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
+                    for (TicketModel tiket: data.getValue()) {
+                        List<String> lista = new ArrayList<>();
+                        if (tiket.getTitulo() == null || tiket.getTitulo().isEmpty()){
+                            tiket.setTitulo("No definido");
+                        }
+                        if (tiket.getFechaCreacion() == null || tiket.getFechaCreacion().isEmpty()){
+                            tiket.setFechaCreacion("No definido");
+                        }
+                        if (tiket.getEstado() == null || tiket.getEstado().isEmpty()){
+                            tiket.setEstado("No definido");
+                        }
+                        lista.add(tiket.getTitulo());
+                        lista.add(tiket.getFechaCreacion());
+                        lista.add(tiket.getEstado());
+                        tiket.setPalabrasClave(lista);
+                    }
                 } else {
                     Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
                 }

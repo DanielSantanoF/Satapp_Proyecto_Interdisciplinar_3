@@ -97,6 +97,19 @@ public class UserSatAppRepository {
             public void onResponse(Call<List<AuthLoginUser>> call, Response<List<AuthLoginUser>> response) {
                 if (response.isSuccessful()){
                     data.setValue(response.body());
+                    for (AuthLoginUser user: data.getValue()) {
+                        List<String> lista = new ArrayList<>();
+                        if (user.getName() == null || user.getName().isEmpty()){
+                            user.setName("No definido");
+                        }
+                        if (user.getEmail() == null || user.getEmail().isEmpty()){
+                            user.setEmail("No Definido");
+                        }
+                        lista.add(user.getName());
+                        lista.add(user.getEmail());
+                        user.setPalabrasClave(lista);
+                    }
+
                 }else {
                     Toast.makeText(MyApp.getContext(), "Error al recibir los usuarios.", Toast.LENGTH_SHORT).show();
                 }

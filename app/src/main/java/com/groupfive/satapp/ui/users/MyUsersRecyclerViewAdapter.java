@@ -26,13 +26,14 @@ import com.groupfive.satapp.data.repositories.UserSatAppRepository;
 import com.groupfive.satapp.data.viewModel.UserViewModel;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 
 public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecyclerViewAdapter.ViewHolder> {
 
-    private final List<AuthLoginUser> mValues;
+    private List<AuthLoginUser> mValues;
     private Context ctx;
     private UserViewModel userViewModel;
     private UserSatAppRepository userSatAppRepository;
@@ -185,6 +186,16 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
                 MyApp.getContext().startActivity(i);
             }
         });
+    }
+
+    public void setData(List<AuthLoginUser> list){
+        if(this.mValues != null) {
+            this.mValues.clear();
+        } else {
+            this.mValues =  new ArrayList<>();
+        }
+        this.mValues.addAll(list);
+        notifyDataSetChanged();
     }
 
     @Override
