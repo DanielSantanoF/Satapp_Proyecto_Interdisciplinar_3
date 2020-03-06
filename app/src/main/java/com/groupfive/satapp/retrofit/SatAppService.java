@@ -116,7 +116,7 @@ public interface SatAppService {
 
     @GET("/ticket/img/{imgUrl}/{imgNumber}")
     Call<ResponseBody> getTicketImg(@Path("imgUrl") String url, @Path("imgNumber") String urlNumber);
-    
+
     @GET("/users")
     Call<List<AuthLoginUser>> getallUsers(@Query("q") String toSearch,
                                           @Query("page") Integer pageNumber,
