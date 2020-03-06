@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="8dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="400dp"
-        android:layout_height="95dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,8 +25,10 @@
                 android:layout_width="81dp"
                 android:layout_height="72dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background" />
@@ -108,10 +112,10 @@
                 android:id="@+id/imageButtonDelete"
                 android:layout_width="32dp"
                 android:layout_height="34dp"
+                android:backgroundTint="@color/redd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_delete_forever_white_24dp"
-                android:backgroundTint="@color/redd"/>
+                app:srcCompat="@drawable/ic_delete_forever_white_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
