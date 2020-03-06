@@ -97,6 +97,8 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
         ibUpdate.setVisibility(View.GONE);
         ibCancel.setVisibility(View.GONE);
 
+
+
         id = getIntent().getExtras().getString("id");
 
         Log.d("idddd", id);

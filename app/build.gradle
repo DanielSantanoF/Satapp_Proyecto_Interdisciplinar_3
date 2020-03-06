@@ -62,4 +62,6 @@ dependencies {
     //JodaTime
     implementation 'net.danlew:android.joda:2.10.3'
     implementation 'com.mikhaellopez:circularimageview:4.1.1'
+    //QR Code
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
 }
