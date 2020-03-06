@@ -1,5 +1,6 @@
 package com.groupfive.satapp.ui;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
     private UserSatAppRepository userSatAppRepository;
     private ImageView ivFotoPerfil;
     private TextView nameUser, emailUser;
+    public static final int REQUEST_READ_CALENDAR = 79;
+    public static final int REQUEST_WRITE_CALENDAR = 78;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,9 +122,22 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
             }
         });
 
+        requestPermissionCalendar();
+
     }
 
-
+    private void requestPermissionCalendar() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_CALENDAR)) {
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CALENDAR},
+                    REQUEST_READ_CALENDAR);
+        }
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_CALENDAR)) {
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_CALENDAR},
+                    REQUEST_WRITE_CALENDAR);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

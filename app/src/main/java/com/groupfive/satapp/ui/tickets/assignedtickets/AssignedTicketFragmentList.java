@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -77,7 +78,6 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         assignedTicketsViewModel = new ViewModelProvider(getActivity()).get(AssignedTicketsViewModel.class);
-        activity = (Activity)context;
         userRole = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString(Constants.SHARED_PREFERENCES_ROLE, null);
 
     }
@@ -89,6 +89,7 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
 
         if (view instanceof RecyclerView) {
             context = view.getContext();
+            activity = (Activity)context;
             recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -155,11 +156,7 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
         switch (item.getItemId()) {
             case R.id.action_add_all_to_calendar:
                 //TODO CHECK IT ALL ARE ADDED WITH A GOOGLE ACC
-                if(userRole.equals(Constants.ROLE_TECNICO)) {
-                    requestPermissionReadCalendar();
-                } else {
-                    Toast.makeText(activity, getResources().getString(R.string.acces_denied_by_role), Toast.LENGTH_SHORT).show();
-                }
+                requestPermissionReadCalendar();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -178,6 +175,18 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CALENDAR},
                     REQUEST_READ_CALENDAR);
         }
+
+//        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CALENDAR)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CALENDAR},
+//                    REQUEST_READ_CALENDAR);
+//        }
+//
+//        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_CALENDAR},
+//                    REQUEST_READ_CALENDAR);
+//        }
     }
 
     private void requestPermissionWriteCalendar() {
@@ -193,13 +202,13 @@ public class AssignedTicketFragmentList extends Fragment implements IDatePickerL
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_READ_CALENDAR: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     DialogFragment datePickerFragment = DialogDatePickerFragment.newInstance(activity);
                     datePickerFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "datePicker");
                     Toast.makeText(activity, getResources().getString(R.string.date_all_tickets_add), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(activity,  getResources().getString(R.string.calendar_permission_denied), Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(activity,  getResources().getString(R.string.calendar_permission_denied), Toast.LENGTH_SHORT).show();
+//                }
                 return;
             }
             case REQUEST_WRITE_CALENDAR: {

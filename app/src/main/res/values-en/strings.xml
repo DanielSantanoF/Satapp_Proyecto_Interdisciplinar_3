@@ -130,4 +130,6 @@
     <string name="ubi">Location</string>
     <string name="location">Location:</string>
     <string name="record">Tickets historial</string>
+    <string name="shared_ticket">Shared ticket:</string>
+    <string name="share">Share</string>
 </resources>
