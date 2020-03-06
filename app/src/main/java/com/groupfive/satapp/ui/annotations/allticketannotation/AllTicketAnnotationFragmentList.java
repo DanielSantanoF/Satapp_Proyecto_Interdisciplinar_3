@@ -20,8 +20,8 @@ import com.groupfive.satapp.listeners.ITicketAnnotationListener;
 import com.groupfive.satapp.listeners.OnUpdateAnnotationDialogListener;
 import com.groupfive.satapp.models.tickets.TicketAnotaciones;
 import com.groupfive.satapp.models.tickets.TicketWithAnnotations;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

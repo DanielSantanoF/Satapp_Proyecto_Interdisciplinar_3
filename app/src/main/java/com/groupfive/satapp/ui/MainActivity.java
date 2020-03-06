@@ -35,9 +35,9 @@ import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.ui.auth.LoginActivity;
+import com.groupfive.satapp.ui.auth.login.LoginActivity;
 import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
-import com.groupfive.satapp.ui.users.ProfileActivity;
+import com.groupfive.satapp.ui.users.userprofile.ProfileActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".commons.MyApp"
@@ -17,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.QR.activity.QRActivity"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -25,30 +27,27 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".ui.inventariable.InvLocationListActivity"></activity>
-        <activity android:name=".ui.inventariable.LocationActivity" />
-        <activity android:name=".ui.inventariable.AddInvActivity" />
+        <activity android:name=".ui.inventariable.locationinventariable.InvLocationListActivity" />
+        <activity android:name=".ui.inventariable.locationinventariable.LocationActivity" />
+        <activity android:name=".ui.inventariable.newinventariable.AddInvActivity" />
         <activity
-            android:name=".ui.inventariable.InvDetailActivity"
+            android:name=".ui.inventariable.inventariabledetail.InvDetailActivity"
             android:label="@string/title_activity_inv_detail"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".ui.annotations.allticketannotation.ShowAllTicketAnnotationsActivity"></activity>
-        <activity android:name=".ui.users.ProfileAdminActivity"></activity>
-
+        <activity android:name=".ui.annotations.allticketannotation.ShowAllTicketAnnotationsActivity" />
+        <activity android:name=".ui.users.userprofile.ProfileAdminActivity" />
         <activity android:name=".ui.tickets.phototicketdetail.ShowPhotosTicektActivity" />
         <activity android:name=".ui.tickets.changestate.ChangeStateTicketActivity" />
         <activity android:name=".ui.tickets.assignedtickets.ShowAssignedTicketsActivity" />
         <activity android:name=".ui.tickets.usertickets.ShowAllMyTicketsActivity" />
         <activity android:name=".ui.tickets.ticketdetail.TicketDetailActivity" />
         <activity android:name=".ui.tickets.addtechnician.AddThechnicianShowActivity" />
-        <activity android:name=".ui.users.ProfileActivity" />
-
-        <activity android:name=".ui.auth.RegisterActivity" />
-        <activity android:name=".ui.auth.LoginActivity">
+        <activity android:name=".ui.users.userprofile.ProfileActivity" />
+        <activity android:name=".ui.auth.register.RegisterActivity" />
+        <activity android:name=".ui.auth.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

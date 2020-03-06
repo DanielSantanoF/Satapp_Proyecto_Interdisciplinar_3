@@ -16,8 +16,8 @@ import androidx.fragment.app.DialogFragment;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.models.annotations.NewAnnotation;
 import com.groupfive.satapp.models.annotations.NewAnnotationBody;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;

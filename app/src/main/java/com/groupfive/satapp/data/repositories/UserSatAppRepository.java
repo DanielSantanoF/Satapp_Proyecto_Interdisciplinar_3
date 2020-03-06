@@ -1,24 +1,19 @@
 package com.groupfive.satapp.data.repositories;
 
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
-import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.auth.DtoName;
 import com.groupfive.satapp.models.auth.Password;
-import com.groupfive.satapp.retrofit.LoginServiceGenerator;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.servicegenerator.LoginServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

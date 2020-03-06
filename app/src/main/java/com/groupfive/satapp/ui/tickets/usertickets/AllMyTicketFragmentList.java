@@ -26,9 +26,8 @@ import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.data.viewModel.AllMyTicketsViewModel;
 import com.groupfive.satapp.listeners.IMyTicketListener;
-import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.ui.auth.LoginActivity;
+import com.groupfive.satapp.ui.auth.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
