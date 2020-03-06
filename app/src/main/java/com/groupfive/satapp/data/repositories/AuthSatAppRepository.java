@@ -1,19 +1,15 @@
 package com.groupfive.satapp.data.repositories;
 
-import android.content.Intent;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.groupfive.satapp.R;
-import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
-import com.groupfive.satapp.retrofit.LoginServiceGenerator;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.ui.MainActivity;
+import com.groupfive.satapp.retrofit.servicegenerator.LoginServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

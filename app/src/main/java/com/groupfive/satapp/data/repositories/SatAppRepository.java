@@ -6,11 +6,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
-import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.listeners.IPhotoTicketDetailListener;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 
 import java.util.List;
 

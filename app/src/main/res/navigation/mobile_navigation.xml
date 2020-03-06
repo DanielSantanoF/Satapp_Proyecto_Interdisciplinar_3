@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.groupfive.satapp.ui.inventariable.InventariableFragment"
+        android:name="com.groupfive.satapp.ui.inventariable.allinventariable.InventariableFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_inventariable_list" />
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.groupfive.satapp.ui.users.UsersFragment"
+        android:name="com.groupfive.satapp.ui.users.allusers.UsersFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 
@@ -31,9 +31,9 @@
 
     <fragment
         android:id="@+id/nav_share"
-        android:name="com.groupfive.satapp.ui.share.ShareFragment"
+        android:name="com.groupfive.satapp.ui.QR.fragmentqr.QrFragment"
         android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        tools:layout="@layout/fragment_qr" />
 
     <fragment
         android:id="@+id/nav_send"

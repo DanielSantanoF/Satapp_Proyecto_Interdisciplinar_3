@@ -10,5 +10,5 @@
     android:layout_marginRight="16dp"
     android:background="@color/colorPrimary"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.inventariable.LocationFragment"
+    tools:context=".ui.inventariable.locationinventariable.LocationFragment"
     tools:listitem="@layout/fragment_location" />

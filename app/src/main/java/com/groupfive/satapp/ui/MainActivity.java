@@ -1,5 +1,6 @@
 package com.groupfive.satapp.ui;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -23,7 +25,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.groupfive.satapp.listeners.IInventariableListener;
-import com.groupfive.satapp.ui.inventariable.IHistoryListener;
+import com.groupfive.satapp.listeners.IHistoryListener;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;
@@ -33,9 +35,9 @@ import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.listeners.IAllTicketsListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.ui.auth.LoginActivity;
+import com.groupfive.satapp.ui.auth.login.LoginActivity;
 import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
-import com.groupfive.satapp.ui.users.ProfileActivity;
+import com.groupfive.satapp.ui.users.userprofile.ProfileActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -55,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
     private UserSatAppRepository userSatAppRepository;
     private ImageView ivFotoPerfil;
     private TextView nameUser, emailUser;
+    public static final int REQUEST_READ_CALENDAR = 79;
+    public static final int REQUEST_WRITE_CALENDAR = 78;
+    private Menu menuLateral;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
         NavigationUI.setupWithNavController(navigationView, navController);
         userSatAppRepository = new UserSatAppRepository();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+        // Menu
+        menuLateral = navigationView.getMenu();
+
         // Header
         View header = navigationView.getHeaderView(0);
         ivFotoPerfil = header.findViewById(R.id.imageViewFotoPerfil);
@@ -96,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
                 user = authLoginUser;
                 nameUser.setText(user.name);
                 emailUser.setText(user.email);
+
+                if (!user.getRole().equals("admin")){
+                    menuLateral.findItem(R.id.nav_slideshow).setVisible(false);
+                }
 
                 if (user.picture != null) {
                     userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {
@@ -118,9 +132,22 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
             }
         });
 
+        requestPermissionCalendar();
+
     }
 
-
+    private void requestPermissionCalendar() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_CALENDAR)) {
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CALENDAR},
+                    REQUEST_READ_CALENDAR);
+        }
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_CALENDAR)) {
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_CALENDAR},
+                    REQUEST_WRITE_CALENDAR);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -13,15 +13,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.listeners.OnNewTicketDialogListener;
 import com.groupfive.satapp.models.tickets.EditTicketBody;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.inventariable.InvLocationListActivity">
+    tools:context=".ui.inventariable.locationinventariable.InvLocationListActivity">
 
     <fragment
         android:id="@+id/fragment8"
-        android:name="com.groupfive.satapp.ui.inventariable.InvLocationFragment"
+        android:name="com.groupfive.satapp.ui.inventariable.locationinventariable.InvLocationFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

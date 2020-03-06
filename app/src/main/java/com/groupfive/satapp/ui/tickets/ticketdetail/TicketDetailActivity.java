@@ -21,9 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.CalendarContract;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,8 +41,8 @@ import com.groupfive.satapp.data.viewModel.TicketByIdViewModel;
 import com.groupfive.satapp.listeners.OnNewTicketDialogListener;
 import com.groupfive.satapp.models.calendar.CalendarModel;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 import com.groupfive.satapp.transformations.DateTransformation;
 import com.groupfive.satapp.ui.annotations.allticketannotation.ShowAllTicketAnnotationsActivity;
 import com.groupfive.satapp.ui.annotations.newannotation.NewAnnotationDialogFragment;
@@ -54,10 +52,6 @@ import com.groupfive.satapp.ui.tickets.addtechnician.AddThechnicianShowActivity;
 import com.groupfive.satapp.ui.tickets.changestate.ChangeStateTicketActivity;
 import com.groupfive.satapp.ui.tickets.phototicketdetail.ShowPhotosTicektActivity;
 
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -65,7 +59,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -120,6 +113,8 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
         SharedPreferencesManager.setStringValue(Constants.SHARED_PREFERENCES_TICKET_ID, ticketId);
         userRole = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString(Constants.SHARED_PREFERENCES_ROLE, null);
 
+        requestPermissionCalendar();
+
         ticketByIdViewModel = new ViewModelProvider(this).get(TicketByIdViewModel.class);
         ticketByIdViewModel.setTicketId(ticketId);
         service = SatAppServiceGenerator.createService(SatAppService.class);
@@ -153,7 +148,14 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_ticket_detail, menu);
+        userRole = getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString(Constants.SHARED_PREFERENCES_ROLE, null);
+        if(userRole.equals(Constants.ROLE_USER)){
+            getMenuInflater().inflate(R.menu.user_menu_ticket_detail, menu);
+        } else if(userRole.equals(Constants.ROLE_ADMIN)){
+            getMenuInflater().inflate(R.menu.admin_menu_ticket_detail, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.menu_ticket_detail, menu);
+        }
         return true;
     }
 
@@ -222,12 +224,8 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                 startActivity(intentAnnotation);
                 return true;
             case R.id.action_add_to_calendar:
-                //TODO CHECK IT ADDED WITH A GOOGLE ACC
-                if(userRole.equals(Constants.ROLE_TECNICO)) {
-                    requestPermissionReadCalendar();
-                } else {
-                    Toast.makeText(this, getResources().getString(R.string.acces_denied_by_role), Toast.LENGTH_SHORT).show();
-                }
+                DialogFragment datePickerFragment = DialogDatePickerFragment.newInstance(this);
+                datePickerFragment.show(getSupportFragmentManager(), "datePicker");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -280,13 +278,13 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                 String date = partsDate[0];
                 String dateToShow = dateTransformer.dateTransformation(date);
                 txtDate.setText(dateToShow);
-                if(ticketModel.getEstado() == getResources().getString(R.string.btn_state_pendiente)){
+                if(ticketModel.getEstado().equals("PENDIENTE_ASIGNACION")){
                     txtState.setText(getResources().getString(R.string.state) + " " + getResources().getString(R.string.btn_state_pendiente));
-                } else if(ticketModel.getEstado() == getResources().getString(R.string.btn_asignada)){
+                } else if(ticketModel.getEstado().equals("ASIGNADA")){
                     txtState.setText(getResources().getString(R.string.state) + " " + getResources().getString(R.string.btn_asignada));
-                } else if(ticketModel.getEstado() == getResources().getString(R.string.btn_en_proceso)){
+                } else if(ticketModel.getEstado().equals("EN_PROCESO")){
                     txtState.setText(getResources().getString(R.string.state) + " " + getResources().getString(R.string.btn_en_proceso));
-                } else if(ticketModel.getEstado() == getResources().getString(R.string.btn_solucionada)){
+                } else if(ticketModel.getEstado().equals("SOLUCIONADA")){
                     txtState.setText(getResources().getString(R.string.state) + " " + getResources().getString(R.string.btn_solucionada));
                 }
                 txtDescription.setText(ticketModel.getDescripcion());
@@ -303,6 +301,14 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                 //progressBar.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void requestPermissionCalendar() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(TicketDetailActivity.this, Manifest.permission.WRITE_CALENDAR)) {
+        } else {
+            ActivityCompat.requestPermissions(TicketDetailActivity.this, new String[]{Manifest.permission.WRITE_CALENDAR},
+                    REQUEST_WRITE_CALENDAR);
+        }
     }
 
     @Override
@@ -361,53 +367,13 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
         values.put(CalendarContract.Events.CALENDAR_ID, calID);
         values.put(CalendarContract.Events.EVENT_TIMEZONE, "Madrid/Spain");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissionWriteCalendar();
-            return;
+            ActivityCompat.requestPermissions(TicketDetailActivity.this, new String[]{Manifest.permission.WRITE_CALENDAR},
+                    REQUEST_WRITE_CALENDAR);
         }
         Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values);
 
         Toast.makeText(this, getResources().getString(R.string.calendar_event_added), Toast.LENGTH_SHORT).show();
     }
-
-    private void requestPermissionReadCalendar() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CALENDAR)) {
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR},
-                    REQUEST_READ_CALENDAR);
-        }
-    }
-
-    private void requestPermissionWriteCalendar() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_CALENDAR)) {
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CALENDAR},
-                    REQUEST_WRITE_CALENDAR);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_READ_CALENDAR: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    DialogFragment datePickerFragment = DialogDatePickerFragment.newInstance(this);
-                    datePickerFragment.show(getSupportFragmentManager(), "datePicker");
-                } else {
-                    Toast.makeText(this,  getResources().getString(R.string.calendar_permission_denied), Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-            case REQUEST_WRITE_CALENDAR: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
-                    Toast.makeText(this, getResources().getString(R.string.calendar_permission_denied), Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-        }
-    }
-
 
     @Override
     public void onDateSelected(int year, int month, int day) {
@@ -486,7 +452,8 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                         Intent shareIntent = new Intent();
                         shareIntent.setAction(Intent.ACTION_SEND);
                         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        shareIntent.putExtra(Intent.EXTRA_TEXT,"Ticket: " + ticketDetail.getTitulo());
+                        shareIntent.putExtra(Intent.EXTRA_TEXT,"Ticket: " + ticketDetail.getTitulo() + "\n " + getResources().getString(R.string.share_ticket_content) + " " + ticketDetail.getDescripcion());
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT,getResources().getString(R.string.shared_ticket) + " " + ticketDetail.getTitulo());
                         shareIntent.putExtra(Intent.EXTRA_STREAM, myPhotoFileUri);
 
                         String type = null;
@@ -499,10 +466,11 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                     } else {
                         Intent sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Ticket: " + ticketDetail.getTitulo() + ", " + getResources().getString(R.string.share_ticket_content) + " " + ticketDetail.getDescripcion());
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,getResources().getString(R.string.shared_ticket) + " " + ticketDetail.getTitulo());
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Ticket: " + ticketDetail.getTitulo() + "\n " + getResources().getString(R.string.share_ticket_content) + " " + ticketDetail.getDescripcion());
                         sendIntent.setType("text/plain");
 
-                        Intent shareIntent = Intent.createChooser(sendIntent, "Compartir");
+                        Intent shareIntent = Intent.createChooser(sendIntent, getResources().getString(R.string.share));
                         startActivity(shareIntent);
                     }
                 }

@@ -10,7 +10,7 @@
     <string name="menu_gallery">Tickets</string>
     <string name="menu_slideshow">Usuarios</string>
     <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
+    <string name="menu_share">QR Escaner</string>
     <string name="menu_send">Send</string>
     <string name="hint_title_new_ticket">Titulo</string>
     <string name="hint_description_new_ticket">Descripción</string>
@@ -88,7 +88,7 @@
     <string name="action_add_anotation">Añadir anotación</string>
     <string name="edt_cuerpo_new_annotation">Anotación...</string>
     <string name="record">Historial de Tickets</string>
-    <string name="action_add_ticket" >Añadir un nuevo ticket</string>
+    <string name="action_add_ticket">Añadir un nuevo ticket</string>
     <string name="hint_cuerpo_update_annotation">Cuerpo</string>
     <string name="action_add_to_calendar">Añadir ticket al calendario</string>
     <string name="action_add_all_to_calendar">Añadir tickets al calendario</string>
@@ -130,4 +130,12 @@
     <string name="state">Estado:</string>
     <string name="acces_denied_by_role">No tienes permiso para hacer esa acción</string>
     <string name="action_add_ticket_to_inv">Añadit ticket a este inventariable</string>
+    <string name="btn_end_qr">Volver</string>
+    <string name="shared_ticket">Ticket compartido:</string>
+    <string name="share">Compartir</string>
+    <string name="added_succes">Añadido correctamente</string>
+    <string name="edit_equip">Equipo editado</string>
+    <string name="edit_equip_error">Error editando el equipo</string>
+    <string name="picture_error_loading">Error cargando la imagen</string>
+    <string name="delete_succes">Eliminado correctamente</string>
 </resources>

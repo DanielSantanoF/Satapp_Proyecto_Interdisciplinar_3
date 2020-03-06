@@ -11,8 +11,8 @@ import com.groupfive.satapp.listeners.IAddTechnicianListener;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
 import com.groupfive.satapp.models.tickets.AddTechnician;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;

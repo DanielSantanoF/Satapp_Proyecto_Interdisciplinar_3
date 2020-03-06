@@ -11,7 +11,7 @@
     <string name="menu_gallery">Tickets</string>
     <string name="menu_slideshow">Users</string>
     <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
+    <string name="menu_share">QR Scanner</string>
     <string name="menu_send">Send</string>
     <string name="hint_title_new_ticket">Title</string>
     <string name="hint_description_new_ticket">Description</string>
@@ -130,4 +130,12 @@
     <string name="ubi">Location</string>
     <string name="location">Location:</string>
     <string name="record">Tickets historial</string>
+    <string name="btn_end_qr">Go back</string>
+    <string name="shared_ticket">Shared ticket:</string>
+    <string name="share">Share</string>
+    <string name="added_succes">Successfully added</string>
+    <string name="edit_equip">Equip edited</string>
+    <string name="edit_equip_error">Error editing the equip</string>
+    <string name="picture_error_loading">Error loading the image</string>
+    <string name="delete_succes">Successfully deleted</string>
 </resources>

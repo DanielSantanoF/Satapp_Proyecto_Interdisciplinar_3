@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.models.tickets.TicketModel;
-import com.groupfive.satapp.retrofit.SatAppInvService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppInvService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 
 import java.util.List;
 

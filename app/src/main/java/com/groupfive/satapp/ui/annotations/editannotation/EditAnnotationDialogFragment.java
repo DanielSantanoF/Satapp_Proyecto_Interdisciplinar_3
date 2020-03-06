@@ -1,6 +1,5 @@
 package com.groupfive.satapp.ui.annotations.editannotation;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -20,8 +19,8 @@ import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.listeners.OnUpdateAnnotationDialogListener;
 import com.groupfive.satapp.models.annotations.NewAnnotation;
 import com.groupfive.satapp.models.annotations.UpdateAnnotation;
-import com.groupfive.satapp.retrofit.SatAppService;
-import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
+import com.groupfive.satapp.retrofit.service.SatAppService;
+import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 
 import retrofit2.Call;
 import retrofit2.Callback;

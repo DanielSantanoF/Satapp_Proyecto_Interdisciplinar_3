@@ -10,9 +10,6 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_asigned_tickets"
-        android:title="@string/action_asigned_tickets" />
-    <item
         android:id="@+id/action_created_tickets"
         android:title="@string/action_created_tickets" />
     <item
