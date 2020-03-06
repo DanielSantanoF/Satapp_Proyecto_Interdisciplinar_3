@@ -1,6 +1,7 @@
 package com.groupfive.satapp.ui.inventariable.inventariabledetail;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,17 +17,25 @@ import com.groupfive.satapp.data.viewModel.InventariableViewModel;
 import com.groupfive.satapp.listeners.IHistoryListener;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.models.tickets.TicketModel;
+
+import com.groupfive.satapp.ui.tickets.newticket.NewTicketDialogFragment;
+import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
+
+import androidx.annotation.NonNull;
 import com.groupfive.satapp.retrofit.service.SatAppInvService;
 import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 import com.groupfive.satapp.ui.inventariable.editinventariable.EditInventariableFragment;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -52,7 +61,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InvDetailActivity extends AppCompatActivity implements IHistoryListener {
-    private TextView tvName, tvDescription, tvCreate, tvUpdate, tvLocation;
+    private TextView tvName, tvDescription, tvCreate, tvUpdate, tvLocation, tvtDescription, tvtCreate, tvtUpdate, tvtLocation, tvtRecord, tvtType;
     private ImageView ivPhoto, ivType;
     private InventariableViewModel inventariableViewModel;
     private SatAppInvService service;
@@ -88,13 +97,34 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
 
         tvName = findViewById(R.id.textViewName);
         tvDescription = findViewById(R.id.textViewDescription);
+        tvtDescription = findViewById(R.id.textViewTDescr);
         tvCreate = findViewById(R.id.textViewCreate);
+        tvtCreate = findViewById(R.id.textViewTCreate);
         tvUpdate = findViewById(R.id.textViewUpdate);
+        tvtUpdate = findViewById(R.id.textViewTUpdate);
         tvLocation = findViewById(R.id.textViewLocation);
+        tvtLocation = findViewById(R.id.textViewTLocation);
         ivPhoto = findViewById(R.id.imageViewPhotoPlus);
         ivType = findViewById(R.id.imageViewType);
         ibUpdate = findViewById(R.id.imageButtonUpdate);
         ibCancel = findViewById(R.id.imageButtonCancel);
+        tvtRecord = findViewById(R.id.textViewRecord);
+        tvtType = findViewById(R.id.textViewTType);
+
+
+        tvName.setVisibility(View.GONE);
+        tvDescription.setVisibility(View.GONE);
+        tvtDescription.setVisibility(View.GONE);
+        tvtCreate.setVisibility(View.GONE);
+        tvtUpdate.setVisibility(View.GONE);
+        tvtLocation.setVisibility(View.GONE);
+        tvCreate.setVisibility(View.GONE);
+        tvUpdate.setVisibility(View.GONE);
+        tvLocation.setVisibility(View.GONE);
+        ivPhoto.setVisibility(View.GONE);
+        ivType.setVisibility(View.GONE);
+        tvtRecord.setVisibility(View.GONE);
+        tvtType.setVisibility(View.GONE);
 
         ibUpdate.setVisibility(View.GONE);
         ibCancel.setVisibility(View.GONE);
@@ -212,6 +242,7 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
 
                     ibUpdate.setVisibility(View.VISIBLE);
                     ibCancel.setVisibility(View.VISIBLE);
+
             }
         }
     }
@@ -254,6 +285,20 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
                 }
 
                 loadPicture(inventariable);
+
+                tvName.setVisibility(View.VISIBLE);
+                tvDescription.setVisibility(View.VISIBLE);
+                tvtDescription.setVisibility(View.VISIBLE);
+                tvtCreate.setVisibility(View.VISIBLE);
+                tvtUpdate.setVisibility(View.VISIBLE);
+                tvtLocation.setVisibility(View.VISIBLE);
+                tvCreate.setVisibility(View.VISIBLE);
+                tvUpdate.setVisibility(View.VISIBLE);
+                tvLocation.setVisibility(View.VISIBLE);
+                ivPhoto.setVisibility(View.VISIBLE);
+                ivType.setVisibility(View.VISIBLE);
+                tvtRecord.setVisibility(View.VISIBLE);
+                tvtType.setVisibility(View.VISIBLE);
 
             }
         });
@@ -299,5 +344,23 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
     @Override
     public void onHistoryClick(TicketModel ticketModel) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.inv_detail_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_ticket_to_inv:
+                NewTicketDialogFragment dialog = new NewTicketDialogFragment(InvDetailActivity.this, mInventariable.getId());
+                dialog.show(getSupportFragmentManager(), "NewTicketDialogFragment");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

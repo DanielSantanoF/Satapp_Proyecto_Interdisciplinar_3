@@ -54,6 +54,14 @@ public class InventariableFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setVisibility(View.GONE);
+        loadInventariable();
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
