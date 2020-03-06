@@ -13,6 +13,7 @@ import com.groupfive.satapp.models.tickets.EditTicketBody;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.models.tickets.TicketWithAnnotations;
 
+import java.io.File;
 import java.util.List;
 
 import kotlin.PublishedApi;
@@ -115,7 +116,7 @@ public interface SatAppService {
 
     @GET("/ticket/img/{imgUrl}/{imgNumber}")
     Call<ResponseBody> getTicketImg(@Path("imgUrl") String url, @Path("imgNumber") String urlNumber);
-
+    
     @GET("/users")
     Call<List<AuthLoginUser>> getallUsers(@Query("q") String toSearch,
                                           @Query("page") Integer pageNumber,

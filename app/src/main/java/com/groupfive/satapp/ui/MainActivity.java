@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
                 startActivity(i);
             }
         });
-        
+
         userViewModel.getUser().observe(this, new Observer<AuthLoginUser>() {
             @Override
             public void onChanged(AuthLoginUser authLoginUser) {

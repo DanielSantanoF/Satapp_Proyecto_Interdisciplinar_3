@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,10 +21,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,10 +58,19 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import okhttp3.Headers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,6 +87,7 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
     Button btnImgs;
     TicketModel ticketDetail;
     FloatingActionButton fab;
+    File ticketPhoto;
     //ProgressBar progressBar;
     //CALENDAR
     // The indices for the projection array above.
@@ -183,13 +197,7 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
                 alert.show();
                 return true;
             case R.id.action_share_ticket:
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Ticket: " + ticketDetail.getTitulo() + ", " + getResources().getString(R.string.share_ticket_content) + " " + ticketDetail.getDescripcion());
-                sendIntent.setType("text/plain");
-
-                Intent shareIntent = Intent.createChooser(sendIntent, "Compartir");
-                startActivity(shareIntent);
+                shareTicket();
                 return true;
             case R.id.action_add_thecnical:
                 if(userRole.equals(Constants.ROLE_ADMIN) || userRole.equals(Constants.ROLE_TECNICO)){
@@ -405,4 +413,106 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
     public void onDateSelected(int year, int month, int day) {
         addTicketToCalendar(day, month+1, year);
     }
+
+    public void shareTicket(){
+        String string = ticketDetail.getFotos().get(0);
+        String[] parts = string.split("/");
+        String part1 = parts[3];
+        String part2 = parts[4];
+        Call<ResponseBody> call = service.getTicketImg(part1, part2);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        // Obtenemos, a partir de las cabeceras, el tipo mime, y de él, la extensión
+                        Headers headers = response.headers();
+                        String contentType = headers.get("Content-Type");
+                        String suffix = "." + MimeTypeMap.getSingleton().getExtensionFromMimeType(contentType);
+
+                        // "Armamos" lo necesario para leer el fichero vía flujos
+                        InputStream is = response.body().byteStream();
+                        // Se guarda en un fichero temporal, dentro de la caché externa
+                        try {
+                            ticketPhoto = File.createTempFile("img", suffix, getExternalCacheDir());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        BufferedInputStream input = new BufferedInputStream(is);
+                        BufferedOutputStream output = null;
+                        try {
+                            output = new BufferedOutputStream(new FileOutputStream(ticketPhoto));
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Bucle clásico de lectura de un fichero en grupos de 4KB
+                        byte[] data = new byte[4*1024];
+
+                        long total = 0;
+                        int count = 0;
+                        while (true) {
+                            try {
+                                if (!((count = input.read(data)) != -1)) break;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            total += count;
+                            try {
+                                output.write(data, 0, count);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        // Cierre de flujos
+                        try {
+                            output.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            output.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            input.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Uri myPhotoFileUri = FileProvider.getUriForFile(TicketDetailActivity.this, TicketDetailActivity.this.getApplicationContext().getPackageName() + ".provider", ticketPhoto);
+
+                        Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        shareIntent.putExtra(Intent.EXTRA_TEXT,"Ticket: " + ticketDetail.getTitulo());
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, myPhotoFileUri);
+
+                        String type = null;
+                        String extension = MimeTypeMap.getFileExtensionFromUrl(ticketPhoto.getAbsolutePath());
+                        if (extension != null) {
+                            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+                        }
+                        shareIntent.setType(type);
+                        startActivity(Intent.createChooser(shareIntent, "Enviar"));
+                    } else {
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Ticket: " + ticketDetail.getTitulo() + ", " + getResources().getString(R.string.share_ticket_content) + " " + ticketDetail.getDescripcion());
+                        sendIntent.setType("text/plain");
+
+                        Intent shareIntent = Intent.createChooser(sendIntent, "Compartir");
+                        startActivity(shareIntent);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(TicketDetailActivity.this, getResources().getString(R.string.error_loading_ticket), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
