@@ -50,18 +50,9 @@ public class QRActivity extends AppCompatActivity {
             }
             else{
                 String base = result.getContents();
-                if (base.contains("e-")){
                     Intent i = new Intent(QRActivity.this, InvDetailActivity.class);
-                    i.putExtra("id",result.getContents().split("-")[1]);
+                    i.putExtra("id",result.getContents());
                     startActivity(i);
-                }else if (base.contains("t-")){
-                    Intent i = new Intent(QRActivity.this, TicketDetailActivity.class);
-                    i.putExtra(Constants.EXTRA_TICKET_ID,result.getContents().split("-")[1]);
-                    startActivity(i);
-                    Toast.makeText(this, "entra", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(this, "El codigo QR leido no se reconoce.", Toast.LENGTH_SHORT).show();
-                }
                 finish();
             }
         }
