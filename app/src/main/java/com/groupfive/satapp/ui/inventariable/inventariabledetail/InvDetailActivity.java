@@ -1,6 +1,7 @@
 package com.groupfive.satapp.ui.inventariable.inventariabledetail;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
 import com.groupfive.satapp.listeners.IHistoryListener;
 import com.groupfive.satapp.models.inventariable.Inventariable;
@@ -25,9 +27,9 @@ import androidx.annotation.NonNull;
 import com.groupfive.satapp.retrofit.service.SatAppInvService;
 import com.groupfive.satapp.retrofit.servicegenerator.SatAppServiceGenerator;
 import com.groupfive.satapp.ui.inventariable.editinventariable.EditInventariableFragment;
+import com.groupfive.satapp.ui.users.userprofile.ProfileActivity;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -75,6 +77,9 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
     private ImageButton ibUpdate, ibCancel;
     private ResponseBody media;
     private Inventariable mInventariable;
+//      Botón de eliminar imagen de equipo (al no poder probarlo, hemos decidido comentarlo para que
+//      la funcionalidad no produzca consecuencias sobre la aplicación):
+//    private FloatingActionButton fabDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +99,9 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
         service = SatAppServiceGenerator.createService(SatAppInvService.class);
 
         inventariableViewModel = ViewModelProviders.of(InvDetailActivity.this).get(InventariableViewModel.class);
-
+//      Botón de eliminar imagen de equipo (al no poder probarlo, hemos decidido comentarlo para que
+//      la funcionalidad no produzca consecuencias sobre la aplicación):
+//        fabDelete = findViewById(R.id.fabDelete);
         tvName = findViewById(R.id.textViewName);
         tvDescription = findViewById(R.id.textViewDescription);
         tvtDescription = findViewById(R.id.textViewTDescr);
@@ -132,6 +139,52 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
 
 
         id = getIntent().getExtras().getString("id");
+
+//      Botón de eliminar imagen de equipo (al no poder probarlo, hemos decidido comentarlo para que
+//      la funcionalidad no produzca consecuencias sobre la aplicación):
+
+//         Id utilizado para trabajar con el tratamiento del click del botón
+//        final String theId = id;
+//
+//        fabDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+//                        InvDetailActivity.this);
+//
+//                alertDialogBuilder.setTitle(R.string.delete_picture);
+//                alertDialogBuilder
+//                        .setMessage(R.string.delete_message)
+//                        .setCancelable(false)
+//                        .setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog,int id) {
+//                                Call<Void> call = service.deleteInventariableImage(theId);
+//                                call.enqueue(new Callback<Void>() {
+//                                    @Override
+//                                    public void onResponse(Call<Void> call, Response<Void> response) {
+//                                        Glide.with(InvDetailActivity.this).load(getResources().getDrawable(R.drawable.image_not_loaded_icon)).into(ivPhoto);
+//                                        Toast.makeText(InvDetailActivity.this, getResources().getString(R.string.delete_succes), Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(Call<Void> call, Throwable t) {
+//
+//                                    }
+//                                });
+//                            }
+//
+//                        })
+//                        .setNegativeButton(R.string.no,new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog,int id) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//                if(mInventariable.getImagen() != null) {
+//                    fabDelete.setVisibility(View.GONE);
+//                }
+//
+//            }
+//        });
 
         Log.d("idddd", id);
 
@@ -240,8 +293,11 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
                         .into(ivPhoto);
                 uriS = uri;
 
+//                fabDelete.setVisibility(View.GONE);
+
                     ibUpdate.setVisibility(View.VISIBLE);
                     ibCancel.setVisibility(View.VISIBLE);
+
 
             }
         }
@@ -262,6 +318,12 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
                 tvUpdate.setText(Constants.FORMATTER.print(changerUpdated));
                 tvDescription.setText(inventariable.getDescripcion());
                 tvLocation.setText(inventariable.getUbicacion());
+
+//                if(mInventariable.getImagen() != null) {
+//                    fabDelete.setVisibility(View.GONE);
+//                } else {
+//                    fabDelete.setVisibility(View.VISIBLE);
+//                }
 
                 switch(inventariable.getTipo()) {
                     case "PC":
@@ -326,7 +388,7 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
                     } else {
                         Glide
                                 .with(InvDetailActivity.this)
-                                .load(R.drawable.ic_faqs)
+                                .load(R.drawable.image_not_loaded_icon)
                                 .error(Glide.with(InvDetailActivity.this).load(R.drawable.ic_interrogation))
                                 .thumbnail(Glide.with(InvDetailActivity.this).load(Constants.LOADING_GIF))
                                 .into(ivPhoto);

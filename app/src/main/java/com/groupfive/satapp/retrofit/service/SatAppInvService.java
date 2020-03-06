@@ -47,6 +47,9 @@ public interface SatAppInvService {
     @GET("/ticket/inventariable/{id}")
     Call<List<TicketModel>> getTicketsFromInventariable(@Path("id") String id);
 
+    @DELETE("/inventariable/{id}/img")
+    Call<Void> deleteInventariableImage(@Path("id") String id);
+
     @Multipart
     @POST("/inventariable")
     Call<Inventariable> addInventariable(@Part MultipartBody.Part imagen,

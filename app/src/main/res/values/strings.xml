@@ -88,6 +88,8 @@
     <string name="action_add_anotation">Añadir anotación</string>
     <string name="edt_cuerpo_new_annotation">Anotación...</string>
     <string name="record">Historial de Tickets</string>
+    <string name="delete_picture">Eliminar foto</string>
+    <string name="delete_message">¿Deseas eliminar la foto?</string>
     <string name="action_add_ticket">Añadir un nuevo ticket</string>
     <string name="hint_cuerpo_update_annotation">Cuerpo</string>
     <string name="action_add_to_calendar">Añadir ticket al calendario</string>
