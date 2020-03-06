@@ -138,4 +138,6 @@
     <string name="edit_equip_error">Error editing the equip</string>
     <string name="picture_error_loading">Error loading the image</string>
     <string name="delete_succes">Successfully deleted</string>
+    <string name="menu_qr">QR Lector</string>
+    <string name="action_add_ticket_to_inv">Add ticket to this equip</string>
 </resources>
