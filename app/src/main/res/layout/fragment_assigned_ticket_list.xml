@@ -67,7 +67,6 @@
                 android:text="TextView"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textViewTitleAllMyTickets"
                 app:layout_constraintStart_toStartOf="@+id/textViewTitleAssignedTickets"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitleAssignedTickets" />
 
