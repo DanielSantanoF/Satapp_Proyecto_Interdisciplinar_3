@@ -5,6 +5,8 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.models.tickets.TicketModel;
@@ -118,4 +120,5 @@ public class InventariableRepository {
         });
         return data2;
     }
+
 }
