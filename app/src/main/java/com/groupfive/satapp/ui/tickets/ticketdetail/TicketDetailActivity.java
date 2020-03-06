@@ -123,7 +123,7 @@ public class TicketDetailActivity extends AppCompatActivity implements OnNewTick
         userRole = MyApp.getContext().getSharedPreferences(Constants.APP_SETTINGS_FILE, Context.MODE_PRIVATE).getString(Constants.SHARED_PREFERENCES_ROLE, null);
 
         requestPermissionCalendar();
-        
+
         ticketByIdViewModel = new ViewModelProvider(this).get(TicketByIdViewModel.class);
         ticketByIdViewModel.setTicketId(ticketId);
         service = SatAppServiceGenerator.createService(SatAppService.class);
