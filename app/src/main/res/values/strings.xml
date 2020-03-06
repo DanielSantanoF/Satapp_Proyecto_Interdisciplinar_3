@@ -130,4 +130,7 @@
     <string name="state">Estado:</string>
     <string name="acces_denied_by_role">No tienes permiso para hacer esa acción</string>
     <string name="btn_end_qr">Volver</string>
+    <string name="shared_ticket">Ticket compartido:</string>
+    <string name="share">Compartir</string>
+
 </resources>
