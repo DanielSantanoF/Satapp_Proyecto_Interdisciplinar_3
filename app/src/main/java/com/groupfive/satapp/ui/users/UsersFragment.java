@@ -152,7 +152,6 @@ public class UsersFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        menu.clear();
         super.onPrepareOptionsMenu(menu);
         getActivity().getMenuInflater().inflate(R.menu.menu_user,menu);
         busqueda = menu.findItem(R.id.app_bar_search);

@@ -12,6 +12,7 @@ import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
+import com.groupfive.satapp.models.auth.DtoName;
 import com.groupfive.satapp.models.auth.Password;
 import com.groupfive.satapp.retrofit.LoginServiceGenerator;
 import com.groupfive.satapp.retrofit.SatAppService;
@@ -247,8 +248,9 @@ public class UserSatAppRepository {
     }
 
     public MutableLiveData<AuthLoginUser> putUser(String id, String name){
+        DtoName n = new DtoName(name);
         final MutableLiveData<AuthLoginUser> data = new MutableLiveData<>();
-        Call<AuthLoginUser> call = service.putUser(id,name);
+        Call<AuthLoginUser> call = service.putUser(id,n);
         call.enqueue(new Callback<AuthLoginUser>() {
             @Override
             public void onResponse(Call<AuthLoginUser> call, Response<AuthLoginUser> response) {

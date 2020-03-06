@@ -6,6 +6,7 @@ import com.groupfive.satapp.models.annotations.NewAnnotationBody;
 import com.groupfive.satapp.models.annotations.UpdateAnnotation;
 import com.groupfive.satapp.models.auth.AuthLogin;
 import com.groupfive.satapp.models.auth.AuthLoginUser;
+import com.groupfive.satapp.models.auth.DtoName;
 import com.groupfive.satapp.models.auth.Password;
 import com.groupfive.satapp.models.tickets.AddTechnician;
 import com.groupfive.satapp.models.tickets.ChangeTicketState;
@@ -167,7 +168,7 @@ public interface SatAppService {
 
     @PUT("/users/{id}")
     Call<AuthLoginUser> putUser(@Path("id")String id,
-                                @Query("name") String name);
+                                @Body DtoName name);
 
     @PUT("/users/{id}/password")
     Call<AuthLoginUser> putPassword(@Path("id")String id,
