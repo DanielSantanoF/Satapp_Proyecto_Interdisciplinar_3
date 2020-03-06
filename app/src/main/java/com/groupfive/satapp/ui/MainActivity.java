@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
     private UserSatAppRepository userSatAppRepository;
     private ImageView ivFotoPerfil;
     private TextView nameUser, emailUser;
+    private Menu menuLateral;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,10 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
         NavigationUI.setupWithNavController(navigationView, navController);
         userSatAppRepository = new UserSatAppRepository();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+        // Menu
+        menuLateral = navigationView.getMenu();
+
         // Header
         View header = navigationView.getHeaderView(0);
         ivFotoPerfil = header.findViewById(R.id.imageViewFotoPerfil);
@@ -96,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements IInventariableLis
                 user = authLoginUser;
                 nameUser.setText(user.name);
                 emailUser.setText(user.email);
+
+                if (!user.getRole().equals("admin")){
+                    menuLateral.findItem(R.id.nav_slideshow).setVisible(false);
+                }
 
                 if (user.picture != null) {
                     userViewModel.getPicture(user.id).observeForever(new Observer<ResponseBody>() {

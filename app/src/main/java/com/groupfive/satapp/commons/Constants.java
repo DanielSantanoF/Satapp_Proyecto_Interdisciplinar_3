@@ -6,6 +6,7 @@ import org.joda.time.format.DateTimeFormatter;
 public class Constants {
     public static final String MASTER_ACCES_TOKEN = "groupfivemasterkey";
     public static final String SATAPP_API_URL = "https://satappgroupfive.herokuapp.com/";
+    //public static final String SATAPP_API_URL = "http://10.0.2.2:9000";
     public static final String APP_SETTINGS_FILE = "APP_SETTINGS";
     public static final String SHARED_PREFERENCES_AUTH_TOKEN = "authToken";
     public static final int IMAGE_READ_REQUEST_CODE = 42;
