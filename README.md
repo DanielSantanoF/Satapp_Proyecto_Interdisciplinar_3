@@ -53,5 +53,8 @@ La distribución del trabajo de este proyecto se ha plasmado en este documento:
 * Email: admin@administrador.com
 * Contraseña: 12345678
 
+***
+
+
 #### Configurar URL del api en la app
 La url del api se encuentra en el fichero `/app/src/main/satapp/commons/Constants.java` la variable `SATAPP_API_URL` [ver fichero](https://github.com/DanielSantanoF/Satapp_Proyecto_Interdisciplinar_3/blob/master/app/src/main/java/com/groupfive/satapp/commons/Constants.java)
