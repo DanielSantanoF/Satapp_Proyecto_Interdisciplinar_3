@@ -63,13 +63,13 @@ public class QRActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(this, "El codigo QR leido no se reconoce.", Toast.LENGTH_SHORT).show();
                 }
-
+                finish();
             }
         }
         else
         {
             super.onActivityResult(requestCode, resultCode, data);
-            finish();
+
         }
     }
 
