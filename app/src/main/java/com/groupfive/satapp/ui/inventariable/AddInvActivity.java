@@ -44,6 +44,7 @@ public class AddInvActivity extends AppCompatActivity {
     TextView tvTitle;
     EditText etName, etDescription, etLocation;
     Button btAction;
+    Button btCancel;
     ImageView ivPhoto;
     Uri uriS;
     Spinner spinnerTypes;
@@ -66,6 +67,8 @@ public class AddInvActivity extends AppCompatActivity {
         ivPhoto = findViewById(R.id.imageViewPhoto);
         spinnerTypes = findViewById(R.id.spinnerType);
         btAction = findViewById(R.id.buttonAction);
+        btCancel = findViewById(R.id.buttonCancel);
+
 
         Glide.with(AddInvActivity.this).load("https://cdn2.iconfinder.com/data/icons/photo-and-video/500/Landscape_moon_mountains_multiple_photo_photograph_pictury_sun-512.png").into(ivPhoto);
 
@@ -141,6 +144,13 @@ public class AddInvActivity extends AppCompatActivity {
                         }
                     }
 
+                }
+            });
+
+            btCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
                 }
             });
 
