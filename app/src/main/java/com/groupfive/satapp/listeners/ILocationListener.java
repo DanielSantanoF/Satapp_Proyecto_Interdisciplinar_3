@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.inventariable;
+package com.groupfive.satapp.listeners;
 
 public interface ILocationListener {
     public void onLocationClick(String locationModel);

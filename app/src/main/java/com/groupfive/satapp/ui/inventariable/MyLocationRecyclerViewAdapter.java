@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.SharedPreferencesManager;
+import com.groupfive.satapp.listeners.ILocationListener;
 
 import java.util.List;
 

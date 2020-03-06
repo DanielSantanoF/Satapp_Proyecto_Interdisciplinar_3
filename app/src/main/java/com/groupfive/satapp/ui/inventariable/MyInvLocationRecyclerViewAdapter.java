@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.commons.SharedPreferencesManager;
+import com.groupfive.satapp.listeners.IInvLocationListener;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.retrofit.SatAppInvService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
@@ -119,7 +121,7 @@ public class MyInvLocationRecyclerViewAdapter extends RecyclerView.Adapter<MyInv
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(ctx, "Error loading picture", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, ctx.getResources().getString(R.string.picture_error_loading), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -154,7 +156,7 @@ public class MyInvLocationRecyclerViewAdapter extends RecyclerView.Adapter<MyInv
                         if(response.isSuccessful()) {
                             mValues.remove(position);
                             notifyDataSetChanged();
-                            Snackbar.make(holder.mView, "Eliminado correctamente", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(holder.mView, ctx.getResources().getString(R.string.delete_succes), Snackbar.LENGTH_SHORT).show();
                         }
                     }
 

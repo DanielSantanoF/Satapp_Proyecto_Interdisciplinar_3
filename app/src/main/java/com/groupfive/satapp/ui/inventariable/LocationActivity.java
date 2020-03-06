@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.groupfive.satapp.R;
-import com.groupfive.satapp.ui.inventariable.ILocationListener;
+import com.groupfive.satapp.listeners.ILocationListener;
 
 public class LocationActivity extends AppCompatActivity implements ILocationListener {
 

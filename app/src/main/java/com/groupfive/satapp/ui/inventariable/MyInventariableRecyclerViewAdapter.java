@@ -119,7 +119,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(ctx, "Error loading picture", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, ctx.getResources().getString(R.string.picture_error_loading), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -154,7 +154,7 @@ public class MyInventariableRecyclerViewAdapter extends RecyclerView.Adapter<MyI
                         if(response.isSuccessful()) {
                             mValues.remove(position);
                             notifyDataSetChanged();
-                            Snackbar.make(holder.mView, "Eliminado correctamente", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(holder.mView, ctx.getResources().getString(R.string.delete_succes), Snackbar.LENGTH_SHORT).show();
                         }
                     }
 

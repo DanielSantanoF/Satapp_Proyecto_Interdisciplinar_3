@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.models.inventariable.Inventariable;
-import com.groupfive.satapp.ui.inventariable.IInvLocationListener;
+import com.groupfive.satapp.listeners.IInvLocationListener;
 
 public class InvLocationListActivity extends AppCompatActivity implements IInvLocationListener {
 

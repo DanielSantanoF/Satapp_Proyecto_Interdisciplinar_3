@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
+import com.groupfive.satapp.listeners.IHistoryListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppService;
 import com.groupfive.satapp.retrofit.SatAppServiceGenerator;
@@ -107,13 +108,13 @@ public class MyticketsInvRecyclerViewAdapter extends RecyclerView.Adapter<Mytick
                 call2.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Snackbar.make(holder.mView, "Eliminado correctamente", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(holder.mView, ctx.getResources().getString(R.string.delete_succes), Snackbar.LENGTH_SHORT).show();
                         notifyDataSetChanged();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Snackbar.make(holder.mView, "Error en el servidor", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(holder.mView, ctx.getResources().getString(R.string.error_in_the_connection), Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }

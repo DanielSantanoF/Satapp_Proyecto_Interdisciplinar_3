@@ -76,12 +76,12 @@ public class EditInventariableFragment extends DialogFragment {
                     call.enqueue(new Callback<Inventariable>() {
                         @Override
                         public void onResponse(Call<Inventariable> call, Response<Inventariable> response) {
-                            Toast.makeText(MyApp.getContext(), "Equipo editado", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyApp.getContext(), getResources().getString(R.string.edit_equip), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onFailure(Call<Inventariable> call, Throwable t) {
-                            Toast.makeText(MyApp.getContext(), "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyApp.getContext(), getResources().getString(R.string.edit_equip_error), Toast.LENGTH_SHORT).show();
                         }
                     });
 

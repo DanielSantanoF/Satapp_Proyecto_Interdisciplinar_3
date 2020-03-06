@@ -120,7 +120,7 @@ public class AddInvActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<Inventariable> call, Response<Inventariable> response) {
                                     if(response.isSuccessful()) {
-                                        Snackbar.make(v, "Added successfully", Snackbar.LENGTH_SHORT).show();
+                                        Snackbar.make(v, getResources().getString(R.string.added_succes), Snackbar.LENGTH_SHORT).show();
                                         adapter.notifyDataSetChanged();
 
                                     }

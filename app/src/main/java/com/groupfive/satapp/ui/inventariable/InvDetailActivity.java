@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.Constants;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
+import com.groupfive.satapp.listeners.IHistoryListener;
 import com.groupfive.satapp.models.inventariable.Inventariable;
 import com.groupfive.satapp.models.tickets.TicketModel;
 import com.groupfive.satapp.retrofit.SatAppInvService;
@@ -287,7 +288,7 @@ public class InvDetailActivity extends AppCompatActivity implements IHistoryList
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(InvDetailActivity.this, "Error loading picture", Toast.LENGTH_SHORT).show();
+                Toast.makeText(InvDetailActivity.this, getResources().getString(R.string.picture_error_loading), Toast.LENGTH_SHORT).show();
             }
         });
     }

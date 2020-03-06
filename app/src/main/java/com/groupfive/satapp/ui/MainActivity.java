@@ -25,7 +25,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.groupfive.satapp.listeners.IInventariableListener;
-import com.groupfive.satapp.ui.inventariable.IHistoryListener;
+import com.groupfive.satapp.listeners.IHistoryListener;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.MyApp;
 import com.groupfive.satapp.data.repositories.UserSatAppRepository;

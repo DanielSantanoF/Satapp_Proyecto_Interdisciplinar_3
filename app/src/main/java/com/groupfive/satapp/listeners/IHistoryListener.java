@@ -1,4 +1,4 @@
-package com.groupfive.satapp.ui.inventariable;
+package com.groupfive.satapp.listeners;
 
 import com.groupfive.satapp.models.tickets.TicketModel;
 

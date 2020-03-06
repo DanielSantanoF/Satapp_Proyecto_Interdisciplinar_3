@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.groupfive.satapp.R;
 import com.groupfive.satapp.commons.SharedPreferencesManager;
 import com.groupfive.satapp.data.viewModel.InventariableViewModel;
+import com.groupfive.satapp.listeners.IHistoryListener;
 import com.groupfive.satapp.models.tickets.TicketModel;
 
 import java.util.List;
