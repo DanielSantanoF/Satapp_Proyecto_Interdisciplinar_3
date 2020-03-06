@@ -129,7 +129,5 @@
     <string name="password_edit_succed">Contraseña editada correctamente</string>
     <string name="state">Estado:</string>
     <string name="acces_denied_by_role">No tienes permiso para hacer esa acción</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_end_qr">Volver</string>
 </resources>

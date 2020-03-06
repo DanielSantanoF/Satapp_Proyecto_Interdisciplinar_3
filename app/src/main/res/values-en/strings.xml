@@ -130,4 +130,5 @@
     <string name="ubi">Location</string>
     <string name="location">Location:</string>
     <string name="record">Tickets historial</string>
+    <string name="btn_end_qr">Go back</string>
 </resources>

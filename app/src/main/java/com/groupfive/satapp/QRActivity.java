@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -16,6 +18,7 @@ import com.groupfive.satapp.ui.tickets.ticketdetail.TicketDetailActivity;
 
 public class QRActivity extends AppCompatActivity {
 
+    Button btnEndQr;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +27,20 @@ public class QRActivity extends AppCompatActivity {
         IntentIntegrator intent = new IntentIntegrator(QRActivity.this);
         intent.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
 
+        btnEndQr = findViewById(R.id.buttonEndQrActivity);
+
         intent.setPrompt("Scan");
         intent.setCameraId(0);
         intent.setBeepEnabled(false);
         intent.setBarcodeImageEnabled(false);
         intent.initiateScan();
+
+        btnEndQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -51,18 +63,19 @@ public class QRActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(this, "El codigo QR leido no se reconoce.", Toast.LENGTH_SHORT).show();
                 }
-                finish();
+
             }
         }
         else
         {
             super.onActivityResult(requestCode, resultCode, data);
+            finish();
         }
     }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        finish();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        finish();
+//    }
 }
